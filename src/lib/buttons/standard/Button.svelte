@@ -2,6 +2,8 @@
     Reference: https://m3.material.io/components/buttons/specs
 -->
 <script lang="ts" module>
+    import { type HTMLAttributes } from "svelte/elements";
+
     import type { LzProps } from "#lib/types.ts";
 
     export type LzButtonColor =
@@ -25,15 +27,64 @@
         | "neutral"
         | "brand-font";
 
-    export interface ButtonBase extends Omit<LzProps, "role"> {}
+    export interface LzButtonBaseProps extends LzProps {
+        color?: LzButtonColor;
+        variant?: LzButtonVariant;
+        size?: LzButtonSize;
+        shape?: LzButtonShape;
+        overrides?: LzButtonOverride[] | null;
+
+        label?: string;
+    }
+
+    export interface LzButtonStandardProps extends LzButtonBaseProps {
+        href?: never;
+        target?: never;
+        current?: never;
+    }
+
+    export interface LzButtonIconOnlyProps extends LzButtonBaseProps {
+        ariaLabel: string;
+        href?: never;
+        target?: never;
+        current?: never;
+    }
+
+    export interface LzButtonLinkProps extends LzButtonBaseProps {
+        current?: HTMLAttributes<HTMLAnchorElement>["aria-current"];
+        href: string;
+        target?: string | null;
+    }
+
+    export type LzButtonProps =
+        LzButtonStandardProps | LzButtonIconOnlyProps | LzButtonLinkProps;
 </script>
 
 <script lang="ts">
     import "./button.css";
-    import { filterClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/types.ts";
+
+    let {
+        className = null,
+        id = null,
+        ariaLabel,
+        role = null,
+
+        color = "filled",
+        variant = "default",
+        size = "small",
+        shape = "round",
+        overrides = null,
+
+        label,
+    }: LzButtonProps = $props();
 
     let isKeyboardActive = $state(false);
     let isToggle = $derived("");
+
+    // const classesRaw = $derived(className)
+    let classes = $derived(formatClasses("lz-button", className));
+    let overridesFmt = $derived(overrides?.filter(Boolean).join(" "));
 </script>
 
 <!--
@@ -41,7 +92,19 @@
     <a> or <button> are for native element features.
 -->
 {#snippet surface()}
-    <span class="surface"> </span>
+    <span
+        class="surface"
+        data-color={color}
+        data-size={size}
+        data-shape={shape}
+        data-overrides={overridesFmt}
+    >
+        {#if label}
+            <span class="label">
+                {label}
+            </span>
+        {/if}
+    </span>
 {/snippet}
 
 <button type="button">{@render surface()}</button>

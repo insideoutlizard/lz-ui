@@ -1,3 +1,7 @@
 :root {
+    /* Controls labels vertical offset
+        Useful if using multiple fonts
+    */
+    --lz-button-font-offset: 1px;
     /* todo: colours, text offset, elevation, */
 }

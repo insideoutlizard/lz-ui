@@ -1,3 +1,6 @@
+<!--
+    Reference: https://m3.material.io/components/buttons/specs
+-->
 <script lang="ts" module>
     import type { LzProps } from "#lib/types.ts";
 
@@ -12,7 +15,6 @@
       these overrides can negate having to add extra :gloab() overrides.
       example:
         - outlined button with tertiary override would set the border + text color.
-
     */
     export type LzButtonOverride =
         | "primary"

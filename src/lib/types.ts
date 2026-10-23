@@ -13,7 +13,7 @@ export interface LzProps {
 }
 
 // Concatenate and filter class names
-export function filterClasses(
+export function formatClasses(
   ...classes: (string | false | null | undefined)[]
 ): string {
   return classes.filter(Boolean).join(" ");

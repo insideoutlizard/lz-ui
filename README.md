@@ -2,7 +2,15 @@
 
 ## Resources
 
-[Material Design 3](https://m3.material.io/components).
+Attempts to follow [Material Design 3](https://m3.material.io/components).
+
+## Available components
+
+### Buttons
+
+- Standard
+- Button group
+- Floating action button (FAB)
 
 ## Usage
 

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # lz-ui
 
 ## Resources

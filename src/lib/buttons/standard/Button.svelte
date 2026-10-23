@@ -8,5 +8,7 @@
     import "./button.css";
 </script>
 
+<button type="button">Test label</button>
+
 <style>
 </style>

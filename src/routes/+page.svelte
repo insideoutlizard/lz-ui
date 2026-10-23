@@ -13,5 +13,9 @@
 </p>
 
 <div>
-    <LzButton />
+    <LzButton label="x-small" />
+    <LzButton label="small" />
+    <LzButton label="medium" />
+    <LzButton label="large" />
+    <LzButton label="x-large" />
 </div>

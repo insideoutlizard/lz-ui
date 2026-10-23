@@ -4,4 +4,8 @@
     */
     --lz-button-font-offset: 1px;
     /* todo: colours, text offset, elevation, */
+
+    /* Colors */
+    --lz-button-surface-filled: oklch(0.5 0.16 300);
+    --lz-button-surface-on-filled: oklch(1 0 0);
 }

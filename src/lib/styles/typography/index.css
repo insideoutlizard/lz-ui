@@ -1,3 +1,5 @@
+@import "display.css";
+
 :root {
     font-optical-sizing: auto;
 
@@ -28,5 +30,3 @@
 
     --lz-typography-icon-size: 1.5rem;
 }
-
-@import "display.css";

@@ -273,8 +273,8 @@
     @layer color {
         .lz-button .surface {
             &[data-color="filled"] {
-                background: var(--lz-button-surface-filled);
-                color: var(--lz-button-surface-on-filled);
+                background: var(--lz-button-surface-filled-bg);
+                color: var(--lz-button-surface-on-filled-text);
             }
         }
     }

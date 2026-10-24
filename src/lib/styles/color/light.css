@@ -36,4 +36,7 @@
 
     --lz-color-outline: #79747e;
     --lz-color-outline-variant: #cac4d0;
+
+    /* Add-on colors */
+    --lz-color-inverse-primary: #d0bcff;
 }

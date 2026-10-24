@@ -274,7 +274,27 @@
         .lz-button .surface {
             &[data-color="filled"] {
                 background: var(--lz-button-surface-filled-bg);
-                color: var(--lz-button-surface-on-filled-text);
+                color: var(--lz-button-surface-on-filled-fg);
+            }
+
+            &[data-color="tonal"] {
+                background: var(--lz-button-surface-tonal-bg);
+                color: var(--lz-button-surface-on-tonal-fg);
+            }
+
+            &[data-color="elevated"] {
+                background: var(--lz-button-surface-elevated-bg);
+                color: var(--lz-button-surface-on-elevated-fg);
+            }
+
+            &[data-color="outlined"] {
+                background: var(--lz-button-surface-outlined-bg);
+                color: var(--lz-button-surface-on-outlined-fg);
+            }
+
+            &[data-color="text"] {
+                background: var(--lz-button-surface-text-bg);
+                color: var(--lz-button-surface-on-text-fg);
             }
         }
     }

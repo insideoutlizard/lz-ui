@@ -1,0 +1,18 @@
+:root {
+    a {
+        color: var(--lz-color-primary);
+    }
+}
+
+:root,
+:root[data-color-scheme="light"] {
+    a:hover {
+        color: var(--lz-color-on-primary-fixed);
+    }
+}
+
+:root[data-color-scheme="dark"] {
+    a:hover {
+        color: var(--lz-color-primary-fixed);
+    }
+}

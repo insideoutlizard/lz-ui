@@ -484,4 +484,91 @@
             }
         }
     }
+
+    @layer state {
+        .lz-button .surface {
+            position: relative;
+            transition:
+                background-color var(--lz-motion-duration-short1) ease,
+                color var(--lz-motion-duration-short1) ease,
+                box-shadow var(--lz-motion-duration-short1) ease;
+
+            &:not([data-color="elevated"]) {
+                /* reset other buttons */
+                box-shadow: var(--lz-elevation-0);
+            }
+
+            &:before {
+                /* using :before as state layer */
+                transition:
+                    color var(--lz-motion-duration-short1) ease,
+                    transform var(--lz-motion-duration-short1) ease,
+                    opacity var(--lz-motion-duration-short1) ease;
+            }
+        }
+
+        .lz-button:not(:disabled, [aria-disabled="true"]) {
+            /* Hover */
+            @media (hover: hover) {
+                &:not(
+                        :active,
+                        [data-active],
+                        [aria-current="true"],
+                        [aria-current="page"]
+                    ):hover
+                    .surface {
+                    &:not(
+                        [data-color="text"],
+                        [data-color="outlined"],
+                        [data-color="elevated"]
+                    ) {
+                        box-shadow: var(--lz-elevation-1);
+                    }
+
+                    &[data-color="elevated"] {
+                        box-shadow: var(--lz-elevation-2);
+                    }
+
+                    &:before {
+                        opacity: var(--lz-opacity-hover);
+                    }
+                }
+            }
+
+            /* Focus */
+            &:focus-visible .surface {
+                outline: 3px solid var(--lz-color-primary);
+                outline-offset: 2px;
+
+                &:before {
+                    opacity: var(--lz-opacity-focus);
+                }
+            }
+
+            /* Active */
+            &:active,
+            &[data-active] {
+                & .surface {
+                    &:not([data-color="elevated"]) {
+                        box-shadow: var(--lz-elevation-0);
+                    }
+                    &[data-color="elevated"] {
+                        box-shadow: var(--lz-elevation-1);
+                    }
+
+                    &:before {
+                        opacity: var(--lz-opacity-press);
+                    }
+                }
+            }
+
+            /* Toggle buttons */
+            &[aria-pressed="true"],
+            &[aria-expanded="true"] {
+                & .surface:before {
+                    opacity: var(--lz-opacity-press);
+                }
+            }
+        }
+    }
 </style>

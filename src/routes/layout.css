@@ -58,9 +58,24 @@ body {
     align-items: center;
     justify-content: start;
     gap: var(--lz-spacing-space900);
-    padding: 0 var(--lz-gutter, var(--lz-spacing-space200))
-        var(--lz-spacing-space900);
+    padding: 0 0 var(--lz-spacing-space900);
     box-sizing: border-box;
+
+    .lz-hero {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: var(--lz-max-content-width);
+
+        &.primary {
+            padding: var(--lz-spacing-space600) var(--lz-gutter);
+        }
+
+        &.secondary {
+            padding: var(--lz-spacing-space600);
+        }
+    }
 
     .lz-section {
         &.primary {
@@ -70,7 +85,7 @@ body {
             max-width: var(--lz-max-content-width);
             gap: var(--lz-spacing-space400);
             container-type: inline-size;
-            padding: var(--lz-spacing-space600) 0;
+            padding: var(--lz-spacing-space600) var(--lz-gutter);
             box-sizing: border-box;
 
             &:first-of-type {
@@ -82,8 +97,37 @@ body {
             display: flex;
             flex-direction: column;
             width: 100%;
-            gap: var(--lz-space-200);
+            gap: var(--lz-spacing-space200);
             box-sizing: border-box;
+        }
+    }
+}
+
+.lz-page-header {
+    display: flex;
+    width: 100%;
+
+    & hgroup {
+        display: flex;
+        flex-direction: column;
+        gap: var(--lz-spacing-space300);
+    }
+
+    &:not(.hero) hgroup .headline {
+        font-size: var(--lz-typescale-display-s-font-size);
+        letter-spacing: var(--lz-typescale-display-s-font-tracking);
+        font-weight: var(--lz-typescale-display-s-font-weight);
+        font-variation-settings: var(--lz-typescale-display-s-font-wght);
+    }
+
+    &.hero hgroup {
+        text-align: center;
+
+        & .headline {
+            font-size: var(--lz-typescale-display-l-font-size);
+            letter-spacing: var(--lz-typescale-display-l-font-tracking);
+            font-weight: var(--lz-typescale-display-l-font-weight);
+            font-variation-settings: var(--lz-typescale-display-l-font-wght);
         }
     }
 }

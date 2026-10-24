@@ -2,6 +2,7 @@
 @import "spacing/index.css";
 @import "shape/index.css";
 
+/* Random vars that don't need their own file */
 :root {
-    --lz-touch-target-size: 48px;
+    --lz-touch-target-size: 3rem;
 }

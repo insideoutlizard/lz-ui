@@ -28,3 +28,5 @@
 
     --lz-typography-icon-size: 1.5rem;
 }
+
+@import "display.css";

@@ -3,7 +3,7 @@
     import type { LzButtonColor } from "#lib";
 </script>
 
-<h1>Welcome to your library project</h1>
+<h1 id="index-headline">Welcome to your library project</h1>
 <p>
     Create your package using @sveltejs/package and preview/showcase your work
     with SvelteKit
@@ -47,6 +47,7 @@
         padding: var(--lz-spacing-space200);
         gap: var(--lz-spacing-space200);
     }
+
     .container {
         background: var(--lz-color-surface-container-highest);
         display: flex;
@@ -61,5 +62,9 @@
             align-items: center;
             gap: var(--lz-spacing-space200);
         }
+    }
+
+    #index-headline {
+        font-family: var(--lz-typography-typeface-brand);
     }
 </style>

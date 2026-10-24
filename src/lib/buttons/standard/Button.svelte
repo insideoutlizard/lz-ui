@@ -367,4 +367,9 @@
             }
         }
     }
+
+    @layer size {
+        .lz-button .surface {
+        }
+    }
 </style>

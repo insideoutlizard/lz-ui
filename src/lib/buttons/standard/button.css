@@ -7,5 +7,5 @@
 
     /* Colors */
     --lz-button-surface-filled-bg: var(--lz-color-primary);
-    --lz-button-surface-filled-text: var(--lz-color-on-primary);
+    --lz-button-surface-filled-fg: var(--lz-color-on-primary);
 }

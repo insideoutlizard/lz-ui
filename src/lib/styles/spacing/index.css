@@ -1,0 +1,20 @@
+:root {
+    --lz-spacing-space0: 0px;
+    --lz-spacing-space25: 0.125rem;
+    --lz-spacing-space50: 0.25rem;
+    --lz-spacing-space75: 0.375rem;
+    --lz-spacing-space100: 0.5rem;
+    --lz-spacing-space125: 0.625rem;
+    --lz-spacing-space150: 0.75rem;
+    --lz-spacing-space175: 0.875rem;
+    --lz-spacing-space200: 1rem;
+    --lz-spacing-space250: 1.25rem;
+    --lz-spacing-space300: 1.5rem;
+    --lz-spacing-space400: 2rem;
+    --lz-spacing-space450: 2.25rem;
+    --lz-spacing-space500: 2.5rem;
+    --lz-spacing-space600: 3rem;
+    --lz-spacing-space700: 3.5rem;
+    --lz-spacing-space800: 4rem;
+    --lz-spacing-space900: 4.5rem;
+}

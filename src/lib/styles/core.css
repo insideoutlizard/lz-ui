@@ -1,8 +1,14 @@
 @import "typography/index.css";
 @import "spacing/index.css";
 @import "shape/index.css";
+@import "motion/index.css";
 
 /* Random vars that don't need their own file */
 :root {
     --lz-touch-target-size: 3rem;
+
+    --lz-opacity-hover: 0.08;
+    --lz-opacity-focus: 0.1;
+    --lz-opacity-press: 0.16;
+    --lz-opacity-drag: 0.2;
 }

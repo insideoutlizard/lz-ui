@@ -1,16 +1,88 @@
+:root {
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-color: var(--lz-color-on-surface-variant)
+        var(--lz-color-surface-variant);
+    scrollbar-width: thin;
+
+    --lz-max-content-width: 100%;
+    --lz-gutter: var(--lz-spacing-space300);
+}
+
+@media (width >= 1280px) {
+    :root {
+        --lz-max-content-width: 1152px;
+    }
+}
+
 html {
     font-size: 100%;
+    min-height: 100dvh;
+    width: 100%;
+    scrollbar-gutter: stable;
 }
 
 body {
+    min-height: 100dvh;
+    overflow-x: clip;
+    position: relative;
+    isolation: isolate;
+
     background: var(--lz-color-surface);
     color: var(--lz-color-on-surface);
 }
 
 #app {
-    background: var(--lz-color-surface-container-low);
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    max-width: 768px;
-    margin-inline: auto;
+    min-height: 100dvh;
+    color: var(--lz-color-on-surface);
     gap: var(--lz-spacing-space600);
+
+    @media (width <= 768px) {
+        gap: var(--lz-spacing-space800);
+    }
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: start;
+    gap: var(--lz-spacing-space900);
+    padding: 0 var(--lz-gutter, var(--lz-spacing-space200))
+        var(--lz-spacing-space900);
+    box-sizing: border-box;
+
+    .lz-section {
+        &.primary {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: var(--lz-max-content-width);
+            gap: var(--lz-spacing-space400);
+            container-type: inline-size;
+            padding: var(--lz-spacing-space600) 0;
+            box-sizing: border-box;
+
+            &:first-of-type {
+                padding-top: var(--lz-spacing-space900);
+            }
+        }
+
+        &.nested {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: var(--lz-space-200);
+            box-sizing: border-box;
+        }
+    }
 }

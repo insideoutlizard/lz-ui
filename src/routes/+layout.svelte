@@ -1,5 +1,7 @@
 <script lang="ts">
+    import "./resets.css";
     import "./layout.css";
+
     import "#lib/styles/index.css";
     import { page } from "$app/state";
 

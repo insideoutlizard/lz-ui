@@ -8,6 +8,7 @@
         var(--lz-color-surface-variant);
     scrollbar-width: thin;
 
+    --lz-density-global: var(--lz-spacing-density-3);
     --lz-max-content-width: 100%;
     --lz-gutter: var(--lz-spacing-space300);
 }

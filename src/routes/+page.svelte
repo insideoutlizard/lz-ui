@@ -3,7 +3,7 @@
     import type { LzButtonColor } from "#lib";
 </script>
 
-<h1 id="index-headline">Welcome to your library project</h1>
+<h1 id="index-headline">Component library</h1>
 <p>
     Create your package using @sveltejs/package and preview/showcase your work
     with SvelteKit

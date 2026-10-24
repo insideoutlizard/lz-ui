@@ -1,4 +1,6 @@
 <script lang="ts">
+    import "./layout.css";
+    import "#lib/styles/index.css";
     import { page } from "$app/state";
 
     let { children } = $props();

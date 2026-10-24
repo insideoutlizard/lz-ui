@@ -12,10 +12,17 @@
     documentation
 </p>
 
-<div>
+<div class="container">
     <LzButton label="x-small" />
     <LzButton label="small" />
     <LzButton label="medium" />
     <LzButton label="large" />
     <LzButton label="x-large" />
 </div>
+
+<style>
+    .container {
+        display: flex;
+        gap: 1rem;
+    }
+</style>

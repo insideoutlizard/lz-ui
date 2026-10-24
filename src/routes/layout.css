@@ -1,0 +1,8 @@
+html {
+    font-size: 100%;
+}
+
+body {
+    background: var(--lz-color-surface);
+    color: var(--lz-color-on-surface);
+}

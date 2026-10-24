@@ -6,6 +6,6 @@
     /* todo: colours, text offset, elevation, */
 
     /* Colors */
-    --lz-button-surface-filled: oklch(0.5 0.16 300);
-    --lz-button-surface-on-filled: oklch(1 0 0);
+    --lz-button-surface-filled-bg: var(--lz-color-primary);
+    --lz-button-surface-filled-text: var(--lz-color-on-primary);
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { LzButton } from "#lib";
+    import type { LzButtonColor } from "#lib";
 </script>
 
 <h1>Welcome to your library project</h1>
@@ -12,17 +13,53 @@
     documentation
 </p>
 
-<div class="container">
-    <LzButton label="x-small" />
-    <LzButton label="small" />
-    <LzButton label="medium" />
-    <LzButton label="large" />
-    <LzButton label="x-large" />
-</div>
+{#snippet buttons(color: LzButtonColor)}
+    <div class="container">
+        <hgroup>
+            <h3>{color.charAt(0).toUpperCase() + color.slice(1)}</h3>
+        </hgroup>
+        <div class="container-inner">
+            <LzButton label="x-small" {color} />
+            <LzButton label="small" {color} />
+            <LzButton label="medium" {color} />
+            <LzButton label="large" {color} />
+            <LzButton label="x-large" {color} />
+        </div>
+    </div>
+{/snippet}
+
+<section class="lz-section primary">
+    <hgroup>
+        <h2>Buttons</h2>
+    </hgroup>
+
+    {@render buttons("filled")}
+    {@render buttons("tonal")}
+    {@render buttons("elevated")}
+    {@render buttons("outlined")}
+    {@render buttons("text")}
+</section>
 
 <style>
-    .container {
+    .lz-section {
         display: flex;
-        gap: 1rem;
+        flex-direction: column;
+        padding: var(--lz-spacing-space200);
+        gap: var(--lz-spacing-space200);
+    }
+    .container {
+        background: var(--lz-color-surface-container-highest);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--lz-spacing-space200);
+
+        & .container-inner {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            gap: var(--lz-spacing-space200);
+        }
     }
 </style>

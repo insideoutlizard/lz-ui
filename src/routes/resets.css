@@ -17,14 +17,19 @@
     h3,
     h4,
     h5,
-    h6,
-    p {
+    h6 {
         margin: 0;
-        padding: 0;
         font-family: var(--lz-typography-typeface-brand);
     }
 
     p {
+        margin: 0;
+        max-inline-size: 65ch;
+        max-width: 48rem;
         font-family: var(--lz-typography-typeface-plain);
+    }
+
+    section {
+        margin: 0;
     }
 }

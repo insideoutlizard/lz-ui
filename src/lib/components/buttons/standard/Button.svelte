@@ -141,13 +141,23 @@
         data-shape={shape}
         data-overrides={overridesFmt}
     >
-        <span class="label">
-            {#if typeof label === "string"}
-                {label}
-            {:else}
-                {@render children?.()}
-            {/if}
-        </span>
+        {#if IconLeading}
+            <IconLeading />
+        {/if}
+
+        {#if label || children}
+            <span class="label">
+                {#if typeof label === "string"}
+                    {label}
+                {:else}
+                    {@render children?.()}
+                {/if}
+            </span>
+        {/if}
+
+        {#if IconTrailing}
+            <IconTrailing />
+        {/if}
     </span>
 {/snippet}
 
@@ -496,6 +506,11 @@
             &:not([data-color="elevated"]) {
                 /* reset other buttons */
                 box-shadow: var(--lz-elevation-0);
+
+                &[data-color="outlined"] {
+                    box-shadow: inset 0 0 0 var(--lz-button-outline-width)
+                        var(--lz-color-outline-variant);
+                }
             }
 
             &:before {
@@ -551,6 +566,12 @@
                 & .surface {
                     &:not([data-color="elevated"]) {
                         box-shadow: var(--lz-elevation-0);
+
+                        &[data-color="outlined"] {
+                            box-shadow: inset 0 0 0
+                                var(--lz-button-outline-width)
+                                var(--lz-color-outline-variant);
+                        }
                     }
                     &[data-color="elevated"] {
                         box-shadow: var(--lz-elevation-1);

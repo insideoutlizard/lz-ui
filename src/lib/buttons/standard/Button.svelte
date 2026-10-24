@@ -349,6 +349,22 @@
             &[data-shape="round"] {
                 border-radius: var(--lz-shape-corner-radius-full);
             }
+
+            /* Square button corner radius scales with size */
+            &[data-shape="square"] {
+                &[data-size="x-small"],
+                &[data-size="small"] {
+                    border-radius: var(--lzshape-corner-radius-md);
+                }
+
+                &[data-size="medium"] {
+                    border-radius: var(--lz-shape-corner-radius-lg);
+                }
+
+                &[data-size="large"] {
+                    border-radius: var(--lz-shape-corner-radius-xl);
+                }
+            }
         }
     }
 </style>

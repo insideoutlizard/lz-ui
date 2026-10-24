@@ -20,11 +20,11 @@
             <h3>{color.charAt(0).toUpperCase() + color.slice(1)}</h3>
         </hgroup>
         <div class="container-inner">
-            <LzButton label="x-small" {color} />
-            <LzButton label="small" {color} />
-            <LzButton label="medium" {color} />
-            <LzButton label="large" {color} />
-            <LzButton label="x-large" {color} />
+            <LzButton size="x-small" {color}>Extra small</LzButton>
+            <LzButton size="small" {color}>Small (default)</LzButton>
+            <LzButton size="medium" {color}>Medium</LzButton>
+            <LzButton size="large" {color}>Large</LzButton>
+            <LzButton size="x-large" {color}>Extra large</LzButton>
         </div>
     </div>
 {/snippet}

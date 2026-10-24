@@ -3,16 +3,6 @@
     import type { LzButtonColor } from "#lib";
 </script>
 
-<h1 id="index-headline">Component library</h1>
-<p>
-    Create your package using @sveltejs/package and preview/showcase your work
-    with SvelteKit
-</p>
-<p>
-    Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the
-    documentation
-</p>
-
 {#snippet buttons(color: LzButtonColor)}
     <div class="container">
         <hgroup>
@@ -29,15 +19,50 @@
 {/snippet}
 
 <section class="lz-section primary">
-    <hgroup>
-        <h2>Buttons</h2>
-    </hgroup>
+    <header class="page-header" id="index-header">
+        <hgroup>
+            <h1>lz-ui</h1>
+            <p>
+                Component library made with SvelteKit. Attempts to follow the
+                official <a href="https://m3.material.io/" target="_blank"
+                    >Material 3 docs
+                </a>
+                with improvements for traditional desktop websites.
+            </p>
+            <p>
+                This project also implements Material 3
+                <a
+                    href="https://m3.material.io/foundations/design-tokens/overview"
+                    target="_blank">design tokens</a
+                > as CSS variables.
+            </p>
+        </hgroup>
+    </header>
+</section>
 
-    {@render buttons("filled")}
-    {@render buttons("tonal")}
-    {@render buttons("elevated")}
-    {@render buttons("outlined")}
-    {@render buttons("text")}
+<section class="lz-section primary">
+    <header class="lz-section-header">
+        <hgroup>
+            <h2>Quick links</h2>
+        </hgroup>
+    </header>
+
+    <section class="lz-section nested">
+        <a class="index-quick-link" href="/components">
+            <header>
+                <hgroup>
+                    <h3>Components</h3>
+                </hgroup>
+            </header>
+        </a>
+        <a class="index-quick-link" href="/components">
+            <header>
+                <hgroup>
+                    <h3>Styles</h3>
+                </hgroup>
+            </header>
+        </a>
+    </section>
 </section>
 
 <style>
@@ -61,6 +86,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding: var(--lz-spacing-space200);
         gap: var(--lz-spacing-space200);
 
         & .container-inner {
@@ -72,11 +98,21 @@
         }
     }
 
-    #index-headline {
-        font-family: var(--lz-typography-typeface-brand);
-        font-size: var(--lz-typescale-display-l-font-size);
-        letter-spacing: var(--lz-typescale-display-l-font-tracking);
-        font-weight: var(--lz-typescale-display-l-font-weight);
-        font-variation-settings: var(--lz-typescale-display-l-font-wght);
+    .page-header hgroup {
+        & h1 {
+            font-family: var(--lz-typography-typeface-brand);
+            font-size: var(--lz-typescale-display-l-font-size);
+            letter-spacing: var(--lz-typescale-display-l-font-tracking);
+            font-weight: var(--lz-typescale-display-l-font-weight);
+            font-variation-settings: var(--lz-typescale-display-l-font-wght);
+        }
+
+        & p {
+            font-family: var(--lz-typography-typeface-plain);
+            font-size: var(--lz-typescale-body-l-font-size);
+            letter-spacing: var(--lz-typescale-body-l-font-tracking);
+            font-weight: var(--lz-typescale-body-l-font-weight);
+            font-variation-settings: var(--lz-typescale-body-l-font-wght);
+        }
     }
 </style>

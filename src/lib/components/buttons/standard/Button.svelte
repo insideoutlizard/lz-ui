@@ -6,7 +6,7 @@
         type HTMLAttributes,
         type HTMLButtonAttributes,
     } from "svelte/elements";
-    import { type Component } from "svelte";
+    import { type Component, type Snippet } from "svelte";
 
     import type { LzProps } from "#lib/types.ts";
 
@@ -41,6 +41,7 @@
 
         // Surface
         label?: string;
+        children?: Snippet;
         iconLeading?: Component | null;
         iconTrailing?: Component | null;
         iconToggled?: Component | null;
@@ -98,6 +99,7 @@
         overrides = null,
 
         label,
+        children,
         iconLeading: IconLeading,
         iconTrailing: IconTrailing,
         iconToggled: IconToggled,
@@ -139,11 +141,13 @@
         data-shape={shape}
         data-overrides={overridesFmt}
     >
-        {#if label}
-            <span class="label">
+        <span class="label">
+            {#if typeof label === "string"}
                 {label}
-            </span>
-        {/if}
+            {:else}
+                {@render children?.()}
+            {/if}
+        </span>
     </span>
 {/snippet}
 
@@ -264,8 +268,144 @@
 
             &:has(:global(.lz-icon)) :global(svg) {
                 flex-shrink: 0;
-                height: var(--lz-icon-size, 20px);
-                width: var(--lz-icon-size, 20px);
+                height: var(--lz-typography-icon-size, 20px);
+                width: var(--lz-typography-icon-size, 20px);
+            }
+        }
+    }
+
+    @layer size {
+        .lz-button .surface {
+            --lz-typography-icon-size: 1.25rem;
+            --lz-button-outline-width: 1px;
+            padding-inline: 0;
+
+            & .label {
+                font-family: var(--lz-typography-typeface-plain);
+                font-size: var(--lz-typescale-label-l-font-size);
+                letter-spacing: var(--lz-typescale-label-l-font-tracking);
+                font-weight: var(--lz-typescale-label-l-font-weight);
+                font-variation-settings: var(--lz-typescale-label-l-font-wght);
+            }
+
+            &[data-size="x-small"] {
+                height: calc(2rem + var(--lz-density-global, 0px));
+                min-width: 2rem;
+                gap: var(--lz-spacing-space50);
+
+                &:has(.label) {
+                    padding-inline: var(--lz-spacing-space150);
+                }
+            }
+
+            &[data-size="small"] {
+                height: calc(2.5rem + var(--lz-density-global, 0px));
+                min-width: 2.5rem;
+                gap: var(--lz-spacing-space50);
+
+                &:has(.label) {
+                    padding-inline: var(--lz-spacing-space150);
+                }
+            }
+
+            &[data-size="medium"] {
+                height: calc(3.5rem + var(--lz-density-global, 0px));
+                min-width: 3.5rem;
+                gap: var(--lz-spacing-space100);
+
+                --lz-typography-icon-size: 1.5rem;
+
+                &:has(.label) {
+                    padding-inline: var(--lz-spacing-space300);
+
+                    & .label {
+                        font-size: var(--lz-typescale-title-m-font-size);
+                        letter-spacing: var(
+                            --lz-typescale-title-m-font-tracking
+                        );
+                        font-weight: var(--lz-typescale-title-m-font-weight);
+                        font-variation-settings: var(
+                            --lz-typescale-title-m-font-wght
+                        );
+                    }
+                }
+            }
+
+            &[data-size="large"] {
+                height: calc(6rem + var(--lz-density-global, 0px));
+                min-width: 6rem;
+                gap: var(--lz-spacing-space150);
+
+                --lz-typography-icon-size: 2rem;
+                --lz-button-outline-width: 2px;
+
+                &:has(.label) {
+                    padding-inline: var(--lz-spacing-space600);
+
+                    & .label {
+                        font-size: var(--lz-typescale-headline-s-font-size);
+                        letter-spacing: var(
+                            --lz-typescale-headline-s-font-tracking
+                        );
+                        font-weight: var(--lz-typescale-headline-s-font-weight);
+                        font-variation-settings: var(
+                            --lz-typescale-headline-s-font-wght
+                        );
+                    }
+                }
+            }
+
+            &[data-size="x-large"] {
+                height: calc(8.5rem + var(--lz-density-global, 0px));
+                min-width: 8.5rem;
+                gap: var(--lz-spacing-space150);
+
+                --lz-typography-icon-size: 2.5rem;
+                --lz-button-outline-width: 3px;
+
+                &:has(.label) {
+                    padding-inline: var(--lz-spacing-space800);
+
+                    & .label {
+                        font-size: var(--lz-typescale-headline-l-font-size);
+                        letter-spacing: var(
+                            --lz-typescale-headline-l-font-tracking
+                        );
+                        font-weight: var(--lz-typescale-headline-l-font-weight);
+                        font-variation-settings: var(
+                            --lz-typescale-headline-l-font-wght
+                        );
+                    }
+                }
+            }
+
+            &[data-overrides~="brand-font"] {
+                font-family: var(--lz-typography-typeface-brand);
+            }
+        }
+    }
+
+    @layer shape {
+        .lz-button .surface {
+            &[data-shape="round"] {
+                border-radius: var(--lz-shape-corner-radius-full);
+            }
+
+            /* Square button corner radius scales with size */
+            &[data-shape="square"] {
+                &[data-size="x-small"],
+                &[data-size="small"] {
+                    border-radius: var(--lzshape-corner-radius-md);
+                }
+
+                &[data-size="medium"] {
+                    border-radius: var(--lz-shape-corner-radius-lg);
+                }
+
+                &[data-size="large"],
+                &[data-size="x-large"] {
+                    border-radius: var(--lz-shape-corner-radius-xl);
+                }
             }
         }
     }
@@ -277,27 +417,28 @@
             */
             &[data-color="filled"] {
                 background: var(--lz-button-surface-filled-bg);
-                color: var(--lz-button-surface-on-filled-fg);
+                color: var(--lz-button-surface-filled-fg);
             }
 
             &[data-color="tonal"] {
                 background: var(--lz-button-surface-tonal-bg);
-                color: var(--lz-button-surface-on-tonal-fg);
+                color: var(--lz-button-surface-tonal-fg);
             }
 
             &[data-color="elevated"] {
                 background: var(--lz-button-surface-elevated-bg);
-                color: var(--lz-button-surface-on-elevated-fg);
+                color: var(--lz-button-surface-elevated-fg);
                 box-shadow: var(--lz-elevation-1);
             }
 
             &[data-color="outlined"] {
                 background: transparent;
-                color: var(--lz-button-surface-on-outlined-fg);
+                color: var(--lz-button-surface-outlined-fg);
                 /*
                     Using inset shadow to avoid layout shift
                 */
-                box-shadow: inset 0 0 0 1px var(--lz-button-surface-outlined-bg);
+                box-shadow: inset 0 0 0 var(--lz-button-outline-width)
+                    var(--lz-button-surface-outlined-bg);
             }
 
             &[data-color="text"] {
@@ -340,45 +481,6 @@
                 &:before {
                     opacity: var(--lz-opacity-press);
                 }
-            }
-        }
-    }
-
-    @layer shape {
-        .lz-button .surface {
-            &[data-shape="round"] {
-                border-radius: var(--lz-shape-corner-radius-full);
-            }
-
-            /* Square button corner radius scales with size */
-            &[data-shape="square"] {
-                &[data-size="x-small"],
-                &[data-size="small"] {
-                    border-radius: var(--lzshape-corner-radius-md);
-                }
-
-                &[data-size="medium"] {
-                    border-radius: var(--lz-shape-corner-radius-lg);
-                }
-
-                &[data-size="large"] {
-                    border-radius: var(--lz-shape-corner-radius-xl);
-                }
-            }
-        }
-    }
-
-    @layer size {
-        .lz-button .surface {
-            --lz-typography-icon-size: 1.5rem;
-            padding-inline: 0;
-
-            & .label {
-                font-family: var(--lz-typography-typeface-plain);
-                font-size: var(--lz-typescale-label-l-font-size);
-                letter-spacing: var(--lz-typescale-label-l-font-tracking);
-                font-weight: var(--lz-typescale-label-l-font-weight);
-                font-variation-settings: var(--lz-typescale-label-l-font-wght);
             }
         }
     }

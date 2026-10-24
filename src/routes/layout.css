@@ -6,3 +6,11 @@ body {
     background: var(--lz-color-surface);
     color: var(--lz-color-on-surface);
 }
+
+#app {
+    background: var(--lz-color-surface-container-low);
+    width: 100%;
+    max-width: 768px;
+    margin-inline: auto;
+    gap: var(--lz-spacing-space600);
+}

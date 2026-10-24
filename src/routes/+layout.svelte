@@ -6,6 +6,9 @@
     import "#lib/styles/index.css";
     import { page } from "$app/state";
 
+    import BugIcon from "~icons/material-symbols/bug-report-outline-sharp";
+    import BugIconFill from "~icons/material-symbols/bug-report-sharp";
+
     import { LzButton } from "#lib";
 
     const pages = import.meta.glob("/src/routes/**/+page.svelte", {
@@ -24,9 +27,11 @@
                 module.title ||
                 path.split("/").pop()?.replace(/-/g, " ") ||
                 "Home";
+            const icon = module.icon ?? BugIcon;
+            const activeIcon = module.activeIcon ?? BugIconFill;
             const order = module.order ?? 99; // Manual sorting priority
 
-            return { path, title, order };
+            return { path, title, icon, activeIcon, order };
         })
         .sort((a, b) => a.order - b.order);
 
@@ -44,8 +49,9 @@
                         size="x-small"
                         color={isCurrent ? "tonal" : "text"}
                         href={page?.path}
-                        ariaLabel={page?.title}>Icon</LzButton
-                    >
+                        ariaLabel={page?.title}
+                        iconLeading={isCurrent ? page?.activeIcon : page?.icon}
+                    ></LzButton>
                     <span class="rail-link-label">{page?.title}</span>
                 </li>
             {/each}

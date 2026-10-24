@@ -5,6 +5,8 @@
 <script lang="ts">
     import { LzButton } from "#lib";
     import type { LzButtonColor } from "#lib";
+
+    import TestIcon from "~icons/material-symbols/adb-outline-sharp";
 </script>
 
 <section class="lz-hero secondary">
@@ -20,27 +22,23 @@
     </header>
 </section>
 
-{#snippet buttons(color: LzButtonColor)}
+{#snippet buttons()}
     <div class="container">
         <hgroup>
-            <h3>{color.charAt(0).toUpperCase() + color.slice(1)}</h3>
+            <h3>Standard</h3>
         </hgroup>
         <div class="container-inner">
-            <LzButton size="x-small" {color}>Extra small</LzButton>
-            <LzButton size="small" {color}>Small (default)</LzButton>
-            <LzButton size="medium" {color}>Medium</LzButton>
-            <LzButton size="large" {color}>Large</LzButton>
-            <LzButton size="x-large" {color}>Extra large</LzButton>
+            <LzButton size="x-small" color="filled">Extra small</LzButton>
+            <LzButton size="small" color="tonal">Small (default)</LzButton>
+            <LzButton size="medium" color="elevated">Medium</LzButton>
+            <LzButton size="large" color="outlined">Large</LzButton>
+            <LzButton size="x-large" color="text">Extra large</LzButton>
         </div>
     </div>
 {/snippet}
 
 <section class="lz-section primary">
-    {@render buttons("filled")}
-    {@render buttons("tonal")}
-    {@render buttons("elevated")}
-    {@render buttons("outlined")}
-    {@render buttons("text")}
+    {@render buttons()}
 </section>
 
 <style>

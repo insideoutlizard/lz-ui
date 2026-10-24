@@ -70,6 +70,10 @@ body {
 
         &.primary {
             padding: var(--lz-spacing-space600) var(--lz-gutter);
+
+            & header hgroup {
+                align-items: center;
+            }
         }
 
         &.secondary {
@@ -110,6 +114,7 @@ body {
     & hgroup {
         display: flex;
         flex-direction: column;
+        width: 100%;
         gap: var(--lz-spacing-space300);
     }
 

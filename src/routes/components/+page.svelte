@@ -1,5 +1,10 @@
 <script lang="ts" module>
+    import PageIcon from "~icons/material-symbols/component-exchange-outline-sharp";
+    import ActivePageIcon from "~icons/material-symbols/component-exchange-sharp";
+
     export const title = "Components";
+    export const icon = PageIcon;
+    export const activeIcon = ActivePageIcon;
 </script>
 
 <script lang="ts">

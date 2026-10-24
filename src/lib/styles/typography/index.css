@@ -1,0 +1,30 @@
+:root {
+    font-optical-sizing: auto;
+
+    /*
+        Font family tokens use fallbacks by default.
+        Just definte --lz-typeface-{font name} in your project.
+    */
+    --lz-typography-typeface-brand:
+        var(--lz-typeface-brand), var(--lz-typography-typeface-fallbacks);
+    --lz-typography-typeface-plain:
+        var(--lz-typeface-plain), var(--lz-typography-typeface-fallbacks);
+    --lz-typography-typeface-monospace:
+        var(--lz-typeface-monospace),
+        var(--lz-typography-typeface-fallbacks-monospace);
+
+    --lz-typography-typeface-fallbacks:
+        Roboto, system-ui, -apple-system, "Segoe UI", "Noto Sans", Ubuntu,
+        Cantarell, sans-serif;
+    --lz-typography-typeface-fallbacks-monospace:
+        ui-monospace, "Cascadia Code", "JetBrains Mono", "Fira Code",
+        "Source Code Pro", Menlo, Consolas, "Noto Sans Mono", "Ubuntu Mono",
+        monospace;
+
+    --lz-typography-font-weight-regular: 400;
+    --lz-typography-font-weight-medium: 500;
+    --lz-typography-font-weight-semibold: 600;
+    --lz-typography-font-weight-bold: 700;
+
+    --lz-typography-icon-size: 1.5rem;
+}

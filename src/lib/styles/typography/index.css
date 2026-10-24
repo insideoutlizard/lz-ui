@@ -1,4 +1,8 @@
 @import "display.css";
+@import "headline.css";
+@import "title.css";
+@import "body.css";
+@import "label.css";
 
 :root {
     font-optical-sizing: auto;

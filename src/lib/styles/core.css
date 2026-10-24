@@ -1,1 +1,6 @@
 @import "spacing/index.css";
+@import "shape/index.css";
+
+:root {
+    --lz-touch-target-size: 48px;
+}

@@ -370,6 +370,16 @@
 
     @layer size {
         .lz-button .surface {
+            --lz-typography-icon-size: 1.5rem;
+            padding-inline: 0;
+
+            & .label {
+                font-family: var(--lz-typography-typeface-plain);
+                font-size: var(--lz-typescale-label-l-font-size);
+                letter-spacing: var(--lz-typescale-label-l-font-tracking);
+                font-weight: var(--lz-typescale-label-l-font-weight);
+                font-variation-settings: var(--lz-typescale-label-l-font-wght);
+            }
         }
     }
 </style>

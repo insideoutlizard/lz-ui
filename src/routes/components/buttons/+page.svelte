@@ -7,12 +7,18 @@
     import type { LzButtonColor } from "#lib";
 </script>
 
-<hgroup>
-    <h1 id="index-headline">Buttons</h1>
-    <a href="https://m3.material.io/components/buttons/overview" target="_blank"
-        >Docs
-    </a>
-</hgroup>
+<section class="lz-hero secondary">
+    <header class="lz-page-header">
+        <hgroup>
+            <h1 class="headline">Buttons</h1>
+            <a
+                href="https://m3.material.io/components/buttons/overview"
+                target="_blank"
+                >Docs
+            </a>
+        </hgroup>
+    </header>
+</section>
 
 {#snippet buttons(color: LzButtonColor)}
     <div class="container">
@@ -30,10 +36,6 @@
 {/snippet}
 
 <section class="lz-section primary">
-    <hgroup>
-        <h2>Buttons</h2>
-    </hgroup>
-
     {@render buttons("filled")}
     {@render buttons("tonal")}
     {@render buttons("elevated")}
@@ -42,21 +44,6 @@
 </section>
 
 <style>
-    .lz-section {
-        display: flex;
-        flex-direction: column;
-        padding: var(--lz-spacing-space200);
-        gap: var(--lz-spacing-space200);
-
-        &.primary h2 {
-            font-family: var(--lz-typography-typeface-brand);
-            font-size: var(--lz-typescale-headline-l-font-size);
-            letter-spacing: var(--lz-typescale-headline-l-font-tracking);
-            font-weight: var(--lz-typescale-headline-l-font-weight);
-            font-variation-settings: var(--lz-typescale-headline-l-font-wght);
-        }
-    }
-
     .container {
         background: var(--lz-color-surface-container-highest);
         display: flex;
@@ -64,6 +51,13 @@
         justify-content: center;
         padding: var(--lz-spacing-space200);
         gap: var(--lz-spacing-space200);
+        overflow: hidden;
+        box-sizing: border-box;
+        flex: 1 1 auto;
+        min-height: 0;
+        min-width: 0;
+        container: layout;
+        container-type: inline-size;
 
         & .container-inner {
             display: flex;
@@ -71,14 +65,9 @@
             justify-content: start;
             align-items: center;
             gap: var(--lz-spacing-space200);
+            width: 100%;
+            margin-top: auto;
+            flex-wrap: wrap;
         }
-    }
-
-    #index-headline {
-        font-family: var(--lz-typography-typeface-brand);
-        font-size: var(--lz-typescale-display-l-font-size);
-        letter-spacing: var(--lz-typescale-display-l-font-tracking);
-        font-weight: var(--lz-typescale-display-l-font-weight);
-        font-variation-settings: var(--lz-typescale-display-l-font-wght);
     }
 </style>

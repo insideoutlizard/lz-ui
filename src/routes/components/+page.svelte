@@ -7,16 +7,20 @@
     import type { LzButtonColor } from "#lib";
 </script>
 
-<hgroup>
-    <h1 id="index-headline">Components</h1>
-    <a href="https://m3.material.io/components" target="_blank">Docs</a>
-</hgroup>
+<section class="lz-hero secondary">
+    <header class="lz-page-header">
+        <hgroup>
+            <h1 class="headline">Components</h1>
+            <a href="https://m3.material.io/components" target="_blank">Docs</a>
+        </hgroup>
+    </header>
+</section>
 
 <section class="lz-section primary">
-    <hgroup>
-        <h2>Buttons</h2>
-    </hgroup>
     <div>
+        <hgroup>
+            <h2>Buttons</h2>
+        </hgroup>
         <p>ToDo: Add link to buttons and perhaps some sort of image.</p>
     </div>
 </section>

@@ -215,8 +215,8 @@
                 position: absolute;
                 height: 100%;
                 width: 100%;
-                min-height: var(--lz-touch-target, 48px);
-                min-width: var(--lz-touch-target, 48px);
+                min-height: var(--lz-touch-target-size);
+                min-width: var(--lz-touch-target-size);
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
@@ -259,7 +259,7 @@
                 z-index: -1;
                 border-radius: inherit;
                 opacity: 0;
-                transition: opacity var(--lz-duration-short1) ease;
+                transition: opacity var(--lz-motion-duration-short1) ease;
             }
 
             &:has(:global(.lz-icon)) :global(svg) {
@@ -272,6 +272,9 @@
 
     @layer color {
         .lz-button .surface {
+            /*
+                Standard variants
+            */
             &[data-color="filled"] {
                 background: var(--lz-button-surface-filled-bg);
                 color: var(--lz-button-surface-on-filled-fg);
@@ -285,16 +288,66 @@
             &[data-color="elevated"] {
                 background: var(--lz-button-surface-elevated-bg);
                 color: var(--lz-button-surface-on-elevated-fg);
+                box-shadow: var(--lz-elevation-1);
             }
 
             &[data-color="outlined"] {
-                background: var(--lz-button-surface-outlined-bg);
+                background: transparent;
                 color: var(--lz-button-surface-on-outlined-fg);
+                /*
+                    Using inset shadow to avoid layout shift
+                */
+                box-shadow: inset 0 0 0 1px var(--lz-button-surface-outlined-bg);
             }
 
             &[data-color="text"] {
-                background: var(--lz-button-surface-text-bg);
-                color: var(--lz-button-surface-on-text-fg);
+                background: transparent;
+                color: var(--lz-button-surface-text-fg);
+            }
+        }
+
+        /*
+                Toggle variants
+            */
+        .lz-button[aria-pressed="false"] .surface[data-color="filled"],
+        .lz-button[aria-expanded="false"] .surface[data-color="filled"],
+        .lz-button[aria-current="false"] .surface[data-color="filled"] {
+            background: var(--lz-surface-container);
+            color: var(--lz-on-surface-variant);
+        }
+
+        .lz-button[aria-pressed="true"],
+        .lz-button[aria-expanded="true"] {
+            .surface[data-color="tonal"] {
+                background: var(--lz-secondary);
+                color: var(--lz-on-secondary);
+            }
+
+            .surface[data-color="elevated"] {
+                background: var(--lz-primary);
+                color: var(--lz-on-primary);
+            }
+
+            .surface[data-color="outlined"] {
+                background: var(--lz-on-surface);
+                box-shadow: none;
+                color: var(--lz-surface);
+            }
+
+            .surface[data-color="text"] {
+                color: var(--lz-primary);
+
+                &:before {
+                    opacity: var(--lz-opacity-press);
+                }
+            }
+        }
+    }
+
+    @layer shape {
+        .lz-button .surface {
+            &[data-shape="round"] {
+                border-radius: var(--lz-shape-corner-radius-full);
             }
         }
     }

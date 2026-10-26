@@ -2,24 +2,33 @@
     --lz-typescale-headline-l-font-size: 2rem;
     --lz-typescale-headline-l-line-height: 2.5rem;
     --lz-typescale-headline-l-font-tracking: -0.025em;
-    --lz-typescale-headline-l-font-weight: var(--lz-font-weight-regular);
-    --lz-typescale-headline-l-font-wght: "wght" var(--lz-font-weight-regular);
+    --lz-typescale-headline-l-font-weight: var(
+        --lz-typography-font-weight-regular
+    );
+    --lz-typescale-headline-l-font-wght: "wght"
+        var(--lz-typography-font-weight-regular);
     --lz-typescale-headline-l-font-wght-emphasized: "wght"
-        var(--lz-font-weight-medium);
+        var(--lz-typography-font-weight-medium);
 
     --lz-typescale-headline-m-font-size: 1.75rem;
     --lz-typescale-headline-m-line-height: 2.25rem;
     --lz-typescale-headline-m-font-tracking: -0.02em;
-    --lz-typescale-headline-m-font-weight: var(--lz-font-weight-regular);
-    --lz-typescale-headline-m-font-wght: "wght" var(--lz-font-weight-regular);
+    --lz-typescale-headline-m-font-weight: var(
+        --lz-typography-font-weight-regular
+    );
+    --lz-typescale-headline-m-font-wght: "wght"
+        var(--lz-typography-font-weight-regular);
     --lz-typescale-headline-m-font-wght-emphasized: "wght"
-        var(--lz-font-weight-medium);
+        var(--lz-typography-font-weight-medium);
 
     --lz-typescale-headline-s-font-size: 1.5rem;
     --lz-typescale-headline-s-line-height: 2rem;
     --lz-typescale-headline-s-font-tracking: -0.015em;
-    --lz-typescale-headline-s-font-weight: var(--lz-font-weight-regular);
-    --lz-typescale-headline-s-font-wght: "wght" var(--lz-font-weight-regular);
+    --lz-typescale-headline-s-font-weight: var(
+        --lz-typography-font-weight-regular
+    );
+    --lz-typescale-headline-s-font-wght: "wght"
+        var(--lz-typography-font-weight-regular);
     --lz-typescale-headline-s-font-wght-emphasized: "wght"
-        var(--lz-font-weight-medium);
+        var(--lz-typography-font-weight-medium);
 }

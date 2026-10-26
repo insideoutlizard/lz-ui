@@ -428,111 +428,140 @@
 
     @layer size {
         .lz-button .surface {
-            --lz-typography-icon-size: 1.25rem;
-            --lz-button-outline-width: 1px;
+            /* This is set up to fall back to small specs */
+            --lz-typography-icon-size: var(--lz-button-small-icon-size);
+            --lz-button-outline-width: var(--lz-button-small-outline-width);
+            /* Zero inline padding assumes icon-only by default */
             padding-inline: 0;
 
             & .label {
-                font-family: var(--lz-typography-typeface-plain);
-                font-size: var(--lz-typescale-label-l-font-size);
-                letter-spacing: var(--lz-typescale-label-l-font-tracking);
-                font-weight: var(--lz-typescale-label-l-font-weight);
-                font-variation-settings: var(--lz-typescale-label-l-font-wght);
+                font: var(--lz-button-small-font);
+                letter-spacing: var(--lz-button-small-letter-spacing);
+                font-variation-settings: var(
+                    --lz-button-small-font-variation-settings
+                );
             }
 
             &[data-size="x-small"] {
-                height: calc(2rem + var(--lz-density-global, 0px));
-                min-width: 2rem;
-                gap: var(--lz-spacing-space50);
+                height: calc(
+                    var(--lz-button-x-small-height) +
+                        var(--lz-density-global, 0px)
+                );
+                min-width: var(--lz-button-x-small-min-width);
+                gap: var(--lz-button-x-small-gap);
+
+                /* We're going to put the actual label styles outside the :has(),
+                it can be unreliable */
+                & .label {
+                    font: var(--lz-button-x-small-font);
+                    letter-spacing: var(--lz-button-x-small-letter-spacing);
+                    font-variation-settings: var(
+                        --lz-button-x-small-font-variation-settings
+                    );
+                }
 
                 &:has(.label) {
-                    padding-inline: var(--lz-spacing-space150);
+                    padding-inline: var(--lz-button-x-small-padding-inline);
                 }
             }
 
             &[data-size="small"] {
-                height: calc(2.5rem + var(--lz-density-global, 0px));
-                min-width: 2.5rem;
-                gap: var(--lz-spacing-space50);
+                height: calc(
+                    var(--lz-button-small-height) +
+                        var(--lz-density-global, 0px)
+                );
+                min-width: var(--lz-button-small-width);
+                gap: var(--lz-button-small-gap);
+
+                & .label {
+                    font: var(--lz-button-small-font);
+                    letter-spacing: var(--lz-button-small-letter-spacing);
+                    font-variation-settings: var(
+                        --lz-button-small-font-variation-settings
+                    );
+                }
 
                 &:has(.label) {
-                    padding-inline: var(--lz-spacing-space150);
+                    padding-inline: var(--lz-button-small-padding-inline);
                 }
             }
 
             &[data-size="medium"] {
-                height: calc(3.5rem + var(--lz-density-global, 0px));
-                min-width: 3.5rem;
-                gap: var(--lz-spacing-space100);
+                height: calc(
+                    var(--lz-button-medium-height) +
+                        var(--lz-density-global, 0px)
+                );
+                min-width: var(--lz-button-medium-width);
+                gap: var(--lz-button-medium-gap);
 
                 --lz-typography-icon-size: 1.5rem;
 
-                &:has(.label) {
-                    padding-inline: var(--lz-spacing-space300);
+                & .label {
+                    font: var(--lz-button-medium-font);
+                    letter-spacing: var(--lz-button-medium-letter-spacing);
+                    font-variation-settings: var(
+                        --lz-button-medium-font-variation-settings
+                    );
+                }
 
-                    & .label {
-                        font-size: var(--lz-typescale-title-m-font-size);
-                        letter-spacing: var(
-                            --lz-typescale-title-m-font-tracking
-                        );
-                        font-weight: var(--lz-typescale-title-m-font-weight);
-                        font-variation-settings: var(
-                            --lz-typescale-title-m-font-wght
-                        );
-                    }
+                &:has(.label) {
+                    padding-inline: var(--lz-button-medium-padding-inline);
                 }
             }
 
             &[data-size="large"] {
-                height: calc(6rem + var(--lz-density-global, 0px));
-                min-width: 6rem;
-                gap: var(--lz-spacing-space150);
+                height: calc(
+                    var(--lz-button-large-height) +
+                        var(--lz-density-global, 0px)
+                );
+                min-width: var(--lz-button-large-min-width);
+                gap: var(--lz-button-large-gap);
 
-                --lz-typography-icon-size: 2rem;
-                --lz-button-outline-width: 2px;
+                --lz-typography-icon-size: var(--lz-button-large-icon-size);
+                --lz-button-outline-width: var(--lz-button-large-outline-width);
+
+                & .label {
+                    font: var(--lz-button-large-font);
+                    letter-spacing: var(--lz-button-large-letter-spacing);
+                    font-variation-settings: var(
+                        --lz-button-large-font-variation-settings
+                    );
+                }
 
                 &:has(.label) {
-                    padding-inline: var(--lz-spacing-space600);
-
-                    & .label {
-                        font-size: var(--lz-typescale-headline-s-font-size);
-                        letter-spacing: var(
-                            --lz-typescale-headline-s-font-tracking
-                        );
-                        font-weight: var(--lz-typescale-headline-s-font-weight);
-                        font-variation-settings: var(
-                            --lz-typescale-headline-s-font-wght
-                        );
-                    }
+                    padding-inline: var(--lz-button-large-padding-inline);
                 }
             }
 
             &[data-size="x-large"] {
-                height: calc(8.5rem + var(--lz-density-global, 0px));
-                min-width: 8.5rem;
-                gap: var(--lz-spacing-space150);
+                height: calc(
+                    var(--lz-button-x-large-height) +
+                        var(--lz-density-global, 0px)
+                );
+                min-width: var(--lz-button-x-large-min-width);
+                gap: var(--lz-button-x-large-gap);
 
-                --lz-typography-icon-size: 2.5rem;
-                --lz-button-outline-width: 3px;
+                --lz-typography-icon-size: var(--lz-button-x-large-icon-size);
+                --lz-button-outline-width: var(
+                    --lz-button-x-large-outline-width
+                );
+
+                & .label {
+                    font: var(--lz-button-x-large-font);
+                    letter-spacing: var(--lz-button-x-large-letter-spacing);
+                    font-variation-settings: var(
+                        --lz-button-x-large-font-variation-settings
+                    );
+                }
 
                 &:has(.label) {
-                    padding-inline: var(--lz-spacing-space800);
-
-                    & .label {
-                        font-size: var(--lz-typescale-headline-l-font-size);
-                        letter-spacing: var(
-                            --lz-typescale-headline-l-font-tracking
-                        );
-                        font-weight: var(--lz-typescale-headline-l-font-weight);
-                        font-variation-settings: var(
-                            --lz-typescale-headline-l-font-wght
-                        );
-                    }
+                    padding-inline: var(--lz-button-x-large-padding-inline);
                 }
             }
 
             &[data-overrides~="brand-font"] {
                 font-family: var(--lz-typography-typeface-brand);
+                --lz-font-offset: var(--lz-button-font-offset);
             }
         }
     }
@@ -545,18 +574,20 @@
 
             /* Square button corner radius scales with size */
             &[data-shape="square"] {
-                &[data-size="x-small"],
+                &[data-size="x-small"] {
+                    border-radius: var(--lz-button-x-small-shape);
+                }
                 &[data-size="small"] {
-                    border-radius: var(--lzshape-corner-radius-md);
+                    border-radius: var(--lz-button-small-shape);
                 }
-
                 &[data-size="medium"] {
-                    border-radius: var(--lz-shape-corner-radius-lg);
+                    border-radius: var(--lz-button-medium-shape);
                 }
-
-                &[data-size="large"],
+                &[data-size="large"] {
+                    border-radius: var(--lz-button-large-shape);
+                }
                 &[data-size="x-large"] {
-                    border-radius: var(--lz-shape-corner-radius-xl);
+                    border-radius: var(--lz-button-x-large-shape);
                 }
             }
         }
@@ -640,10 +671,9 @@
     @layer state {
         .lz-button .surface {
             position: relative;
-            transition:
-                background-color var(--lz-motion-duration-short1) ease,
-                color var(--lz-motion-duration-short1) ease,
-                box-shadow var(--lz-motion-duration-short1) ease;
+            transition-property: background-color, color, box-shadow;
+            transition-duration: var(--lz-button-transition-duration);
+            transition-timing-function: var(--lz-button-transition-easing);
 
             &:not([data-color="elevated"]) {
                 /* reset other buttons */
@@ -657,10 +687,9 @@
 
             &:before {
                 /* using :before as state layer */
-                transition:
-                    color var(--lz-motion-duration-short1) ease,
-                    transform var(--lz-motion-duration-short1) ease,
-                    opacity var(--lz-motion-duration-short1) ease;
+                transition-property: color, opacity;
+                transition-duration: var(--lz-button-transition-duration);
+                transition-timing-function: var(--lz-button-transition-easing);
             }
         }
 
@@ -687,18 +716,19 @@
                     }
 
                     &:before {
-                        opacity: var(--lz-opacity-hover);
+                        opacity: var(--lz-button-opacity-hover);
                     }
                 }
             }
 
             /* Focus */
             &:focus-visible .surface {
-                outline: 3px solid var(--lz-color-primary);
-                outline-offset: 2px;
+                outline: var(--lz-button-focus-ring-width) solid
+                    var(--lz-button-focus-ring-color);
+                outline-offset: var(--lz-button-focus-ring-offset);
 
                 &:before {
-                    opacity: var(--lz-opacity-focus);
+                    opacity: var(--lz-button-opacity-focus);
                 }
             }
 
@@ -720,7 +750,7 @@
                     }
 
                     &:before {
-                        opacity: var(--lz-opacity-press);
+                        opacity: var(--lz-button-opacity-press);
                     }
                 }
             }
@@ -729,7 +759,7 @@
             &[aria-pressed="true"],
             &[aria-expanded="true"] {
                 & .surface:before {
-                    opacity: var(--lz-opacity-press);
+                    opacity: var(--lz-button-opacity-press);
                 }
             }
         }

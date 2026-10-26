@@ -1,11 +1,20 @@
 :root {
-    /* Controls labels vertical offset
-        Useful if using multiple fonts
-    */
-    --lz-button-font-offset: 1px;
-    /* todo: colours, text offset, elevation, */
+    /* --- General & Typography --- */
+    --lz-button-font-offset: 0px;
+    --lz-button-transition-duration: 0ms;
+    --lz-button-transition-easing: ease;
 
-    /* Colors */
+    /* --- Focus Ring --- */
+    --lz-button-focus-ring-width: 3px;
+    --lz-button-focus-ring-offset: 2px;
+    --lz-button-focus-ring-color: var(--lz-color-primary);
+
+    /* --- State Opacities --- */
+    --lz-button-opacity-hover: var(--lz-opacity-hover, 0.08);
+    --lz-button-opacity-press: var(--lz-opacity-press, 0.12);
+    --lz-button-opacity-focus: var(--lz-opacity-focus, 0.12);
+
+    /* --- Colors: Standard & Toggle Variants --- */
     --lz-button-surface-filled-bg: var(--lz-color-primary);
     --lz-button-surface-filled-fg: var(--lz-color-on-primary);
 
@@ -19,4 +28,107 @@
     --lz-button-surface-outlined-fg: var(--lz-color-on-surface-variant);
 
     --lz-button-surface-text-fg: var(--lz-color-primary);
+
+    /* --- Size: X-Small --- */
+    --lz-button-x-small-height: 2rem;
+    --lz-button-x-small-min-width: 2rem;
+    --lz-button-x-small-gap: var(--lz-spacing-space50, 0.25rem);
+    --lz-button-x-small-padding-inline: var(--lz-spacing-space150, 0.75rem);
+    --lz-button-x-small-icon-size: 1.25rem;
+    --lz-button-x-small-outline-width: 1px;
+    --lz-button-x-small-font: normal normal
+        var(--lz-typescale-label-l-font-weight) normal
+        var(--lz-typescale-label-l-font-size)/var(
+            --lz-typescale-label-l-line-height
+        )
+        var(--lz-typography-typeface-plain);
+    --lz-button-x-small-letter-spacing: var(
+        --lz-typescale-label-l-font-tracking
+    );
+    --lz-button-x-small-font-variation-settings: var(
+        --lz-typescale-label-l-font-wght
+    );
+    --lz-button-x-small-shape: var(--lz-shape-corner-radius-md);
+
+    /* --- Size: Small --- */
+    --lz-button-small-height: 2.5rem;
+    --lz-button-small-min-width: 2.5rem;
+    --lz-button-small-gap: var(--lz-spacing-space50, 0.25rem);
+    --lz-button-small-padding-inline: var(--lz-spacing-space150, 0.75rem);
+    --lz-button-small-icon-size: 1.25rem;
+    --lz-button-small-outline-width: 1px;
+    --lz-button-small-font: normal normal
+        var(--lz-typescale-label-l-font-weight) normal
+        var(--lz-typescale-label-l-font-size)/var(
+            --lz-typescale-label-l-line-height
+        )
+        var(--lz-typography-typeface-plain);
+    --lz-button-small-letter-spacing: var(--lz-typescale-label-l-font-tracking);
+    --lz-button-small-font-variation-settings: var(
+        --lz-typescale-label-l-font-wght
+    );
+    --lz-button-small-shape: var(--lz-shape-corner-radius-md);
+
+    /* --- Size: Medium --- */
+    --lz-button-medium-height: 3.5rem;
+    --lz-button-medium-min-width: 3.5rem;
+    --lz-button-medium-gap: var(--lz-spacing-space100, 0.5rem);
+    --lz-button-medium-padding-inline: var(--lz-spacing-space300, 1.5rem);
+    --lz-button-medium-icon-size: 1.5rem;
+    --lz-button-medium-outline-width: 1px;
+    --lz-button-medium-font: normal normal
+        var(--lz-typescale-title-m-font-weight) normal
+        var(--lz-typescale-title-m-font-size)/var(
+            --lz-typescale-title-m-line-height
+        )
+        var(--lz-typography-typeface-plain);
+    --lz-button-medium-letter-spacing: var(
+        --lz-typescale-title-m-font-tracking
+    );
+    --lz-button-medium-font-variation-settings: var(
+        --lz-typescale-title-m-font-wght
+    );
+    --lz-button-medium-shape: var(--lz-shape-corner-radius-lg);
+
+    /* --- Size: Large --- */
+    --lz-button-large-height: 6rem;
+    --lz-button-large-min-width: 6rem;
+    --lz-button-large-gap: var(--lz-spacing-space150, 0.75rem);
+    --lz-button-large-padding-inline: var(--lz-spacing-space600, 3rem);
+    --lz-button-large-icon-size: 2rem;
+    --lz-button-large-outline-width: 2px;
+    --lz-button-large-font: normal normal
+        var(--lz-typescale-headline-s-font-weight) normal
+        var(--lz-typescale-headline-s-font-size)/var(
+            --lz-typescale-headline-s-line-height
+        )
+        var(--lz-typography-typeface-plain);
+    --lz-button-large-letter-spacing: var(
+        --lz-typescale-headline-s-font-tracking
+    );
+    --lz-button-large-font-variation-settings: var(
+        --lz-typescale-headline-s-font-wght
+    );
+    --lz-button-large-shape: var(--lz-shape-corner-radius-xl);
+
+    /* --- Size: X-Large --- */
+    --lz-button-x-large-height: 8.5rem;
+    --lz-button-x-large-min-width: 8.5rem;
+    --lz-button-x-large-gap: var(--lz-spacing-space150, 0.75rem);
+    --lz-button-x-large-padding-inline: var(--lz-spacing-space800, 4rem);
+    --lz-button-x-large-icon-size: 2.5rem;
+    --lz-button-x-large-outline-width: 3px;
+    --lz-button-x-large-font: normal normal
+        var(--lz-typescale-headline-l-font-weight) normal
+        var(--lz-typescale-headline-l-font-size)/var(
+            --lz-typescale-headline-l-line-height
+        )
+        var(--lz-typography-typeface-plain);
+    --lz-button-x-large-letter-spacing: var(
+        --lz-typescale-headline-l-font-tracking
+    );
+    --lz-button-x-large-font-variation-settings: var(
+        --lz-typescale-headline-l-font-wght
+    );
+    --lz-button-x-large-shape: var(--lz-shape-corner-radius-xl);
 }

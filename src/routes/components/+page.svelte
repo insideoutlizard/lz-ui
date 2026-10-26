@@ -16,7 +16,11 @@
     <header class="lz-page-header">
         <hgroup>
             <h1 class="headline">Components</h1>
-            <a href="https://m3.material.io/components" target="_blank">Docs</a>
+            <a
+                href="https://m3.material.io/components"
+                target="_blank"
+                rel="noopener noreferrer">Docs</a
+            >
         </hgroup>
     </header>
 </section>

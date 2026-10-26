@@ -9,7 +9,10 @@
             <h1 class="headline">lz-ui</h1>
             <p>
                 Component library made with SvelteKit. Attempts to follow the
-                official <a href="https://m3.material.io/" target="_blank"
+                official <a
+                    href="https://m3.material.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     >Material 3 docs
                 </a>
                 with improvements for traditional desktop websites.
@@ -18,7 +21,8 @@
                 This project also implements Material 3
                 <a
                     href="https://m3.material.io/foundations/design-tokens/overview"
-                    target="_blank">design tokens</a
+                    target="_blank"
+                    rel="noopener noreferrer">design tokens</a
                 > as CSS variables.
             </p>
         </hgroup>

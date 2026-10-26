@@ -80,11 +80,110 @@
 
     export type LzButtonProps =
         LzButtonStandardProps | LzButtonIconOnlyProps | LzButtonLinkProps;
+
+    export interface LzToggleConfig {
+        variant: string | "default";
+        pressed: boolean;
+        expanded?: boolean;
+        onToggle: (nextState: boolean) => void;
+        onclick?: (e: MouseEvent | KeyboardEvent) => void;
+    }
+
+    export interface LzKeyboardHandlerOptions {
+        disabled: boolean;
+        isToggle: boolean;
+        onActivate: (e: KeyboardEvent) => void;
+        setKeyboardActive: (active: boolean) => void;
+    }
+
+    export function handleKeyDown(
+        e: KeyboardEvent,
+        {
+            disabled,
+            isToggle,
+            onActivate,
+            setKeyboardActive,
+        }: LzKeyboardHandlerOptions,
+    ) {
+        if (disabled || (e.key !== "Enter" && e.key !== " ")) return;
+
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setKeyboardActive(true);
+            if (isToggle) {
+                onActivate(e);
+            }
+        }
+    }
+
+    export function handleKeyUp(
+        e: KeyboardEvent,
+        {
+            disabled,
+            isToggle,
+            onActivate,
+            setKeyboardActive,
+        }: LzKeyboardHandlerOptions,
+    ) {
+        if (disabled || (e.key !== "Enter" && e.key !== " ")) return;
+
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            if (!isToggle) {
+                onActivate(e);
+            }
+            setKeyboardActive(false);
+        }
+    }
+
+    export interface LzHashScrollOptions {
+        href?: string;
+        onclick?: (e: MouseEvent) => void;
+        headerOffset?: number;
+    }
+
+    export function handleHashScroll(
+        e: MouseEvent,
+        { href, onclick, headerOffset }: LzHashScrollOptions,
+    ) {
+        if (onclick) onclick(e);
+        if (e.defaultPrevented || !href?.startsWith("#") || href.length <= 1)
+            return;
+
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+            e.preventDefault();
+            const elPos = targetElement.getBoundingClientRect().top;
+            const offsetPos = elPos + window.scrollY - (headerOffset ?? 0);
+
+            window.scrollTo({
+                top: offsetPos,
+                behavior: "smooth",
+            });
+        }
+    }
+
+    export const executeButton = (
+        e: MouseEvent | KeyboardEvent,
+        config: LzToggleConfig,
+    ): boolean => {
+        if (config.variant === "toggle") {
+            const currentState = config.expanded ?? config.pressed;
+            config.onToggle(!currentState);
+        }
+
+        if (config.onclick) {
+            config.onclick(e);
+        }
+
+        return true;
+    };
 </script>
 
 <script lang="ts">
     import "./button.css";
     import { formatClasses } from "#lib/types.ts";
+    import { LzIcon } from "../../icons";
 
     let {
         className = null,
@@ -124,9 +223,46 @@
     let isToggle = $derived(variant === "toggle" && !isLink);
     let isExpander = $derived(variant === "toggle" && expanded !== undefined);
 
+    let isToggled = $derived(Boolean(pressed || expanded || current));
+
     // const classesRaw = $derived(className)
     let classes = $derived(formatClasses("lz-button", className));
     let overridesFmt = $derived(overrides?.filter(Boolean).join(" "));
+
+    const handleActivate = (e: MouseEvent | KeyboardEvent) => {
+        executeButton(e, {
+            variant,
+            pressed,
+            expanded,
+            onToggle: (next) => {
+                if (isExpander) {
+                    expanded = next;
+                } else {
+                    pressed = next;
+                }
+            },
+            onclick,
+        });
+    };
+
+    const onKeyDown = (e: KeyboardEvent) =>
+        handleKeyDown(e, {
+            disabled,
+            isToggle,
+            onActivate: handleActivate,
+            setKeyboardActive: (v) => (isKeyboardActive = v),
+        });
+
+    const onKeyUp = (e: KeyboardEvent) =>
+        handleKeyUp(e, {
+            disabled,
+            isToggle,
+            onActivate: handleActivate,
+            setKeyboardActive: (v) => (isKeyboardActive = v),
+        });
+
+    const onHashScroll = (e: MouseEvent) =>
+        handleHashScroll(e, { href, onclick });
 </script>
 
 <!--
@@ -141,8 +277,14 @@
         data-shape={shape}
         data-overrides={overridesFmt}
     >
-        {#if IconLeading}
-            <IconLeading />
+        {#if IconLeading && IconToggled}
+            <LzIcon
+                active={isToggled}
+                inactiveIcon={IconLeading}
+                activeIcon={IconToggled}
+            />
+        {:else if IconLeading}
+            <LzIcon inactiveIcon={IconLeading} />
         {/if}
 
         {#if label || children}
@@ -156,7 +298,7 @@
         {/if}
 
         {#if IconTrailing}
-            <IconTrailing />
+            <LzIcon inactiveIcon={IconTrailing} />
         {/if}
     </span>
 {/snippet}
@@ -174,7 +316,7 @@
         {href}
         {target}
         aria-current={current ? current : undefined}
-        onclick={null}
+        onclick={onHashScroll}
         {...restProps}>{@render surface()}</a
     >
 {:else}
@@ -188,9 +330,9 @@
         aria-pressed={isToggle && !isExpander ? pressed : undefined}
         aria-expanded={isExpander ? expanded : undefined}
         data-active={!isToggle && isKeyboardActive ? "" : null}
-        onclick={null}
-        onkeydown={null}
-        onkeyup={null}
+        onclick={handleActivate}
+        onkeydown={onKeyDown}
+        onkeyup={onKeyUp}
         style={anchorName ? `anchor-name: ${anchorName}` : null}
         {...restProps}>{@render surface()}</button
     >
@@ -463,30 +605,30 @@
         .lz-button[aria-pressed="false"] .surface[data-color="filled"],
         .lz-button[aria-expanded="false"] .surface[data-color="filled"],
         .lz-button[aria-current="false"] .surface[data-color="filled"] {
-            background: var(--lz-surface-container);
-            color: var(--lz-on-surface-variant);
+            background: var(--lz-color-surface-container);
+            color: var(--lz-color-on-surface-variant);
         }
 
         .lz-button[aria-pressed="true"],
         .lz-button[aria-expanded="true"] {
             .surface[data-color="tonal"] {
-                background: var(--lz-secondary);
-                color: var(--lz-on-secondary);
+                background: var(--lz-color-secondary);
+                color: var(--lz-color-on-secondary);
             }
 
             .surface[data-color="elevated"] {
-                background: var(--lz-primary);
-                color: var(--lz-on-primary);
+                background: var(--lz-color-primary);
+                color: var(--lz-color-on-primary);
             }
 
             .surface[data-color="outlined"] {
-                background: var(--lz-on-surface);
+                background: var(--lz-color-inverse-surface);
                 box-shadow: none;
-                color: var(--lz-surface);
+                color: var(--lz-color-inverse-on-surface);
             }
 
             .surface[data-color="text"] {
-                color: var(--lz-primary);
+                color: var(--lz-color-primary);
 
                 &:before {
                     opacity: var(--lz-opacity-press);

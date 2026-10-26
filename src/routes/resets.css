@@ -1,0 +1,62 @@
+:root {
+    --lz-typeface-brand: Roboto;
+    --lz-typeface-plain: Roboto;
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-color: var(--lz-color-surface-variant) transparent;
+    scrollbar-width: thin;
+
+    --lz-density-global: var(--lz-spacing-density-2);
+    --lz-max-content-width: 100%;
+    --lz-gutter: var(--lz-spacing-space300);
+}
+
+@media (width >= 1280px) {
+    :root {
+        --lz-max-content-width: 1152px;
+    }
+}
+
+@layer lz-ui-reset;
+
+@layer lz-ui-reset {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-family: var(--lz-typography-typeface-brand);
+    }
+
+    p,
+    small {
+        margin: 0;
+        max-inline-size: 65ch;
+        max-width: 48rem;
+        font-family: var(--lz-typography-typeface-plain);
+    }
+
+    ul,
+    li {
+        margin: 0;
+        padding: 0;
+    }
+    ul {
+        list-style-type: none;
+    }
+
+    section {
+        margin: 0;
+    }
+}

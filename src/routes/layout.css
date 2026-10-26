@@ -1,24 +1,3 @@
-:root {
-    color-scheme: light dark;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    scrollbar-color: var(--lz-color-on-surface-variant)
-        var(--lz-color-surface-variant);
-    scrollbar-width: thin;
-
-    --lz-density-global: var(--lz-spacing-density-3);
-    --lz-max-content-width: 100%;
-    --lz-gutter: var(--lz-spacing-space300);
-}
-
-@media (width >= 1280px) {
-    :root {
-        --lz-max-content-width: 1152px;
-    }
-}
-
 html {
     font-size: 100%;
     min-height: 100dvh;
@@ -95,6 +74,15 @@ body {
             &:first-of-type {
                 padding-top: var(--lz-spacing-space900);
             }
+
+            & .lz-section-header hgroup .headline {
+                font-size: var(--lz-typescale-headline-l-font-size);
+                letter-spacing: var(--lz-typescale-headline-l-font-tracking);
+                font-weight: var(--lz-typescale-headline-l-font-weight);
+                font-variation-settings: var(
+                    --lz-typescale-headline-l-font-wght
+                );
+            }
         }
 
         &.nested {
@@ -121,8 +109,10 @@ body {
     &:not(.hero) hgroup .headline {
         font-size: var(--lz-typescale-display-s-font-size);
         letter-spacing: var(--lz-typescale-display-s-font-tracking);
-        font-weight: var(--lz-typescale-display-s-font-weight);
-        font-variation-settings: var(--lz-typescale-display-s-font-wght);
+        font-weight: var(--lz-typescale-display-s-font-weight-emphasized);
+        font-variation-settings: var(
+            --lz-typescale-display-s-font-wght-emphasized
+        );
     }
 
     &.hero hgroup {
@@ -131,8 +121,14 @@ body {
         & .headline {
             font-size: var(--lz-typescale-display-l-font-size);
             letter-spacing: var(--lz-typescale-display-l-font-tracking);
-            font-weight: var(--lz-typescale-display-l-font-weight);
-            font-variation-settings: var(--lz-typescale-display-l-font-wght);
+            font-weight: var(--lz-typescale-display-l-font-weight-emphasized);
+            font-variation-settings: var(
+                --lz-typescale-display-l-font-wght-emphasized
+            );
         }
     }
+}
+
+a {
+    width: fit-content;
 }

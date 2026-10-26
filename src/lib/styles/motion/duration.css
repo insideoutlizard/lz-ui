@@ -1,0 +1,21 @@
+:root {
+    --lz-motion-duration-short1: 50ms;
+    --lz-motion-duration-short2: 100ms;
+    --lz-motion-duration-short3: 150ms;
+    --lz-motion-duration-short4: 200ms;
+
+    --lz-motion-duration-medium1: 250ms;
+    --lz-motion-duration-medium2: 300ms;
+    --lz-motion-duration-medium3: 350ms;
+    --lz-motion-duration-medium4: 400ms;
+
+    --lz-motion-duration-long1: 450ms;
+    --lz-motion-duration-long2: 500ms;
+    --lz-motion-duration-long3: 550ms;
+    --lz-motion-duration-long4: 600ms;
+
+    --lz-motion-duration-extra-long1: 700ms;
+    --lz-motion-duration-extra-long2: 800ms;
+    --lz-motion-duration-extra-long3: 900ms;
+    --lz-motion-duration-extra-long4: 1000ms;
+}

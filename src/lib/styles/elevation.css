@@ -1,0 +1,25 @@
+:root {
+    /* using custom elevation instead of default m3 */
+
+    --lz-elevation-0: 0 0 0 0 oklch(0 0 0 / 0);
+    --lz-elevation-1:
+        0px 1px 2px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.05),
+        0px 1px 3px 1px oklch(from var(--lz-color-primary) 0.08 c h / 0.05),
+        0px 1px 2px -1px oklch(from var(--lz-color-primary) 0.08 c h / 0.1);
+    --lz-elevation-2:
+        0px 2px 4px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
+        0px 4px 8px 1px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
+        0px 2px 4px -1px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+    --lz-elevation-3:
+        0px 4px 6px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
+        0px 8px 16px 2px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
+        0px 4px 6px -2px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+    --lz-elevation-4:
+        0px 6px 10px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
+        0px 12px 24px 3px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
+        0px 6px 10px -3px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+    --lz-elevation-5:
+        0px 8px 14px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
+        0px 16px 32px 4px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
+        0px 8px 14px -4px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+}

@@ -1,0 +1,22 @@
+:root {
+    /* Controls labels vertical offset
+        Useful if using multiple fonts
+    */
+    --lz-button-font-offset: 1px;
+    /* todo: colours, text offset, elevation, */
+
+    /* Colors */
+    --lz-button-surface-filled-bg: var(--lz-color-primary);
+    --lz-button-surface-filled-fg: var(--lz-color-on-primary);
+
+    --lz-button-surface-tonal-bg: var(--lz-color-secondary-container);
+    --lz-button-surface-tonal-fg: var(--lz-color-on-secondary-container);
+
+    --lz-button-surface-elevated-bg: var(--lz-color-surface-container-low);
+    --lz-button-surface-elevated-fg: var(--lz-color-primary);
+
+    --lz-button-surface-outlined-bg: var(--lz-color-outline-variant);
+    --lz-button-surface-outlined-fg: var(--lz-color-on-surface-variant);
+
+    --lz-button-surface-text-fg: var(--lz-color-primary);
+}

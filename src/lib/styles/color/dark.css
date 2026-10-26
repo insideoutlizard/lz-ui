@@ -1,0 +1,41 @@
+:root[data-color-scheme="dark"] {
+    --lz-color-primary: #d0bcff;
+    --lz-color-on-primary: #381e72;
+    --lz-color-primary-container: #4f378b;
+    --lz-color-on-primary-container: #eaddff;
+
+    --lz-color-secondary: #ccc2dc;
+    --lz-color-on-secondary: #332d41;
+    --lz-color-secondary-container: #4a4458;
+    --lz-color-on-secondary-container: #e8def8;
+
+    --lz-color-tertiary: #efb8c8;
+    --lz-color-on-tertiary: #492532;
+    --lz-color-tertiary-container: #633b48;
+    --lz-color-on-tertiary-container: #ffd8e4;
+
+    --lz-color-error: #f2b8b5;
+    --lz-color-on-error: #601410;
+    --lz-color-error-container: #8c1d18;
+    --lz-color-on-error-container: #f9dedc;
+
+    --lz-color-surface: #141218;
+    --lz-color-on-surface: #e6e0e9;
+    --lz-color-surface-variant: #49454f;
+    --lz-color-on-surface-variant: #cac4d0;
+
+    --lz-color-surface-container-highest: #36343b;
+    --lz-color-surface-container-high: #2b2930;
+    --lz-color-surface-container: #211f26;
+    --lz-color-surface-container-low: #1d1b20;
+    --lz-color-surface-container-lowest: #0f0d13;
+
+    --lz-color-inverse-surface: #e6e0e9;
+    --lz-color-inverse-on-surface: #322f35;
+
+    --lz-color-outline: #938f99;
+    --lz-color-outline-variant: #49454f;
+
+    /* Add-on colors */
+    --lz-color-inverse-primary: #6750a4;
+}

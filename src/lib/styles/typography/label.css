@@ -1,0 +1,28 @@
+:root {
+    --lz-typescale-label-l-font-size: 0.875rem;
+    --lz-typescale-label-l-line-height: 1.25rem;
+    --lz-typescale-label-l-font-tracking: 0.005em;
+    --lz-typescale-label-l-font-weight: var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-l-font-wght: "wght"
+        var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-l-font-wght-emphasized: "wght"
+        var(--lz-typography-font-weight-bold);
+
+    --lz-typescale-label-m-font-size: 0.75rem;
+    --lz-typescale-label-m-line-height: 1rem;
+    --lz-typescale-label-m-font-tracking: 0.01em;
+    --lz-typescale-label-m-font-weight: var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-m-font-wght: "wght"
+        var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-m-font-wght-emphasized: "wght"
+        var(--lz-typography-font-weight-bold);
+
+    --lz-typescale-label-s-font-size: 0.6875rem;
+    --lz-typescale-label-s-line-height: 1rem;
+    --lz-typescale-label-s-font-tracking: 0.02em;
+    --lz-typescale-label-s-font-weight: var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-s-font-wght: "wght"
+        var(--lz-typography-font-weight-medium);
+    --lz-typescale-label-s-font-wght-emphasized: "wght"
+        var(--lz-typography-font-weight-bold);
+}

@@ -1,0 +1,28 @@
+:root {
+    --lz-typescale-display-l-font-size: 3.5625rem;
+    --lz-typescale-display-l-line-height: 4rem;
+    --lz-typescale-display-l-font-tracking: -0.04em;
+    --lz-typescale-display-l-font-weight: var(
+        --lz-typography-font-weight-regular
+    );
+    --lz-typescale-display-l-font-wght: "wght"
+        var(--lz-typography-font-weight-regular);
+    --lz-typescale-display-l-font-wght-emphasized: "wght"
+        var(--lz-font-weight-medium);
+
+    --lz-typescale-display-m-font-size: 2.8125rem;
+    --lz-typescale-display-m-line-height: 3.25rem;
+    --lz-typescale-display-m-font-tracking: -0.035em;
+    --lz-typescale-display-m-font-weight: var(--lz-font-weight-regular);
+    --lz-typescale-display-m-font-wght: "wght" var(--lz-font-weight-regular);
+    --lz-typescale-display-m-font-wght-emphasized: "wght"
+        var(--lz-font-weight-medium);
+
+    --lz-typescale-display-s-font-size: 2.25rem;
+    --lz-typescale-display-s-line-height: 2.75rem;
+    --lz-typescale-display-s-font-tracking: -0.03em;
+    --lz-typescale-display-s-font-weight: var(--lz-font-weight-regular);
+    --lz-typescale-display-s-font-wght: "wght" var(--lz-font-weight-regular);
+    --lz-typescale-display-s-font-wght-emphasized: "wght"
+        var(--lz-font-weight-medium);
+}

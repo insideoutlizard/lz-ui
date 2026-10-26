@@ -1,0 +1,9 @@
+@import "light.css";
+@import "dark.css";
+
+:root {
+    --lz-color-primary-fixed: #eaddff;
+    --lz-color-on-primary-fixed: #21005d;
+    --lz-color-primary-fixed-dim: #d0bcff;
+    --lz-color-on-primary-fixed-variant: #4f378b;
+}

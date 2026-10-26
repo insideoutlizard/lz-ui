@@ -47,6 +47,11 @@
         font-family: var(--lz-typography-typeface-plain);
     }
 
+    a {
+        width: fit-content;
+        min-width: var(--lz-touch-target-size);
+    }
+
     ul,
     li {
         margin: 0;

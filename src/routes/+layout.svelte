@@ -88,7 +88,7 @@
     .dev-nav {
         display: flex;
         flex-direction: column;
-        gap: var(--lz-spacing-space100);
+
         width: var(--rail-width);
         position: fixed;
         top: 0;
@@ -105,14 +105,14 @@
             list-style-type: none;
             display: flex;
             flex-direction: column;
-            gap: var(--lz-spacing-space50);
+            gap: var(--lz-spacing-space200);
             width: 100%;
 
             & li {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: var(--lz-spacing-space100);
+                gap: var(--lz-spacing-space50);
 
                 :global(.lz-button .surface) {
                     height: 2rem;

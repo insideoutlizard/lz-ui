@@ -62,6 +62,7 @@
     export interface LzButtonStandardProps extends LzButtonBaseProps {
         href?: never;
         target?: never;
+        rel?: never;
         current?: never;
     }
 
@@ -69,13 +70,15 @@
         ariaLabel: string;
         href?: never;
         target?: never;
+        rel?: never;
         current?: never;
     }
 
     export interface LzButtonLinkProps extends LzButtonBaseProps {
-        current?: HTMLAttributes<HTMLAnchorElement>["aria-current"];
         href: string;
         target?: string | null;
+        rel?: string | null;
+        current?: HTMLAttributes<HTMLAnchorElement>["aria-current"];
     }
 
     export type LzButtonProps =
@@ -214,6 +217,7 @@
 
         href,
         target = null,
+        rel = null,
         current,
         ...restProps
     }: LzButtonProps = $props();
@@ -315,6 +319,7 @@
         aria-disabled={disabled ? "true" : undefined}
         {href}
         {target}
+        {rel}
         aria-current={current ? current : undefined}
         onclick={onHashScroll}
         {...restProps}>{@render surface()}</a
@@ -415,7 +420,6 @@
                 z-index: -1;
                 border-radius: inherit;
                 opacity: 0;
-                transition: opacity var(--lz-motion-duration-short1) ease;
             }
 
             &:has(:global(.lz-icon)) :global(svg) {

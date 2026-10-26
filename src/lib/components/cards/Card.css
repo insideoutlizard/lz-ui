@@ -1,0 +1,14 @@
+:root {
+    --lz-card-padding: var(--lz-spacing-space200);
+    --lz-card-gap: var(--lz-spacing-space200);
+    --lz-card-corner-shape: var(--lz-shape-corner-radius-md);
+
+    --lz-card-filled-bg: var(--lz-color-surface-container-highest);
+    --lz-card-filled-fg: var(--lz-color-on-surface-variant);
+
+    --lz-card-elevated-bg: var(--lz-color-surface-container-low);
+    --lz-card-elevated-fg: var(--lz-color-on-surface-variant);
+
+    --lz-card-outlined-bg: var(--lz-color-outline-variant);
+    --lz-card-outlined-fg: var(--lz-color-on-surface-variant);
+}

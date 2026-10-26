@@ -72,19 +72,22 @@
             </header>
             <ul id="btn-sizes">
                 <li>
-                    <LzButton size="x-small">Extra small</LzButton>
+                    <LzButton size="x-small" color="tonal">Extra small</LzButton
+                    >
                 </li>
                 <li>
-                    <LzButton size="small">Small</LzButton>
+                    <LzButton size="small" color="tonal">Small</LzButton>
                 </li>
                 <li>
-                    <LzButton size="medium">Medium</LzButton>
+                    <LzButton size="medium" color="tonal">Medium</LzButton>
                 </li>
                 <li>
-                    <LzButton size="large">Large</LzButton>
+                    <LzButton size="large" color="outlined">Large</LzButton>
                 </li>
                 <li>
-                    <LzButton size="x-large">Extra large</LzButton>
+                    <LzButton size="x-large" color="outlined"
+                        >Extra large</LzButton
+                    >
                 </li>
             </ul>
         </li>

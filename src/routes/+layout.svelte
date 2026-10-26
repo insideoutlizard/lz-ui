@@ -5,6 +5,8 @@
 
     import "#lib/styles/index.css";
     import { page } from "$app/state";
+    import { fly, fade } from "svelte/transition";
+    import { cubicIn, cubicOut } from "svelte/easing";
 
     import BugIcon from "~icons/material-symbols/bug-report-outline-sharp";
     import BugIconFill from "~icons/material-symbols/bug-report-sharp";
@@ -44,13 +46,16 @@
         <ul>
             {#each navItems as page}
                 {@const isCurrent = currentPath === page?.path}
+
                 <li>
                     <LzButton
                         size="x-small"
                         color={isCurrent ? "tonal" : "text"}
                         href={page?.path}
                         ariaLabel={page?.title}
-                        iconLeading={isCurrent ? page?.activeIcon : page?.icon}
+                        iconLeading={page?.icon}
+                        iconToggled={page?.activeIcon}
+                        current={isCurrent}
                     ></LzButton>
                     <span class="rail-link-label">{page?.title}</span>
                 </li>
@@ -58,9 +63,16 @@
         </ul>
     </nav>
 </aside>
-<main id="content">
-    {@render children()}
-</main>
+
+{#key currentPath}
+    <main
+        id="content"
+        in:fly={{ y: 12, duration: 200, delay: 48, easing: cubicOut }}
+        out:fade={{ duration: 150, easing: cubicIn }}
+    >
+        {@render children()}
+    </main>
+{/key}
 
 <style>
     :root {

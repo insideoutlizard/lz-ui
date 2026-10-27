@@ -9,7 +9,7 @@
     scrollbar-color: var(--lz-color-surface-variant) transparent;
     scrollbar-width: thin;
 
-    --lz-density-global: var(--lz-spacing-density-2);
+    --lz-density-global: var(--lz-spacing-density-1);
     --lz-max-content-width: 100%;
     --lz-gutter: var(--lz-spacing-space300);
 }

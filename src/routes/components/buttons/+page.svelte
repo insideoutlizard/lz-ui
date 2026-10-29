@@ -226,6 +226,14 @@
             font-weight: var(--lz-typescale-headline-l-font-weight);
             font-variation-settings: var(--lz-typescale-title-l-font-wght);
         }
+
+        ul li {
+            padding: var(--lz-spacing-space200) var(--lz-spacing-space100);
+        }
+    }
+
+    .vert-list {
+        padding: var(--lz-spacing-space200) var(--lz-spacing-space100);
     }
 
     :global(.lz-card) {

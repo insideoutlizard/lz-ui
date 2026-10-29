@@ -1,25 +1,33 @@
 :root {
-    /* using custom elevation instead of default m3 */
+    --shadow-penumbra-color: oklch(0 0 0 / 0.08);
+    --shadow-umbra-color: oklch(0 0 0 / 0.06);
+    --shadow-ambient-color: oklch(0 0 0 / 0.1);
 
-    --lz-elevation-0: 0 0 0 0 oklch(0 0 0 / 0);
+    /* 0dp */
+    --lz-elevation-0: none;
+    /* 1dp */
     --lz-elevation-1:
-        0px 1px 2px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.05),
-        0px 1px 3px 1px oklch(from var(--lz-color-primary) 0.08 c h / 0.05),
-        0px 1px 2px -1px oklch(from var(--lz-color-primary) 0.08 c h / 0.1);
+        0 1px 1px 0 var(--shadow-penumbra-color),
+        0 1px 1px -1px var(--shadow-umbra-color),
+        0 1px 2px 0 var(--shadow-ambient-color);
+    /* 3dp */
     --lz-elevation-2:
-        0px 2px 4px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
-        0px 4px 8px 1px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
-        0px 2px 4px -1px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+        0 1px 2px 0 var(--shadow-penumbra-color),
+        0 2px 1px -1px var(--shadow-umbra-color),
+        0 1px 3px 0 var(--shadow-ambient-color);
+    /* 6dp */
     --lz-elevation-3:
-        0px 4px 6px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
-        0px 8px 16px 2px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
-        0px 4px 6px -2px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+        0 2px 4px 0 var(--shadow-penumbra-color),
+        0 4px 2px -2px var(--shadow-umbra-color),
+        0 1px 5px 0 var(--shadow-ambient-color);
+    /* 8dp */
     --lz-elevation-4:
-        0px 6px 10px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
-        0px 12px 24px 3px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
-        0px 6px 10px -3px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+        0 4px 5px 0 var(--shadow-penumbra-color),
+        0 8px 4px -4px var(--shadow-umbra-color),
+        0 2px 10px 0 var(--shadow-ambient-color);
+    /* 12dp */
     --lz-elevation-5:
-        0px 8px 14px 0px oklch(from var(--lz-color-primary) 0.08 c h / 0.04),
-        0px 16px 32px 4px oklch(from var(--lz-color-primary) 0.08 c h / 0.06),
-        0px 8px 14px -4px oklch(from var(--lz-color-primary) 0.08 c h / 0.08);
+        0 8px 10px 1px var(--shadow-penumbra-color),
+        0 16px 14px -6px var(--shadow-umbra-color),
+        0 4px 18px 0 var(--shadow-ambient-color);
 }

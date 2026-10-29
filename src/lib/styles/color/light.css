@@ -1,42 +1,65 @@
 :root,
 :root[data-color-scheme="light"] {
-    --lz-color-primary: #6750a4;
-    --lz-color-on-primary: #fff;
-    --lz-color-primary-container: #eaddff;
-    --lz-color-on-primary-container: #4f378b;
+    --lz-color-seed-hue: 168;
+    --lz-color-surface-hue: calc(var(--lz-color-seed-hue) - 30);
 
-    --lz-color-secondary: #625b71;
-    --lz-color-on-secondary: #fff;
-    --lz-color-secondary-container: #e8def8;
-    --lz-color-on-secondary-container: #4a4458;
+    --lz-color-primary: oklch(0.42 0.04 var(--lz-color-seed-hue));
+    --lz-color-on-primary: oklch(0.985 0.002 var(--lz-color-seed-hue));
+    --lz-color-primary-container: oklch(0.92 0.012 var(--lz-color-seed));
+    --lz-color-on-primary-container: oklch(0.24 0.018 var(--lz-color-seed));
 
-    --lz-color-tertiary: #7d5260;
-    --lz-color-on-tertiary: #fff;
-    --lz-color-tertiary-container: #ffd8e4;
-    --lz-color-on-tertiary-container: #633b48;
+    --lz-color-secondary: oklch(0.5 0.03 var(--lz-color-surface-hue));
+    --lz-color-on-secondary: oklch(0.985 0.002 var(--lz-color-surface-hue));
+    --lz-color-secondary-container: oklch(
+        0.94 0.008 var(--lz-color-surface-hue)
+    );
+    --lz-color-on-secondary-container: oklch(
+        0.24 0.012 var(--lz-color-surface-hue)
+    );
+
+    --lz-color-tertiary: oklch(0.52 0.04 var(--lz-color-surface-hue));
+    --lz-color-on-tertiary: oklch(0.985 0.002 var(--lz-color-surface-hue));
+    --lz-color-tertiary-container: oklch(0.94 0.01 var(--lz-color-surface-hue));
+    --lz-color-on-tertiary-container: oklch(
+        0.24 0.014 var(--lz-color-surface-hue)
+    );
 
     --lz-color-error: #b3261e;
     --lz-color-on-error: #fff;
     --lz-color-error-container: #f9dedc;
     --lz-color-on-error-container: #8c1d18;
 
-    --lz-color-surface: #fef7ff;
-    --lz-color-on-surface: #1d1b20;
-    --lz-color-surface-variant: #e7e0ec;
-    --lz-color-on-surface-variant: #49454f;
+    --lz-color-surface: oklch(0.985 0.001 var(--lz-color-surface-hue));
+    --lz-color-on-surface: oklch(0.2 0.004 var(--lz-color-surface-hue));
+    --lz-color-surface-variant: oklch(0.945 0.0025 var(--lz-color-surface-hue));
+    --lz-color-on-surface-variant: oklch(
+        from var(--lz-color-on-surface) l c h / 0.65
+    );
 
-    --lz-color-surface-container-highest: #e6e0e9;
-    --lz-color-surface-container-high: #ece6f0;
-    --lz-color-surface-container: #f3edf7;
-    --lz-color-surface-container-low: #f7f2fa;
-    --lz-color-surface-container-lowest: #fff;
+    --lz-color-surface-container-highest: oklch(
+        0.945 0.0025 var(--lz-color-surface-hue)
+    );
+    --lz-color-surface-container-high: oklch(
+        0.955 0.002 var(--lz-color-surface-hue)
+    );
+    --lz-color-surface-container: oklch(
+        0.965 0.0015 var(--lz-color-surface-hue)
+    );
+    --lz-color-surface-container-low: oklch(
+        0.975 0.001 var(--lz-color-surface-hue)
+    );
+    --lz-color-surface-container-lowest: oklch(1 0 0);
 
-    --lz-color-inverse-surface: #322f25;
-    --lz-color-inverse-on-surface: #f5eff7;
+    --lz-color-inverse-surface: oklch(0.18 0.004 var(--lz-color-surface-hue));
+    --lz-color-inverse-on-surface: oklch(
+        0.97 0.001 var(--lz-color-surface-hue)
+    );
 
-    --lz-color-outline: #79747e;
-    --lz-color-outline-variant: #cac4d0;
+    --lz-color-outline: oklch(0.6 0.003 var(--lz-color-surface-hue));
+    --lz-color-outline-variant: oklch(0.88 0.0025 var(--lz-color-surface-hue));
 
     /* Add-on colors */
-    --lz-color-inverse-primary: #d0bcff;
+    --lz-color-inverse-primary: oklch(
+        from var(--lz-color-seed-hue) 0.72 0.022 h
+    );
 }

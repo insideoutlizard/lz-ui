@@ -65,7 +65,8 @@
                                 size="x-small"
                                 className="nav-rail-item-active-indicator"
                                 color={isCurrent ? "tonal" : "text"}
-                                overrides={["no-elevation"]}
+                                overrides={["no-elevation", "blank-tag"]}
+                                tabindex={-1}
                             >
                                 <LzIcon
                                     active={isCurrent}
@@ -118,7 +119,7 @@
                     & ul {
                         display: flex;
                         flex-direction: column;
-                        align-items: center;
+
                         width: 100%;
                         gap: var(--lz-spacing-space200);
                     }
@@ -128,11 +129,44 @@
                         flex-direction: column;
                         align-items: center;
                         width: 100%;
+
                         gap: var(--lz-spacing-space75);
                         text-decoration: none;
+                        position: relative;
+                        padding: 2px;
+                        box-sizing: border-box;
 
-                        & :global(.nav-rail-item-active-indicator .surface) {
-                            width: 3.5rem;
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            background: var(--lz-color-secondary-container);
+                            inset: 0;
+                            opacity: 0;
+                        }
+
+                        &:focus-visible {
+                            outline: var(
+                                    --lz-navigation-rail-item-focus-ring-width
+                                )
+                                solid
+                                var(--lz-navigation-rail-item-focus-ring-color);
+                            outline-offset: var(
+                                --lz-navigation-rail-item-focus-ring-offset
+                            );
+                            z-index: 999;
+
+                            &:before {
+                                opacity: var(--lz-opacity-focus);
+                            }
+                        }
+
+                        & :global(.nav-rail-item-active-indicator) {
+                            z-index: 1;
+
+                            & :global(.surface) {
+                                width: 3.5rem;
+                                z-index: 1;
+                            }
                         }
 
                         & .nav-rail-item-label {

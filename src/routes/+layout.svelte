@@ -11,13 +11,13 @@
     import BugIcon from "~icons/material-symbols/bug-report-outline-sharp";
     import BugIconFill from "~icons/material-symbols/bug-report-sharp";
 
-    import { LzButton } from "#lib";
+    import { LzButton, LzNavigationRail, type LzNavItem } from "#lib";
 
     const pages = import.meta.glob("/src/routes/**/+page.svelte", {
         eager: true,
     });
 
-    const navItems = Object.entries(pages)
+    const navItems: LzNavItem[] = Object.entries(pages)
         .map(([filePath, module]: [string, any]) => {
             let path = filePath
                 .replace("/src/routes", "")
@@ -25,50 +25,49 @@
             if (path === "") path = "/";
 
             // Use exported title, or fallback to file name
-            const title =
-                module.title ||
+            const label =
+                module.label ||
                 path.split("/").pop()?.replace(/-/g, " ") ||
                 "Home";
             const icon = module.icon ?? BugIcon;
             const activeIcon = module.activeIcon ?? BugIconFill;
             const order = module.order ?? 99; // Manual sorting priority
+            const current = page.url.pathname === path;
 
-            return { path, title, icon, activeIcon, order };
+            return { path, label, icon, activeIcon, order, current };
         })
-        .sort((a, b) => a.order - b.order);
+        .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
     let { children } = $props();
     let currentPath = $derived(page.url.pathname);
+
+    let isMobileSize = $state(false);
+
+    $effect(() => {
+        const mediaQuery = window.matchMedia("(width <= 839px)");
+        isMobileSize = mediaQuery.matches;
+
+        const handleResize = (e: MediaQueryListEvent) => {
+            isMobileSize = e.matches;
+        };
+
+        mediaQuery.addEventListener("change", handleResize);
+
+        return () => {
+            mediaQuery.removeEventListener("change", handleResize);
+        };
+    });
 </script>
 
-<aside class="dev-nav">
-    <nav class="rail-links">
-        <ul>
-            {#each navItems as page}
-                {@const isCurrent = currentPath === page?.path}
-
-                <li>
-                    <LzButton
-                        size="x-small"
-                        color={isCurrent ? "tonal" : "text"}
-                        href={page?.path}
-                        ariaLabel={page?.title}
-                        iconLeading={page?.icon}
-                        iconToggled={page?.activeIcon}
-                        current={isCurrent}
-                    ></LzButton>
-                    <span class="rail-link-label">{page?.title}</span>
-                </li>
-            {/each}
-        </ul>
-    </nav>
-</aside>
+{#if !isMobileSize}
+    <LzNavigationRail menuItems={navItems} ariaLabel="Primary links" />
+{/if}
 
 {#key currentPath}
     <main
         id="content"
-        in:fly={{ y: 12, duration: 200, delay: 48, easing: cubicOut }}
-        out:fade={{ duration: 150, easing: cubicIn }}
+        in:fly={{ y: 12, duration: 200, delay: 75, easing: cubicOut }}
+        out:fade={{ duration: 75, easing: cubicIn }}
     >
         {@render children()}
     </main>
@@ -76,59 +75,36 @@
 
 <style>
     :root {
-        --rail-width: 6rem;
+        --lz-typeface-brand: Roboto;
+        --lz-typeface-plain: Roboto;
+        color-scheme: light dark;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scrollbar-color: var(--lz-color-surface-variant) transparent;
+        scrollbar-width: thin;
+
+        --lz-density-global: var(--lz-spacing-density-1);
+        --lz-max-content-width: 100%;
+        --lz-gutter: var(--lz-spacing-space300);
+        /*--lz-content-space-top: var(--lz-app-bar-height);*/
+        --lz-content-space-top: 3.5rem;
+        --lz-content-space-left: 0;
+    }
+
+    @media (width >= 839px) {
+        :root {
+            --lz-max-content-width: 1024px;
+            --lz-content-space-top: 0;
+            --lz-content-space-left: var(--lz-navigation-rail-width);
+        }
     }
 
     #content {
-        margin-left: var(--rail-width);
+        margin-top: var(--lz-content-space-top);
+        margin-left: var(--lz-content-space-left);
         box-sizing: border-box;
-        width: calc(100% - var(--rail-width));
-    }
-
-    .dev-nav {
-        display: flex;
-        flex-direction: column;
-
-        width: var(--rail-width);
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        padding-top: 2.75rem;
-
-        background: var(--lz-color-surface-container);
-        box-shadow: var(--lz-elevation-0);
-
-        .rail-links ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--lz-spacing-space200);
-            width: 100%;
-
-            & li {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: var(--lz-spacing-space50);
-
-                :global(.lz-button .surface) {
-                    height: 2rem;
-                    width: 3.5rem;
-                }
-
-                & .rail-link-label {
-                    font-family: var(--lz-typography-typeface-plain);
-                    font-size: var(--lz-typescale-label-m-font-size);
-                    letter-spacing: var(--lz-typescale-label-m-font-tracking);
-                    font-weight: var(--lz-typescale-label-m-font-weight);
-                    font-variation-settings: var(
-                        --lz-typescale-label-m-font-wght
-                    );
-                }
-            }
-        }
+        width: calc(100vw - var(--lz-content-space-left));
     }
 </style>

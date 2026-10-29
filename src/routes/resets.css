@@ -1,25 +1,3 @@
-:root {
-    --lz-typeface-brand: Roboto;
-    --lz-typeface-plain: Roboto;
-    color-scheme: light dark;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    scrollbar-color: var(--lz-color-surface-variant) transparent;
-    scrollbar-width: thin;
-
-    --lz-density-global: var(--lz-spacing-density-1);
-    --lz-max-content-width: 100%;
-    --lz-gutter: var(--lz-spacing-space300);
-}
-
-@media (width >= 1280px) {
-    :root {
-        --lz-max-content-width: 1152px;
-    }
-}
-
 @layer lz-ui-reset;
 
 @layer lz-ui-reset {

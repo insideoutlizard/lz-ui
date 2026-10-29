@@ -154,9 +154,6 @@
             <h2 class="headline">Configurations</h2>
         </hgroup>
     </header>
-    <LzCard>
-        <LzButton size="medium" color="elevated">Elevated</LzButton>
-    </LzCard>
     {@render configurations()}
 </section>
 
@@ -211,16 +208,27 @@
 </section>
 
 <style>
+    .lz-container-header {
+        font-size: var(--lz-typescale-label-m-font-size);
+        letter-spacing: var(--lz-typescale-label-m-font-tracking);
+        font-weight: var(--lz-typescale-label-m-font-weight);
+        font-variation-settings: var(--lz-typescale-label-m-font-wght);
+    }
+
     article.carticle {
         display: flex;
         flex-direction: column;
         gap: var(--lz-spacing-space200);
+
+        & .headline {
+            font-size: var(--lz-typescale-title-l-font-size);
+            letter-spacing: var(--lz-typescale-title-l-font-tracking);
+            font-weight: var(--lz-typescale-headline-l-font-weight);
+            font-variation-settings: var(--lz-typescale-title-l-font-wght);
+        }
     }
 
     :global(.lz-card) {
-        & :global(.lz-card-inner) {
-        }
-
         & ul {
             overflow-x: auto;
             display: flex;

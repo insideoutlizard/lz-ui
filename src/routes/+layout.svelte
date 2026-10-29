@@ -44,7 +44,7 @@
     let isMobileSize = $state(false);
 
     $effect(() => {
-        const mediaQuery = window.matchMedia("(width <= 839px)");
+        const mediaQuery = window.matchMedia("(width <= 768px)");
         isMobileSize = mediaQuery.matches;
 
         const handleResize = (e: MediaQueryListEvent) => {
@@ -93,7 +93,7 @@
         --lz-content-space-left: 0;
     }
 
-    @media (width >= 839px) {
+    @media (width > 768px) {
         :root {
             --lz-max-content-width: 1024px;
             --lz-content-space-top: 0;
@@ -105,6 +105,6 @@
         margin-top: var(--lz-content-space-top);
         margin-left: var(--lz-content-space-left);
         box-sizing: border-box;
-        width: calc(100vw - var(--lz-content-space-left));
+        width: calc(100% - var(--lz-content-space-left));
     }
 </style>

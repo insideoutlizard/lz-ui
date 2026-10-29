@@ -55,21 +55,6 @@
                 </header>
             </LzCard>
         </li>
-
-        <li>
-            <LzCard
-                variant="outlined"
-                href="https://google.ca/"
-                target="_blank"
-                rel="noopenner noreferrer"
-            >
-                <header>
-                    <hgroup>
-                        <h3 class="headline">Outlined card</h3>
-                    </hgroup>
-                </header>
-            </LzCard>
-        </li>
     </ul>
 {/snippet}
 
@@ -77,7 +62,6 @@
     <header class="lz-section-header">
         <hgroup>
             <h3 class="headline">Variants</h3>
-            <p>Ordered by visual emphasis.</p>
         </hgroup>
     </header>
     {@render variants()}
@@ -86,7 +70,7 @@
 {#snippet config()}
     <ul class="card-row">
         <li>
-            <header>
+            <header class="config-header">
                 <hgroup>
                     <h3 class="headline">Standard</h3>
                 </hgroup>
@@ -130,8 +114,9 @@
 <style>
     .card-grid {
         display: flex;
+        flex-direction: row;
         width: 100%;
-        min-width: var(--lz-max-content-width);
+
         gap: var(--lz-spacing-space400);
         box-sizing: border-box;
 
@@ -149,6 +134,18 @@
             font-weight: var(--lz-typescale-label-m-font-weight);
             font-variation-settings: var(--lz-typescale-label-m-font-wght);
         }
+    }
+
+    .card-row li {
+        display: flex;
+        flex-direction: column;
+        gap: var(--lz-spacing-space200);
+    }
+    .config-header .headline {
+        font-size: var(--lz-typescale-title-l-font-size);
+        letter-spacing: var(--lz-typescale-title-l-font-tracking);
+        font-weight: var(--lz-typescale-headline-l-font-weight);
+        font-variation-settings: var(--lz-typescale-title-l-font-wght);
     }
 
     :global(#standard-card) {
@@ -217,6 +214,12 @@
                 justify-content: end;
                 gap: var(--lz-spacing-space100);
             }
+        }
+    }
+
+    @media (width <= 768px) {
+        .card-grid {
+            flex-direction: column;
         }
     }
 </style>

@@ -48,7 +48,7 @@ body {
         max-width: var(--lz-max-content-width);
 
         &.primary {
-            padding: var(--lz-spacing-space600) var(--lz-gutter);
+            padding: var(--lz-spacing-space600) 0;
 
             & header hgroup {
                 align-items: center;
@@ -56,7 +56,7 @@ body {
         }
 
         &.secondary {
-            padding: var(--lz-spacing-space600);
+            padding: var(--lz-spacing-space600) var(--lz-gutter);
         }
     }
 

@@ -5,6 +5,29 @@
         <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="text-scale" content="scale" />
+
+        <script>
+            (() => {
+                const cachedTheme = localStorage.getItem("color-scheme");
+                const systemDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                const parsedTheme = cachedTheme || "system";
+                const activeTheme =
+                    parsedTheme === "system"
+                        ? systemDark
+                            ? "dark"
+                            : "light"
+                        : parsedTheme;
+                document.documentElement.setAttribute(
+                    "data-color-scheme",
+                    activeTheme,
+                );
+                if (cachedTheme === null)
+                    localStorage.setItem("color-scheme", activeTheme);
+            })();
+        </script>
+
         %sveltekit.head%
     </head>
     <body data-sveltekit-preload-data="hover">

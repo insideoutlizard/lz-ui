@@ -11,7 +11,12 @@
     import BugIcon from "~icons/material-symbols/bug-report-outline-sharp";
     import BugIconFill from "~icons/material-symbols/bug-report-sharp";
 
-    import { LzButton, LzNavigationRail, type LzNavItem } from "#lib";
+    import {
+        LzButton,
+        LzNavigationRail,
+        LzThemeSwitcher,
+        type LzNavItem,
+    } from "#lib";
 
     const pages = import.meta.glob("/src/routes/**/+page.svelte", {
         eager: true,
@@ -57,28 +62,10 @@
             mediaQuery.removeEventListener("change", handleResize);
         };
     });
-
-    import DayIcon from "~icons/material-symbols/light-mode-sharp";
-    import NightIcon from "~icons/material-symbols/dark-mode-outline-sharp";
-
-    let isLightMode = $state(true);
-    const toggleTheme = () => {
-        isLightMode = !isLightMode;
-        document.documentElement.setAttribute(
-            "data-color-scheme",
-            isLightMode ? "light" : "dark",
-        );
-    };
 </script>
 
 {#snippet themeSwitcher()}
-    <LzButton
-        ariaLabel="Change theme"
-        size="small"
-        color="outlined"
-        iconLeading={isLightMode ? NightIcon : DayIcon}
-        onclick={toggleTheme}
-    />
+    <LzThemeSwitcher />
 {/snippet}
 
 {#if !isMobileSize}

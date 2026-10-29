@@ -57,10 +57,34 @@
             mediaQuery.removeEventListener("change", handleResize);
         };
     });
+
+    import DayIcon from "~icons/material-symbols/light-mode-sharp";
+    import NightIcon from "~icons/material-symbols/dark-mode-outline-sharp";
+
+    let isLightMode = $state(true);
+    const toggleTheme = () => {
+        isLightMode = !isLightMode;
+        document.documentElement.setAttribute(
+            "data-color-scheme",
+            isLightMode ? "light" : "dark",
+        );
+    };
 </script>
 
+{#snippet themeSwitcher()}
+    <LzButton
+        ariaLabel="Change theme"
+        size="small"
+        color="outlined"
+        iconLeading={isLightMode ? NightIcon : DayIcon}
+        onclick={toggleTheme}
+    />
+{/snippet}
+
 {#if !isMobileSize}
-    <LzNavigationRail menuItems={navItems} ariaLabel="Primary links" />
+    <LzNavigationRail menuItems={navItems} ariaLabel="Primary links">
+        {@render themeSwitcher()}
+    </LzNavigationRail>
 {/if}
 
 {#key currentPath}

@@ -17,6 +17,7 @@
         largeBadges?: boolean;
         menuItems: LzNavItem[] | Snippet;
         expanded?: boolean;
+        children?: Snippet | null;
     }
 </script>
 
@@ -37,6 +38,7 @@
         menuItems = [],
 
         expanded = $bindable(false),
+        children,
         ...restProps
     }: LzNavigationRailProps = $props();
 
@@ -88,6 +90,11 @@
 <aside class={classes} {id} aria-label={ariaLabel} {...restProps}>
     <div class="inner">
         {@render navLinks()}
+        {#if children}
+            <div class="actions">
+                {@render children()}
+            </div>
+        {/if}
     </div>
 </aside>
 
@@ -109,6 +116,16 @@
                 width: 100%;
                 height: 100%;
                 padding-top: var(--lz-navigation-rail-top-space);
+
+                & .actions {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: auto;
+                    width: 100%;
+                    gap: var(--lz-spacing-space100);
+                    margin-bottom: var(--lz-spacing-space200);
+                }
 
                 & .nav-rail-links {
                     display: flex;

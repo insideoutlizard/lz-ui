@@ -463,7 +463,10 @@
                     var(--lz-button-x-small-height) +
                         var(--lz-density-global, 0px)
                 );
-                min-width: var(--lz-button-x-small-min-width);
+                min-width: calc(
+                    var(--lz-button-x-small-min-width) +
+                        var(--lz-density-global, 0px)
+                );
                 gap: var(--lz-button-x-small-gap);
 
                 /* We're going to put the actual label styles outside the :has(),
@@ -486,7 +489,10 @@
                     var(--lz-button-small-height) +
                         var(--lz-density-global, 0px)
                 );
-                min-width: var(--lz-button-small-width);
+                min-width: calc(
+                    var(--lz-button-small-min-width) +
+                        var(--lz-density-global, 0px)
+                );
                 gap: var(--lz-button-small-gap);
 
                 & .label {
@@ -507,7 +513,10 @@
                     var(--lz-button-medium-height) +
                         var(--lz-density-global, 0px)
                 );
-                min-width: var(--lz-button-medium-width);
+                min-width: calc(
+                    var(--lz-button-medium-min-width) +
+                        var(--lz-density-global, 0px)
+                );
                 gap: var(--lz-button-medium-gap);
 
                 --lz-typography-icon-size: 1.5rem;
@@ -530,7 +539,10 @@
                     var(--lz-button-large-height) +
                         var(--lz-density-global, 0px)
                 );
-                min-width: var(--lz-button-large-min-width);
+                min-width: calc(
+                    var(--lz-button-large-min-width) +
+                        var(--lz-density-global, 0px)
+                );
                 gap: var(--lz-button-large-gap);
 
                 --lz-typography-icon-size: var(--lz-button-large-icon-size);
@@ -554,7 +566,10 @@
                     var(--lz-button-x-large-height) +
                         var(--lz-density-global, 0px)
                 );
-                min-width: var(--lz-button-x-large-min-width);
+                min-width: calc(
+                    var(--lz-button-x-large-min-width) +
+                        var(--lz-density-global, 0px)
+                );
                 gap: var(--lz-button-x-large-gap);
 
                 --lz-typography-icon-size: var(--lz-button-x-large-icon-size);

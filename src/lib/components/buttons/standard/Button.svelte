@@ -29,7 +29,8 @@
         | "inverse"
         | "fixed"
         | "neutral"
-        | "brand-font";
+        | "brand-font"
+        | "no-elevation";
 
     export interface LzButtonBaseProps extends LzProps {
         // Material 3
@@ -344,7 +345,7 @@
 {/if}
 
 <style>
-    @layer lz-ui-reset, base, size, shape, color, state;
+    @layer lz-ui-reset, base, size, shape, color, state, overrides;
 
     @layer lz-ui-reset {
         .lz-button {
@@ -765,6 +766,14 @@
                 & .surface:before {
                     opacity: var(--lz-button-opacity-press);
                 }
+            }
+        }
+    }
+
+    @layer overrides {
+        .lz-button .surface {
+            &[data-overrides~="no-elevation"] {
+                box-shadow: var(--lz-elevation-0);
             }
         }
     }

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    export const title = "Cards";
+    export const label = "Cards";
 </script>
 
 <script lang="ts">

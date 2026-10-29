@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    export const title = "Buttons";
+    export const label = "Buttons";
 </script>
 
 <script lang="ts">
@@ -154,6 +154,9 @@
             <h2 class="headline">Configurations</h2>
         </hgroup>
     </header>
+    <LzCard>
+        <LzButton size="medium" color="elevated">Elevated</LzButton>
+    </LzCard>
     {@render configurations()}
 </section>
 
@@ -216,10 +219,10 @@
 
     :global(.lz-card) {
         & :global(.lz-card-inner) {
-            overflow-x: auto;
         }
 
         & ul {
+            overflow-x: auto;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -231,6 +234,10 @@
                 gap: var(--lz-spacing-space200);
             }
         }
+    }
+
+    #btn-colors {
+        padding: var(--lz-spacing-space100) var(--lz-spacing-space25);
     }
 
     .sidenote {

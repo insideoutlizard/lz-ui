@@ -1,9 +1,6 @@
 :root,
 :root[data-color-scheme="light"] {
-    --lz-color-seed-hue: 168;
-    --lz-color-surface-hue: calc(var(--lz-color-seed-hue) - 30);
-
-    --lz-color-primary: oklch(0.42 0.04 var(--lz-color-seed-hue));
+    --lz-color-primary: oklch(0.42 0.05 var(--lz-color-seed-hue));
     --lz-color-on-primary: oklch(0.985 0.002 var(--lz-color-seed-hue));
     --lz-color-primary-container: oklch(0.92 0.012 var(--lz-color-seed));
     --lz-color-on-primary-container: oklch(0.24 0.018 var(--lz-color-seed));
@@ -24,10 +21,10 @@
         0.24 0.014 var(--lz-color-surface-hue)
     );
 
-    --lz-color-error: #b3261e;
-    --lz-color-on-error: #fff;
-    --lz-color-error-container: #f9dedc;
-    --lz-color-on-error-container: #8c1d18;
+    --lz-color-error: oklch(0.45 0.2 25);
+    --lz-color-on-error: oklch(1 0 0);
+    --lz-color-error-container: oklch(0.92 0.03 25);
+    --lz-color-on-error-container: oklch(0.18 0.04 25);
 
     --lz-color-surface: oklch(0.985 0.001 var(--lz-color-surface-hue));
     --lz-color-on-surface: oklch(0.2 0.004 var(--lz-color-surface-hue));

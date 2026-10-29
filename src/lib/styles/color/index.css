@@ -2,8 +2,6 @@
 @import "dark.css";
 
 :root {
-    --lz-color-primary-fixed: #eaddff;
-    --lz-color-on-primary-fixed: #21005d;
-    --lz-color-primary-fixed-dim: #d0bcff;
-    --lz-color-on-primary-fixed-variant: #4f378b;
+    --lz-color-seed-hue: 268;
+    --lz-color-surface-hue: calc(var(--lz-color-seed-hue) - 30);
 }

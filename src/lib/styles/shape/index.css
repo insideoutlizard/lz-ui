@@ -1,12 +1,12 @@
 :root {
     --lz-shape-corner-radius-none: 0px;
-    --lz-shape-corner-radius-xs: 4px;
-    --lz-shape-corner-radius-sm: 8px;
-    --lz-shape-corner-radius-md: 12px;
-    --lz-shape-corner-radius-lg: 16px;
-    --lz-shape-corner-radius-lg-increased: 20px;
-    --lz-shape-corner-radius-xl: 28px;
-    --lz-shape-corner-radius-xl-increased: 32px;
-    --lz-shape-corner-radius-xxl: 48px;
+    --lz-shape-corner-radius-xs: 1px;
+    --lz-shape-corner-radius-sm: 2px;
+    --lz-shape-corner-radius-md: 3px;
+    --lz-shape-corner-radius-lg: 5px;
+    --lz-shape-corner-radius-lg-increased: 8px;
+    --lz-shape-corner-radius-xl: 13px;
+    --lz-shape-corner-radius-xl-increased: 21px;
+    --lz-shape-corner-radius-xxl: 34px;
     --lz-shape-corner-radius-full: 9999px;
 }

@@ -27,7 +27,7 @@
 </script>
 
 <script lang="ts">
-    import "./Card.css";
+    import "./card.css";
     import { formatClasses } from "#lib/types.ts";
 
     let {
@@ -92,6 +92,7 @@
             width: 100%;
             min-width: 0;
             min-height: 0;
+
             position: relative;
             padding: calc(var(--lz-card-padding) + var(--lz-density-global))
                 var(--lz-card-padding);
@@ -107,8 +108,10 @@
                 width: 100%;
                 flex: 1 1 auto;
                 box-sizing: border-box;
-                contain: layout;
-                container-type: inline-size;
+                min-height: 0;
+                min-width: 0;
+
+                overflow: visible;
                 gap: calc(var(--lz-card-gap) + var(--lz-density-global));
             }
         }

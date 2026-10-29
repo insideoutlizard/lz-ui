@@ -1,0 +1,5 @@
+:root {
+    --lz-navigation-rail-width: 5rem;
+    --lz-navigation-rail-bg: var(--lz-color-surface-container);
+    --lz-navigation-rail-top-space: var(--lz-spacing-space200);
+}

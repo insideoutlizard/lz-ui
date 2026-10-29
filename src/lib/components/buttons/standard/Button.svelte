@@ -30,7 +30,8 @@
         | "fixed"
         | "neutral"
         | "brand-font"
-        | "no-elevation";
+        | "no-elevation"
+        | "blank-tag";
 
     export interface LzButtonBaseProps extends LzProps {
         // Material 3
@@ -312,7 +313,17 @@
     We're using an if statement instead of svelte:element for determining the root tag.
     Keeps the structure cleaner than inside each attr.
  -->
-{#if isLink}
+
+{#if overrides?.includes("blank-tag")}
+    <div
+        class={classes}
+        {id}
+        aria-label={ariaLabel ? ariaLabel : null}
+        {...restProps}
+    >
+        {@render surface()}
+    </div>
+{:else if isLink}
     <a
         class={classes}
         {id}

@@ -11,6 +11,7 @@ export interface LzProps {
   role?: AriaRole | null;
   testId?: string | null;
   tabindex?: number | null;
+  anchorName?: string | null;
 }
 
 // Concatenate and filter class names

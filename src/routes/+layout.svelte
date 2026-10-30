@@ -4,62 +4,66 @@
     import "./color.css";
 
     import "#lib/styles/index.css";
+
     import { page } from "$app/state";
     import { fly, fade } from "svelte/transition";
     import { cubicIn, cubicOut } from "svelte/easing";
 
-    import BugIcon from "~icons/material-symbols/bug-report-outline-sharp";
-    import BugIconFill from "~icons/material-symbols/bug-report-sharp";
-
     import {
         LzButton,
         LzNavigationRail,
+        LzNavigationDrawer,
         LzThemeSwitcher,
         type LzNavItem,
+        LzIcon,
+        LzList,
     } from "#lib";
 
-    const pages = import.meta.glob("/src/routes/**/+page.svelte", {
-        eager: true,
-    });
-
-    const navItems: LzNavItem[] = Object.entries(pages)
-        .map(([filePath, module]: [string, any]) => {
-            let path = filePath
-                .replace("/src/routes", "")
-                .replace("/+page.svelte", "");
-            if (path === "") path = "/";
-
-            // Use exported title, or fallback to file name
-            const label =
-                module.label ||
-                path.split("/").pop()?.replace(/-/g, " ") ||
-                "Home";
-            const icon = module.icon ?? BugIcon;
-            const activeIcon = module.activeIcon ?? BugIconFill;
-            const order = module.order ?? 99; // Manual sorting priority
-            const current = page.url.pathname === path;
-
-            return { path, label, icon, activeIcon, order, current };
-        })
-        .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+    import { navItems } from "#lib/Navigation.svelte";
+    import { label } from "./components/floating-action-button/+page.svelte";
 
     let { children } = $props();
     let currentPath = $derived(page.url.pathname);
 
     let isMobileSize = $state(false);
+    let isDrawerAllowed = $state(false);
+
+    let activeParent = $derived.by(() => {
+        if (currentPath === "/") return null;
+        return navItems.find(
+            (item) =>
+                item.path !== "/" &&
+                currentPath.startsWith(item.path) &&
+                (item.children?.length ?? 0) > 0,
+        );
+    });
+
+    let isDrawerOpen = $derived(
+        !!activeParent &&
+            !!activeParent.children &&
+            activeParent.children.length > 0 &&
+            isDrawerAllowed,
+    );
+
+    // let drawerItems = $derived(activeParent?.children ?? []);
 
     $effect(() => {
-        const mediaQuery = window.matchMedia("(width <= 768px)");
-        isMobileSize = mediaQuery.matches;
+        const mobile = window.matchMedia("(width <= 768px)");
+        const drawer = window.matchMedia("(width <= 960px)");
+
+        isMobileSize = mobile.matches;
+        isDrawerAllowed = drawer.matches;
 
         const handleResize = (e: MediaQueryListEvent) => {
             isMobileSize = e.matches;
         };
 
-        mediaQuery.addEventListener("change", handleResize);
+        mobile.addEventListener("change", handleResize);
+        drawer.addEventListener("change", handleResize);
 
         return () => {
-            mediaQuery.removeEventListener("change", handleResize);
+            mobile.removeEventListener("change", handleResize);
+            drawer.removeEventListener("change", handleResize);
         };
     });
 </script>
@@ -68,10 +72,52 @@
     <LzThemeSwitcher />
 {/snippet}
 
+{#snippet drawerLinks()}
+    <nav class="drawer-nav">
+        <ul class="drawer-links">
+            <li>
+                <LzButton
+                    color={currentPath === "/components" ? "tonal" : "text"}
+                    href="/components">Components</LzButton
+                >
+            </li>
+            <li>
+                <LzList
+                    leadingLabel="Buttons"
+                    items={[
+                        ["/components/all-buttons", "All buttons"],
+                        ["/components/buttons", "Buttons"],
+                        ["/components/button-groups", "Button groups"],
+                        ["/components/floating-action-button", "FABs"],
+                    ]}
+                ></LzList>
+            </li>
+            <li>
+                <LzButton
+                    color={currentPath === "/components/cards"
+                        ? "tonal"
+                        : "text"}
+                    href="/components/cards">Cards</LzButton
+                >
+            </li>
+        </ul>
+    </nav>
+{/snippet}
+
 {#if !isMobileSize}
     <LzNavigationRail menuItems={navItems} ariaLabel="Primary links">
-        {@render themeSwitcher()}
+        <footer class="rail-actions">
+            {@render themeSwitcher()}
+        </footer>
     </LzNavigationRail>
+    <LzNavigationDrawer
+        variant="modal"
+        density="desktop"
+        drawerItems={drawerLinks}
+        bind:isOpen={isDrawerOpen}
+        leftOffset
+        compact
+    />
 {/if}
 
 {#key currentPath}
@@ -100,7 +146,7 @@
         --lz-max-content-width: 100%;
         --lz-gutter: var(--lz-spacing-space300);
         /*--lz-content-space-top: var(--lz-app-bar-height);*/
-        --lz-content-space-top: 3.5rem;
+
         --lz-content-space-left: 0;
     }
 
@@ -112,10 +158,28 @@
         }
     }
 
+    :global(.no-scroll) {
+        overflow: hidden;
+    }
+
+    :global(.no-select) {
+        user-select: none;
+    }
+
     #content {
         margin-top: var(--lz-content-space-top);
         margin-left: var(--lz-content-space-left);
         box-sizing: border-box;
         width: calc(100% - var(--lz-content-space-left));
+    }
+
+    :global(.lz-navigation-rail .inner .rail-actions) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: auto;
+        width: 100%;
+        gap: var(--lz-spacing-space100);
+        margin-bottom: var(--lz-spacing-space200);
     }
 </style>

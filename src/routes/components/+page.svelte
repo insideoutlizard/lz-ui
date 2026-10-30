@@ -1,9 +1,12 @@
 <script lang="ts" module>
+    import type { LzPageMeta } from "#lib";
     import PageIcon from "~icons/material-symbols/component-exchange-sharp";
 
-    export const label = "Components";
-    export const icon = PageIcon;
-    export const activeIcon = PageIcon;
+    export const meta: LzPageMeta = {
+        label: "Components",
+        icon: PageIcon,
+        activeIcon: PageIcon,
+    };
 </script>
 
 <script lang="ts">

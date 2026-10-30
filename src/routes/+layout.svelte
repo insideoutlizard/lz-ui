@@ -14,56 +14,105 @@
         LzNavigationRail,
         LzNavigationDrawer,
         LzThemeSwitcher,
-        type LzNavItem,
-        LzIcon,
         LzList,
     } from "#lib";
 
-    import { navItems } from "#lib/Navigation.svelte";
-    import { label } from "./components/floating-action-button/+page.svelte";
+    import { navItems } from "#lib/config/navigation/NavigationConfig.svelte";
 
     let { children } = $props();
     let currentPath = $derived(page.url.pathname);
 
     let isMobileSize = $state(false);
-    let isDrawerAllowed = $state(false);
+    let isDrawerHoverOnly = $state(false);
+    let isDrawerAlways = $state(false);
+    let isHoverOpen = $state(false);
 
-    let activeParent = $derived.by(() => {
-        if (currentPath === "/") return null;
-        return navItems.find(
-            (item) =>
-                item.path !== "/" &&
-                currentPath.startsWith(item.path) &&
-                (item.children?.length ?? 0) > 0,
+    let sectionItems = $derived.by(() => {
+        if (currentPath === "/") return [];
+        const segments = currentPath.split("/").filter(Boolean);
+        const base = `/${segments[0]}`;
+        return navItems.filter(
+            (item) => item.path !== base && item.path.startsWith(base),
         );
     });
 
-    let isDrawerOpen = $derived(
-        !!activeParent &&
-            !!activeParent.children &&
-            activeParent.children.length > 0 &&
-            isDrawerAllowed,
-    );
+    let groupedSections = $derived.by(() => {
+        const groups = new Map<string, typeof sectionItems>();
+        const standalone: typeof sectionItems = [];
 
-    // let drawerItems = $derived(activeParent?.children ?? []);
+        sectionItems.forEach((item) => {
+            if (item.group) {
+                if (!groups.has(item.group)) {
+                    groups.set(item.group, []);
+                }
+                groups.get(item.group)!.push(item);
+            } else {
+                standalone.push(item);
+            }
+        });
+
+        return { groups, standalone };
+    });
+
+    let currentSectionItem = $derived.by(() => {
+        if (currentPath === "/") return null;
+        const segments = currentPath.split("/").filter(Boolean);
+        if (segments.length === 0) return null;
+        const base = `/${segments[0]}`;
+        return navItems.find((item) => item.path === base);
+    });
+
+    let isDrawerOpen = $derived(
+        sectionItems.length > 0 &&
+            !isMobileSize &&
+            (isDrawerAlways || isHoverOpen),
+    );
+    $effect(() => {
+        currentPath;
+        if (isDrawerHoverOnly) {
+            isHoverOpen = false;
+        }
+    });
 
     $effect(() => {
         const mobile = window.matchMedia("(width <= 768px)");
-        const drawer = window.matchMedia("(width <= 960px)");
+        const drawerHoverOnly = window.matchMedia(
+            "(width > 768px) and (width <= 1024px)",
+        );
+        const drawerAlways = window.matchMedia("(width > 1024px)");
 
         isMobileSize = mobile.matches;
-        isDrawerAllowed = drawer.matches;
+        isDrawerHoverOnly = drawerHoverOnly.matches;
+        isDrawerAlways = drawerAlways.matches;
+        if (drawerAlways.matches) {
+            isHoverOpen = true;
+        }
 
-        const handleResize = (e: MediaQueryListEvent) => {
+        const handleMobile = (e: MediaQueryListEvent) => {
             isMobileSize = e.matches;
         };
 
-        mobile.addEventListener("change", handleResize);
-        drawer.addEventListener("change", handleResize);
+        const handleDrawerHoverOnly = (e: MediaQueryListEvent) => {
+            isDrawerHoverOnly = e.matches;
+            if (e.matches) isHoverOpen = false;
+        };
+
+        const handleDrawerAlways = (e: MediaQueryListEvent) => {
+            isDrawerAlways = e.matches;
+            if (e.matches) isHoverOpen = true;
+        };
+
+        mobile.addEventListener("change", handleMobile);
+        drawerHoverOnly.addEventListener("change", handleDrawerHoverOnly);
+        drawerAlways.addEventListener("change", handleDrawerAlways);
 
         return () => {
-            mobile.removeEventListener("change", handleResize);
-            drawer.removeEventListener("change", handleResize);
+            mobile.removeEventListener("change", handleMobile);
+            drawerHoverOnly.removeEventListener(
+                "change",
+                handleDrawerHoverOnly,
+            );
+            drawerAlways.removeEventListener("change", handleDrawerAlways);
         };
     });
 </script>
@@ -75,49 +124,75 @@
 {#snippet drawerLinks()}
     <nav class="drawer-nav">
         <ul class="drawer-links">
-            <li>
-                <LzButton
-                    color={currentPath === "/components" ? "tonal" : "text"}
-                    href="/components">Components</LzButton
-                >
-            </li>
-            <li>
-                <LzList
-                    leadingLabel="Buttons"
-                    items={[
-                        ["/components/all-buttons", "All buttons"],
-                        ["/components/buttons", "Buttons"],
-                        ["/components/button-groups", "Button groups"],
-                        ["/components/floating-action-button", "FABs"],
-                    ]}
-                ></LzList>
-            </li>
-            <li>
-                <LzButton
-                    color={currentPath === "/components/cards"
-                        ? "tonal"
-                        : "text"}
-                    href="/components/cards">Cards</LzButton
-                >
-            </li>
+            {#if currentSectionItem}
+                <li>
+                    <LzButton
+                        color="text"
+                        href={currentSectionItem.path}
+                        className="lz-navigation-drawer-item"
+                    >
+                        {currentSectionItem.label} overview
+                    </LzButton>
+                </li>
+            {/if}
+            {#each [...groupedSections.groups.entries()] as [groupName, items]}
+                <li>
+                    <LzList
+                        leadingLabel={groupName}
+                        items={items.map((item) => [item.path, item.label])}
+                    />
+                </li>
+            {/each}
+
+            {#each groupedSections.standalone as item}
+                <li>
+                    <LzButton
+                        color={currentPath === item.path ? "tonal" : "text"}
+                        href={item.path}
+                        className="lz-navigation-drawer-item"
+                    >
+                        {item.label}
+                    </LzButton>
+                </li>
+            {/each}
         </ul>
     </nav>
 {/snippet}
 
 {#if !isMobileSize}
-    <LzNavigationRail menuItems={navItems} ariaLabel="Primary links">
-        <footer class="rail-actions">
-            {@render themeSwitcher()}
-        </footer>
-    </LzNavigationRail>
-    <LzNavigationDrawer
-        variant="modal"
-        density="desktop"
-        drawerItems={drawerLinks}
-        bind:isOpen={isDrawerOpen}
-        leftOffset
-        compact
-    />
+    <div
+        role="region"
+        aria-label="Navigation container"
+        class="nav-container"
+        onmouseenter={() => {
+            if (isDrawerHoverOnly) isHoverOpen = true;
+        }}
+        onmouseleave={() => {
+            if (isDrawerHoverOnly) isHoverOpen = false;
+        }}
+    >
+        <LzNavigationRail
+            menuItems={navItems.filter(
+                (item) =>
+                    item.path === "/" ||
+                    item.path.split("/").filter(Boolean).length === 1,
+            )}
+            ariaLabel="Primary links"
+        >
+            <footer class="rail-actions">
+                {@render themeSwitcher()}
+            </footer>
+        </LzNavigationRail>
+        <LzNavigationDrawer
+            variant="modal"
+            density="desktop"
+            drawerItems={drawerLinks}
+            bind:isOpen={isDrawerOpen}
+            leftOffset
+            compact
+            skipNavigationClose
+        />
+    </div>
 {/if}
 
 {#key currentPath}

@@ -1,5 +1,11 @@
 <script lang="ts" module>
-    export const label = "Button groups";
+    import type { LzPageMeta } from "#lib";
+
+    export const meta: LzPageMeta = {
+        label: "Button groups",
+        group: "Buttons",
+        order: 2,
+    };
 </script>
 
 <script lang="ts">

@@ -1,13 +1,18 @@
-<script lang="ts">
-    import { LzButton } from "#lib";
-    import type { LzButtonColor } from "#lib";
-
+<script lang="ts" module>
+    import type { LzPageMeta } from "#lib";
     import PageIcon from "~icons/material-symbols/home-outline-sharp";
     import ActivePageIcon from "~icons/material-symbols/home-sharp";
 
-    export const label = "Home";
-    export const icon = PageIcon;
-    export const activeIcon = ActivePageIcon;
+    export const meta: LzPageMeta = {
+        label: "Home",
+        icon: PageIcon,
+        activeIcon: ActivePageIcon,
+    };
+</script>
+
+<script lang="ts">
+    import { LzButton } from "#lib";
+    import type { LzButtonColor } from "#lib";
 </script>
 
 <section class="lz-hero primary">

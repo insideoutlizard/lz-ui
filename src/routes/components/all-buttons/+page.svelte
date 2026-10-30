@@ -1,6 +1,11 @@
 <script lang="ts" module>
-    export const label = "All buttons";
-    export const parentPath = "/components/buttons";
+    import type { LzPageMeta } from "#lib";
+
+    export const meta: LzPageMeta = {
+        label: "All buttons",
+        group: "Buttons",
+        order: 1,
+    };
 </script>
 
 <script lang="ts">

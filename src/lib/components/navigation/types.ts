@@ -4,4 +4,5 @@ export interface LzNavItem {
   icon?: any;
   activeIcon?: any;
   order?: number;
+  children?: LzNavItem[];
 }

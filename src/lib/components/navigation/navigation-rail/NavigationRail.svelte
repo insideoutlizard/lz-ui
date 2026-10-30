@@ -4,7 +4,7 @@
     import type { LzProps } from "#lib/types.ts";
     import type { LzNavItem } from "../types";
     import { LzButton } from "../../buttons";
-    import { LzIcon } from "../../icons";
+    import { LzIcon } from "#lib/util/index.ts";
     import MenuIcon from "~icons/material-symbols/menu-sharp";
     import MenuOpenIcon from "~icons/material-symbols/menu-open-sharp";
 
@@ -73,7 +73,9 @@
                                 <LzIcon
                                     active={isCurrent}
                                     inactiveIcon={item.icon}
-                                    activeIcon={item.activeIcon}
+                                    activeIcon={item.activeIcon
+                                        ? item.activeIcon
+                                        : null}
                                 />
                             </LzButton>
 
@@ -84,6 +86,8 @@
                 {/each}
             </ul>
         </nav>
+    {:else if typeof menuItems === "function"}
+        {@render menuItems()}
     {/if}
 {/snippet}
 
@@ -91,9 +95,7 @@
     <div class="inner">
         {@render navLinks()}
         {#if children}
-            <div class="actions">
-                {@render children()}
-            </div>
+            {@render children()}
         {/if}
     </div>
 </aside>
@@ -109,6 +111,8 @@
             bottom: 0;
             background: var(--lz-navigation-rail-bg);
             width: var(--lz-navigation-rail-width);
+            border-right: var(--lz-navigation-rail-border-right);
+            z-index: 150;
 
             & .inner {
                 display: flex;
@@ -116,16 +120,8 @@
                 width: 100%;
                 height: 100%;
                 padding-top: var(--lz-navigation-rail-top-space);
-
-                & .actions {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    margin-top: auto;
-                    width: 100%;
-                    gap: var(--lz-spacing-space100);
-                    margin-bottom: var(--lz-spacing-space200);
-                }
+                gap: var(--lz-spacing-space200);
+                overflow-y: auto;
 
                 & .nav-rail-links {
                     display: flex;

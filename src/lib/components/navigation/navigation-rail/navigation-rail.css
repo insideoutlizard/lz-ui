@@ -1,7 +1,10 @@
 :root {
     --lz-navigation-rail-width: 5.5rem;
-    --lz-navigation-rail-bg: var(--lz-color-surface-container);
     --lz-navigation-rail-top-space: var(--lz-spacing-space200);
+
+    --lz-navigation-rail-bg: var(--lz-color-surface-container);
+    /*--lz-navigation-rail-border-right: 1px solid var(--lz-color-outline-variant);*/
+    --lz-navigation-rail-border-right: none;
 
     --lz-navigation-rail-item-focus-ring-width: 2px;
     --lz-navigation-rail-item-focus-ring-offset: -2px;

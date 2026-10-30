@@ -111,9 +111,14 @@
 <style>
     :global(.theme-change),
     :global(.theme-change *) {
-        transition-property: background-color, color, border, outline;
-        transition-duration: 350ms, 350ms, 0ms, 0ms;
+        transition-property:
+            background-color, color, border, outline, border-color;
+        transition-duration: 350ms, 350ms, 0ms, 0ms, 0ms;
         transition-timing-function: ease;
+    }
+
+    :global(.theme-change .lz-card) {
+        transition: border 0ms none;
     }
 
     :global(.no-transitions) {

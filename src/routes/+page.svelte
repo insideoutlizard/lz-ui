@@ -1,31 +1,39 @@
 <script lang="ts">
     import { LzButton } from "#lib";
     import type { LzButtonColor } from "#lib";
+
+    import PageIcon from "~icons/material-symbols/home-outline-sharp";
+    import ActivePageIcon from "~icons/material-symbols/home-sharp";
+
+    export const label = "Home";
+    export const icon = PageIcon;
+    export const activeIcon = ActivePageIcon;
 </script>
 
 <section class="lz-hero primary">
-    <header class="lz-page-header hero">
+    <header class="lz-page-header">
         <hgroup>
             <h1 class="headline">lz-ui</h1>
-            <p>
-                Component library made with SvelteKit. Attempts to follow the
-                official <a
-                    href="https://m3.material.io/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Material 3 docs
-                </a>
-                with improvements for traditional desktop websites.
-            </p>
-            <p>
-                This project also implements Material 3
-                <a
-                    href="https://m3.material.io/foundations/design-tokens/overview"
-                    target="_blank"
-                    rel="noopener noreferrer">design tokens</a
-                > as CSS variables.
-            </p>
+            <p class="subhead">Svelte 5 component library.</p>
         </hgroup>
+
+        <p class="supporting-text">
+            Attempts to follow the official <a
+                href="https://m3.material.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Material 3 docs
+            </a>
+            with improvements for traditional desktop websites.
+        </p>
+        <p class="supporting-text">
+            This project also implements Material 3
+            <a
+                href="https://m3.material.io/foundations/design-tokens/overview"
+                target="_blank"
+                rel="noopener noreferrer">design tokens</a
+            > as CSS variables.
+        </p>
     </header>
 </section>
 
@@ -44,7 +52,7 @@
                 </hgroup>
             </header>
         </a>
-        <a class="index-quick-link" href="/components">
+        <a class="index-quick-link" href="/styles">
             <header>
                 <hgroup>
                     <h3>Styles</h3>

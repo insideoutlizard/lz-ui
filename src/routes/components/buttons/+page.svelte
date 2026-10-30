@@ -31,9 +31,7 @@
         <ul class="vert-list gap-med">
             <li>
                 <header class="lz-container-header">
-                    <hgroup>
-                        <h3 class="headline">Default button</h3>
-                    </hgroup>
+                    <h3 class="headline">Default button</h3>
                 </header>
                 <LzButton size="medium" iconLeading={ToggleOnIcon}
                     >Label</LzButton
@@ -59,9 +57,7 @@
 
 <section class="lz-section primary" id="button-variants">
     <header class="lz-section-header">
-        <hgroup>
-            <h2 class="headline">Variants</h2>
-        </hgroup>
+        <h2 class="headline">Variants</h2>
     </header>
 
     {@render variants()}
@@ -70,12 +66,10 @@
 {#snippet configurations()}
     <article class="carticle">
         <header>
-            <hgroup>
-                <h3 class="headline">Size</h3>
-            </hgroup>
+            <h3 class="headline" id="h-btn-sizes">Size</h3>
         </header>
         <LzCard variant="outlined">
-            <ul id="btn-sizes">
+            <ul id="btn-sizes" aria-labelledby="h-btn-sizes">
                 <li>
                     <LzButton size="x-small" color="tonal">Extra small</LzButton
                     >
@@ -99,13 +93,11 @@
 
     <article class="carticle">
         <header>
-            <hgroup>
-                <h3 class="headline">Shape</h3>
-            </hgroup>
+            <h3 class="headline" id="h-btn-shape">Shape</h3>
         </header>
 
         <LzCard variant="outlined">
-            <ul id="btn-shapes">
+            <ul id="btn-shapes" aria-labelledby="h-btn-shape">
                 <li>
                     <LzButton size="medium" color="outlined">Round</LzButton>
                 </li>
@@ -120,13 +112,11 @@
 
     <article class="carticle">
         <header>
-            <hgroup>
-                <h3 class="headline">Color</h3>
-            </hgroup>
+            <h3 class="headline" id="h-btn-color">Color</h3>
         </header>
 
         <LzCard variant="outlined">
-            <ul id="btn-colors">
+            <ul id="btn-colors" aria-labelledby="h-btn-color">
                 <li>
                     <LzButton size="medium" color="elevated">Elevated</LzButton>
                 </li>

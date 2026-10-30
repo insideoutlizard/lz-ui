@@ -1,4 +1,4 @@
 export * from "./buttons";
 export * from "./cards";
-export * from "./icons";
+export * from "./lists";
 export * from "./navigation";

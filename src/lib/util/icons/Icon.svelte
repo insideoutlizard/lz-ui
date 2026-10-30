@@ -50,9 +50,9 @@
             flex-shrink: 0;
 
             transition:
-                color var(--lz-motion-duration-short2) ease,
-                opacity var(--lz-motion-duration-short2) ease,
-                transform var(--lz-motion-duration-short2) ease;
+                color var(--lz-motion-duration-short1) ease,
+                opacity var(--lz-motion-duration-short1) ease,
+                transform var(--lz-motion-duration-short1) ease;
         }
 
         &:has(> :global(svg + svg)) {

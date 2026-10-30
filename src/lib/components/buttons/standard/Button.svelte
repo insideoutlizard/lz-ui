@@ -187,7 +187,7 @@
 
 <script lang="ts">
     import "./button.css";
-    import { formatClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/util/types.ts";
     import { LzIcon } from "#lib/util/index.ts";
 
     let {

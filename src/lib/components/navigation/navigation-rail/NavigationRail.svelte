@@ -2,7 +2,7 @@
     import type { Snippet } from "svelte";
 
     import type { LzProps } from "#lib/types.ts";
-    import type { LzNavItem } from "../types";
+    import type { LzNavItem } from "#lib/config/navigation/types.ts";
     import { LzButton } from "../../buttons";
     import { LzIcon } from "#lib/util/index.ts";
     import MenuIcon from "~icons/material-symbols/menu-sharp";
@@ -23,7 +23,7 @@
 
 <script lang="ts">
     import { page } from "$app/state";
-    import { formatClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/util/types.ts";
     import "./navigation-rail.css";
 
     let {

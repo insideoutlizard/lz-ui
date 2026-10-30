@@ -28,7 +28,7 @@
 
 <script lang="ts">
     import "./card.css";
-    import { formatClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/util/types.ts";
 
     let {
         className = null,

@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-    import { formatClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/util/types.ts";
 
     let {
         className = "",

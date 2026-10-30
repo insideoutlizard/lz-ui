@@ -2,7 +2,7 @@
     import type { Snippet } from "svelte";
 
     import type { LzProps } from "#lib/types.ts";
-    import type { LzNavItem } from "../types";
+    import type { LzNavItem } from "#lib/config/navigation/types.ts";
 
     export type LzNavigationDrawerVariant = "standard" | "modal";
     export type LzNavigationDrawerDensity = "standard" | "desktop";
@@ -17,6 +17,7 @@
         leftOffset?: boolean;
         compact?: boolean;
         density?: LzNavigationDrawerDensity;
+        skipNavigationClose?: boolean;
     }
 </script>
 
@@ -24,7 +25,7 @@
     import { onMount } from "svelte";
     import { page } from "$app/state";
 
-    import { formatClasses } from "#lib/types.ts";
+    import { formatClasses } from "#lib/util/types.ts";
     import "./navigation-drawer.css";
     import { LzButton } from "../../buttons";
     import { LzIcon } from "#lib/util/index.ts";
@@ -44,6 +45,7 @@
         leftOffset = false,
         compact = false,
         density = "standard",
+        skipNavigationClose = false,
 
         ...restProps
     }: LzNavigationDrawerProps = $props();
@@ -81,6 +83,8 @@
       Handle drawer closing during page swap
     */
     function interceptNavigation(event: Event) {
+        if (skipNavigationClose) return;
+
         const customEvent = event as CustomEvent<{
             waitFor: (p: Promise<void>) => void;
         }>;

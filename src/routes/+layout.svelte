@@ -121,20 +121,6 @@
     <LzThemeSwitcher />
 {/snippet}
 
-{#snippet listItem(path: string, label: string)}
-    {@const isCurrent = currentPath === path}
-
-    <LzButton
-        size="small"
-        color={isCurrent ? "tonal" : "text"}
-        href={path}
-        className="lz-drawer-group-item"
-        current={isCurrent ? "page" : "false"}
-    >
-        {label}
-    </LzButton>
-{/snippet}
-
 {#snippet drawerLinks()}
     <nav class="drawer-nav">
         <ul class="drawer-links">
@@ -143,7 +129,12 @@
                     <LzButton
                         color="text"
                         href={currentSectionItem.path}
-                        className="lz-navigation-drawer-item"
+                        className="drawer-header"
+                        overrides={[
+                            "full-width",
+                            "label-start",
+                            "no-elevation",
+                        ]}
                     >
                         {currentSectionItem.label} overview
                     </LzButton>
@@ -161,6 +152,11 @@
                                     href={item.path}
                                     className="lz-drawer-group-item"
                                     current={isCurrent ? "page" : "false"}
+                                    overrides={[
+                                        "full-width",
+                                        "label-start",
+                                        "no-elevation",
+                                    ]}
                                 >
                                     <li class="lz-navigation-drawer-item">
                                         {item.label}
@@ -178,6 +174,11 @@
                         color={currentPath === item.path ? "tonal" : "text"}
                         href={item.path}
                         className="lz-navigation-drawer-item"
+                        overrides={[
+                            "full-width",
+                            "label-start",
+                            "no-elevation",
+                        ]}
                     >
                         {item.label}
                     </LzButton>
@@ -219,6 +220,7 @@
             leftOffset
             compact
             skipNavigationClose
+            skipNoScroll
         />
     </div>
 {/if}
@@ -276,13 +278,34 @@
         width: calc(100% - var(--lz-content-space-left));
     }
 
-    :global(.lz-navigation-rail .inner .rail-actions) {
+    :global(.lz-navigation-rail) {
+        &:has(:global(+ .lz-navigation-drawer[data-open])) {
+            --lz-navigation-rail-border-right: 1px solid
+                oklch(from var(--lz-color-outline-variant) l c h / 0.5);
+        }
+
+        & :global(.inner .rail-actions) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            width: 100%;
+            gap: var(--lz-spacing-space100);
+            margin-bottom: var(--lz-spacing-space200);
+        }
+    }
+
+    .drawer-links {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-top: auto;
-        width: 100%;
-        gap: var(--lz-spacing-space100);
-        margin-bottom: var(--lz-spacing-space200);
+        gap: var(--lz-spacing-space25);
+    }
+
+    :global(.drawer-header .surface .label) {
+        color: var(--lz-coplor-on-surface-variant);
+        font-size: var(--lz-typescale-label-m-font-size);
+        letter-spacing: var(--lz-typescale-label-m-font-tracking);
+        font-weight: var(--lz-typescale-label-m-font-weight);
+        font-variation-settings: var(--lz-typescale-label-m-font-wght);
     }
 </style>

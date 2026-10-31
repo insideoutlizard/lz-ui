@@ -34,16 +34,16 @@
     );
 
     --lz-color-surface-container-highest: oklch(
-        0.945 0.0025 var(--lz-color-surface-hue)
+        0.94 0.0025 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-high: oklch(
-        0.955 0.002 var(--lz-color-surface-hue)
+        0.95 0.002 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container: oklch(
-        0.965 0.0015 var(--lz-color-surface-hue)
+        0.96 0.0015 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-low: oklch(
-        0.975 0.001 var(--lz-color-surface-hue)
+        0.97 0.001 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-lowest: oklch(1 0 0);
 

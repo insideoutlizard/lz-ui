@@ -1,2 +1,2 @@
-export { default as NavigationConfig } from "./NavigationConfig.svelte";
+export { default as LzNavigationConfig } from "./NavigationConfig.svelte";
 export * from "./types";

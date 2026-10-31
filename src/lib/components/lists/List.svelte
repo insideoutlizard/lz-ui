@@ -53,9 +53,9 @@
         onclick={expand}
         iconTrailing={OpenIcon}
         iconToggled={CollapseIcon}
-        iconTrailingToggle
         className="list-expansion"
         expanded={isExpanded}
+        overrides={["trailing-toggle-icon"]}
     >
         {label}
     </LzButton>
@@ -87,6 +87,7 @@
                 overflow-y: hidden;
                 opacity: 0;
                 visibility: hidden;
+                padding-left: var(--lz-spacing-space150);
 
                 transition:
                     opacity var(--lz-motion-duration-short1) ease,

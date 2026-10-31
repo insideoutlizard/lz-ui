@@ -31,7 +31,8 @@
         | "neutral"
         | "brand-font"
         | "no-elevation"
-        | "blank-tag";
+        | "blank-tag"
+        | "trailing-toggle-icon";
 
     export interface LzButtonBaseProps extends LzProps {
         // Material 3
@@ -230,6 +231,8 @@
     let isExpander = $derived(variant === "toggle" && expanded !== undefined);
 
     let isToggled = $derived(Boolean(pressed || expanded || current));
+    let useTrailingToggle =
+        $derived(overrides?.includes("trailing-toggle-icon")) ?? false);
 
     // const classesRaw = $derived(className)
     let classes = $derived(formatClasses("lz-button", className));
@@ -283,14 +286,15 @@
         data-shape={shape}
         data-overrides={overridesFmt}
     >
-        {#if IconLeading && IconToggled}
+        {#if IconLeading && IconToggled && !useTrailingToggle}
             <LzIcon
+                className="btn-icon-leading"
                 active={isToggled}
                 inactiveIcon={IconLeading}
                 activeIcon={IconToggled}
             />
         {:else if IconLeading}
-            <LzIcon inactiveIcon={IconLeading} />
+            <LzIcon className="btn-icon-leading" inactiveIcon={IconLeading} />
         {/if}
 
         {#if label || children}
@@ -303,8 +307,14 @@
             </span>
         {/if}
 
-        {#if IconTrailing}
-            <LzIcon inactiveIcon={IconTrailing} />
+        {#if IconTrailing && IconToggled && useTrailingToggle}
+            <LzIcon
+                className="btn-icon-trailing"
+                inactiveIcon={IconTrailing}
+                activeIcon={IconToggled}
+            />
+        {:else if IconTrailing}
+            <LzIcon className="btn-icon-trailing" inactiveIcon={IconTrailing} />
         {/if}
     </span>
 {/snippet}

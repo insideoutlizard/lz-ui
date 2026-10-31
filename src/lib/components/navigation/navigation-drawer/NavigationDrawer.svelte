@@ -18,6 +18,7 @@
         compact?: boolean;
         density?: LzNavigationDrawerDensity;
         skipNavigationClose?: boolean;
+        skipNoScroll?: boolean;
     }
 </script>
 
@@ -46,6 +47,7 @@
         compact = false,
         density = "standard",
         skipNavigationClose = false,
+        skipNoScroll = false,
 
         ...restProps
     }: LzNavigationDrawerProps = $props();
@@ -53,7 +55,7 @@
     let isClosing = $state(false);
 
     $effect(() => {
-        if (variant === "modal") {
+        if (variant === "modal" && !skipNoScroll) {
             if (isOpen || isClosing) {
                 document.documentElement.classList.add("no-scroll");
             } else {
@@ -176,9 +178,9 @@
             z-index: 100;
             border-top-right-radius: var(--lz-shape-corner-radius-lg);
             border-bottom-right-radius: var(--lz-shape-corner-radius-lg);
-            width: 100%;
 
-            max-width: 16rem;
+            width: fit-content;
+            max-width: 22.5rem;
 
             &[data-left-offset] {
                 left: var(--lz-navigation-rail-width);
@@ -220,6 +222,10 @@
             &[data-density="desktop"] {
                 .inner {
                     padding-inline: var(--lz-spacing-space100);
+
+                    & .links {
+                        gap: var(--lz-spacing-space25);
+                    }
                 }
             }
         }
@@ -239,16 +245,6 @@
 
     @layer state {
         .lz-navigation-drawer {
-            &[data-variant="modal"] {
-                &:not([data-open]) {
-                    transform: translateX(-100%);
-                    transition: transform var(--lz-motion-duration-short4)
-                        ease-in-out;
-                }
-            }
-
-            transition: box-shadow var(--lz-motion-duration-short2) ease;
-
             &
                 .inner
                 .links
@@ -274,11 +270,40 @@
                 }
             }
 
-            &[data-variant="modal"][data-open] {
-                transform: translateX(1);
-                box-shadow: var(--lz-elevation-1);
+            &[data-variant="modal"] {
+                box-shadow: var(--lz-elevation-0);
+                transition: box-shadow var(--lz-motion-duration-short4) ease;
 
-                transition: transform var(--lz-motion-duration-short4) ease-out;
+                &:not([data-open]) {
+                    transform: translateX(-100%);
+                    transform-origin: left;
+                    transition: transform var(--lz-motion-duration-short4)
+                        ease-in-out;
+
+                    & .inner {
+                        transform: translateX(-100%);
+                        transform-origin: left;
+                        transition: transform var(--lz-motion-duration-medium1)
+                            ease-in-out;
+                        transition-delay: var(--lz-motion-duration-short1);
+                    }
+                }
+
+                &[data-open] {
+                    transform: translateX(1);
+                    box-shadow: var(--lz-elevation-1);
+
+                    transition: transform var(--lz-motion-duration-short4)
+                        ease-out;
+
+                    & .inner {
+                        transform: translateX(1);
+
+                        transition: transform var(--lz-motion-duration-short4)
+                            ease-out;
+                        transition-delay: var(--lz-motion-duration-short1);
+                    }
+                }
             }
         }
     }

@@ -77,9 +77,9 @@
     $effect(() => {
         const mobile = window.matchMedia("(width <= 768px)");
         const drawerHoverOnly = window.matchMedia(
-            "(width > 768px) and (width <= 1024px)",
+            "(width > 768px) and (width <= 1500px)",
         );
-        const drawerAlways = window.matchMedia("(width > 1024px)");
+        const drawerAlways = window.matchMedia("(width > 1500px)");
 
         isMobileSize = mobile.matches;
         isDrawerHoverOnly = drawerHoverOnly.matches;
@@ -121,6 +121,20 @@
     <LzThemeSwitcher />
 {/snippet}
 
+{#snippet listItem(path: string, label: string)}
+    {@const isCurrent = currentPath === path}
+
+    <LzButton
+        size="small"
+        color={isCurrent ? "tonal" : "text"}
+        href={path}
+        className="lz-drawer-group-item"
+        current={isCurrent ? "page" : "false"}
+    >
+        {label}
+    </LzButton>
+{/snippet}
+
 {#snippet drawerLinks()}
     <nav class="drawer-nav">
         <ul class="drawer-links">
@@ -137,10 +151,24 @@
             {/if}
             {#each [...groupedSections.groups.entries()] as [groupName, items]}
                 <li>
-                    <LzList
-                        leadingLabel={groupName}
-                        items={items.map((item) => [item.path, item.label])}
-                    />
+                    <LzList label={groupName} itemSize="small">
+                        {#each items as item}
+                            {@const isCurrent = currentPath === item.path}
+                            <li>
+                                <LzButton
+                                    size="small"
+                                    color={isCurrent ? "tonal" : "text"}
+                                    href={item.path}
+                                    className="lz-drawer-group-item"
+                                    current={isCurrent ? "page" : "false"}
+                                >
+                                    <li class="lz-navigation-drawer-item">
+                                        {item.label}
+                                    </li>
+                                </LzButton>
+                            </li>
+                        {/each}
+                    </LzList>
                 </li>
             {/each}
 

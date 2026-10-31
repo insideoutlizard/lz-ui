@@ -4,8 +4,11 @@
     import type { LzProps } from "#lib/types.ts";
     import type { LzButtonSize } from "../buttons";
 
+    export type LzListWidth = "fit-largest" | "full";
+
     export interface LzListProps extends LzProps {
         label: string;
+        width?: LzListWidth;
         itemSize?: LzButtonSize;
         children: Snippet;
         expanded?: boolean;
@@ -27,6 +30,7 @@
         role = "",
 
         label = "List label",
+        width = "fit-largest",
         itemSize = "medium",
         children,
         expanded = false,
@@ -48,14 +52,14 @@
 
 <div class="lz-list">
     <LzButton
+        variant="toggle"
         size={itemSize}
         color="text"
         onclick={expand}
         iconTrailing={OpenIcon}
-        iconToggled={CollapseIcon}
-        className="list-expansion"
+        className="expand-toggle"
         expanded={isExpanded}
-        overrides={["trailing-toggle-icon"]}
+        overrides={["trailing-toggle-icon", "full-width", "label-start"]}
     >
         {label}
     </LzButton>
@@ -109,5 +113,11 @@
         display: flex;
         flex-direction: column;
         gap: var(--lz-spacing-space25);
+    }
+
+    :global(.lz-button[aria-expanded="true"].expand-toggle) {
+        & :global(.lz-icon.trailing) {
+            transform: rotate(180deg);
+        }
     }
 </style>

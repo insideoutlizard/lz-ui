@@ -291,13 +291,13 @@
     >
         {#if IconLeading && IconToggled && !useTrailingToggle}
             <LzIcon
-                className="btn-icon-leading"
+                className="leading"
                 active={isToggled}
                 inactiveIcon={IconLeading}
                 activeIcon={IconToggled}
             />
         {:else if IconLeading}
-            <LzIcon className="btn-icon-leading" inactiveIcon={IconLeading} />
+            <LzIcon className="leading" inactiveIcon={IconLeading} />
         {/if}
 
         {#if label || children}
@@ -312,12 +312,12 @@
 
         {#if IconTrailing && IconToggled && useTrailingToggle}
             <LzIcon
-                className="btn-icon-trailing"
+                className="trailing"
                 inactiveIcon={IconTrailing}
                 activeIcon={IconToggled}
             />
         {:else if IconTrailing}
-            <LzIcon className="btn-icon-trailing" inactiveIcon={IconTrailing} />
+            <LzIcon className="trailing" inactiveIcon={IconTrailing} />
         {/if}
     </span>
 {/snippet}
@@ -825,6 +825,10 @@
 
             & .surface {
                 width: 100%;
+
+                & :global(.lz-icon.trailing) {
+                    margin-inline-start: auto;
+                }
             }
         }
     }

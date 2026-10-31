@@ -32,7 +32,9 @@
         | "brand-font"
         | "no-elevation"
         | "blank-tag"
-        | "trailing-toggle-icon";
+        | "trailing-toggle-icon"
+        | "full-width"
+        | "label-start";
 
     export interface LzButtonBaseProps extends LzProps {
         // Material 3
@@ -231,8 +233,9 @@
     let isExpander = $derived(variant === "toggle" && expanded !== undefined);
 
     let isToggled = $derived(Boolean(pressed || expanded || current));
-    let useTrailingToggle =
-        $derived(overrides?.includes("trailing-toggle-icon")) ?? false);
+    let useTrailingToggle = $derived(
+        overrides?.includes("trailing-toggle-icon") ?? false,
+    );
 
     // const classesRaw = $derived(className)
     let classes = $derived(formatClasses("lz-button", className));
@@ -810,6 +813,18 @@
         .lz-button .surface {
             &[data-overrides~="no-elevation"] {
                 box-shadow: var(--lz-elevation-0);
+            }
+
+            &[data-overrides~="label-start"] {
+                justify-content: start;
+            }
+        }
+
+        .lz-button:has(.surface[data-overrides~="full-width"]) {
+            width: 100%;
+
+            & .surface {
+                width: 100%;
             }
         }
     }

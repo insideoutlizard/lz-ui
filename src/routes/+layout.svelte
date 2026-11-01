@@ -111,11 +111,6 @@
         --lz-navigation-rail-border-right: 1px solid
             oklch(from var(--lz-color-outline-variant) l c h / 0.16);
 
-        &:has(:global(+ .lz-navigation-drawer[data-open])) {
-            --lz-navigation-rail-border-right: 1px solid
-                oklch(from var(--lz-color-outline-variant) l c h / 0.32);
-        }
-
         & :global(.inner .rail-actions) {
             display: flex;
             flex-direction: column;

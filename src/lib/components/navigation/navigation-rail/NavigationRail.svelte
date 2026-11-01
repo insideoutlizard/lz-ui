@@ -12,7 +12,9 @@
     export type LzNavigationRailExpandedLayout = "standard" | "modal";
 
     export interface LzNavigationRailProps extends LzProps {
-        menu?: boolean;
+        variant?: LzNavigationRailVariant;
+        expandedLayout?: LzNavigationRailExpandedLayout;
+        showMenuToggle?: boolean;
         actionButton?: Snippet | null;
         largeBadges?: boolean;
         menuItems: LzNavItem[] | Snippet;
@@ -32,7 +34,9 @@
         ariaLabel,
         role = null,
 
-        menu = false,
+        variant = "collapsed",
+        expandedLayout = "standard",
+        showMenuToggle = false,
         actionButton = null,
         largeBadges = false,
         menuItems = [],
@@ -48,7 +52,15 @@
 </script>
 
 {#snippet menuButton()}
-    <LzButton variant="toggle" {expanded} />
+    <LzButton
+        variant="toggle"
+        color="text"
+        {expanded}
+        iconLeading={MenuIcon}
+        iconToggled={MenuOpenIcon}
+        overrides={["no-elevation"]}
+        onclick={() => (expanded = !expanded)}
+    />
 {/snippet}
 
 {#snippet navLinks()}
@@ -58,30 +70,22 @@
                 {#each menuItems as item}
                     {@const isCurrent = currentPath === item.path}
                     <li>
-                        <a
-                            class="nav-rail-item"
-                            href={item.path}
-                            aria-current={isCurrent ? "page" : "false"}
-                        >
-                            <LzButton
-                                size="x-small"
-                                className="nav-rail-item-active-indicator"
-                                color={isCurrent ? "tonal" : "text"}
-                                overrides={["no-elevation", "blank-tag"]}
-                                tabindex={-1}
-                            >
-                                <LzIcon
-                                    active={isCurrent}
-                                    inactiveIcon={item.icon}
-                                    activeIcon={item.activeIcon
-                                        ? item.activeIcon
-                                        : null}
-                                />
-                            </LzButton>
-
-                            <span class="nav-rail-item-label">{item.label}</span
-                            >
-                        </a>
+                        <LzButton
+                            size="small"
+                            className="nav-rail-item"
+                            color={isCurrent ? "tonal" : "text"}
+                            overrides={[
+                                "no-elevation",
+                                "full-width",
+                                "label-start",
+                            ]}
+                            iconLeading={item.icon}
+                            iconToggled={item.activeIcon}
+                            current={isCurrent ? "page" : "false"}
+                            href={item.path ?? ""}
+                            ariaLabel={!expanded ? item.label : null}
+                            label={expanded ? item.label : undefined}
+                        />
                     </li>
                 {/each}
             </ul>
@@ -91,8 +95,20 @@
     {/if}
 {/snippet}
 
-<aside class={classes} {id} aria-label={ariaLabel} {...restProps}>
+<aside
+    class={classes}
+    {id}
+    aria-label={ariaLabel}
+    data-variant={variant}
+    data-expanded={expanded ? "" : undefined}
+    data-expanded-layout={expandedLayout}
+    {...restProps}
+>
     <div class="inner">
+        {#if showMenuToggle}
+            {@render menuButton()}
+        {/if}
+
         {@render navLinks()}
         {#if children}
             {@render children()}
@@ -109,10 +125,10 @@
             top: 0;
             left: 0;
             bottom: 0;
-            background: var(--lz-navigation-rail-bg);
-            width: var(--lz-navigation-rail-width);
             border-right: var(--lz-navigation-rail-border-right);
             z-index: 150;
+            transition: width var(--lz-motion-duration-short4) ease;
+            padding-inline: var(--lz-spacing-space50);
 
             & .inner {
                 display: flex;
@@ -132,70 +148,44 @@
                     & ul {
                         display: flex;
                         flex-direction: column;
-
-                        width: 100%;
-                        gap: var(--lz-spacing-space200);
-                    }
-
-                    & .nav-rail-item {
-                        display: flex;
-                        flex-direction: column;
                         align-items: center;
                         width: 100%;
+                        gap: var(--lz-spacing-space25);
 
-                        gap: var(--lz-spacing-space75);
-                        text-decoration: none;
-                        position: relative;
-                        padding: 2px;
-                        box-sizing: border-box;
-
-                        &:before {
-                            content: "";
-                            position: absolute;
-                            background: var(--lz-color-secondary-container);
-                            inset: 0;
-                            opacity: 0;
+                        & li {
+                            width: 100%;
                         }
+                    }
+                }
+            }
+        }
+    }
 
-                        &:focus-visible {
-                            outline: var(
-                                    --lz-navigation-rail-item-focus-ring-width
-                                )
-                                solid
-                                var(--lz-navigation-rail-item-focus-ring-color);
-                            outline-offset: var(
-                                --lz-navigation-rail-item-focus-ring-offset
-                            );
-                            z-index: 999;
+    @layer variants {
+        .lz-navigation-rail {
+            &[data-variant="collapsed"] {
+                background: var(--lz-navigation-rail-color-collapsed);
+                width: var(--lz-navigation-rail-width-collapsed);
+            }
 
-                            &:before {
-                                opacity: var(--lz-opacity-focus);
-                            }
-                        }
+            &[data-variant="expanded"] {
+                background: var(--lz-navigation-rail-color-expanded);
+                width: fit-content;
+                min-width: var(--lz-navigation-rail-min-width-expanded);
+                max-width: var(--lz-navigation-rail-max-width-expanded);
+            }
+        }
+    }
 
-                        & :global(.nav-rail-item-active-indicator) {
-                            z-index: 1;
+    @layer state {
+        .lz-navigation-rail {
+            &[data-expanded] {
+                &[data-expanded-layout="standard"] {
+                }
 
-                            & :global(.surface) {
-                                width: 3.5rem;
-                                z-index: 1;
-                            }
-                        }
-
-                        & .nav-rail-item-label {
-                            color: var(--lz-color-on-surface-variant);
-                            font-family: var(--lz-typography-typeface-plain);
-                            font-size: var(--lz-typescale-label-m-font-size);
-                            letter-spacing: var(
-                                --lz-typescale-label-m-font-tracking
-                            );
-                            font-weight: var(
-                                --lz-typescale-label-m-font-weight
-                            );
-                            font-variation-settings: var(
-                                --lz-typescale-label-m-font-wght
-                            );
-                        }
+                &[data-expanded-layout="modal"] {
+                    &[data-expanded] {
+                        background: red;
                     }
                 }
             }

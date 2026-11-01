@@ -1,8 +1,11 @@
 :root {
-    --lz-navigation-rail-width: 5.5rem;
+    --lz-navigation-rail-width-collapsed: 3.5rem;
+    --lz-navigation-rail-min-width-expanded: 13.75rem;
+    --lz-navigation-rail-max-width-expanded: 22.5rem;
     --lz-navigation-rail-top-space: var(--lz-spacing-space200);
 
-    --lz-navigation-rail-bg: var(--lz-color-surface-container);
+    --lz-navigation-rail-color-collapsed: var(--lz-color-surface);
+    --lz-navigation-rail-color-expanded: var(--lz-color-surface-container);
     /*--lz-navigation-rail-border-right: 1px solid var(--lz-color-outline-variant);*/
     --lz-navigation-rail-border-right: none;
 

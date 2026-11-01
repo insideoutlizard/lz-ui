@@ -1,0 +1,7 @@
+:root {
+    --lz-app-bar-container-color: var(--lz-color-surface);
+
+    --lz-app-bar-small-height: 4rem;
+    --lz-app-bar-medium-height: 7rem;
+    --lz-app-bar-large-height: 7.5rem;
+}

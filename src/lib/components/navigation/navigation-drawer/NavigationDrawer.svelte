@@ -108,9 +108,9 @@
         };
     });
 
-    // onMount(() => {
-    //     isOpen = false;
-    // });
+    onMount(() => {
+        isOpen = false;
+    });
 
     let classes = $derived(formatClasses("lz-navigation-drawer", className));
 
@@ -184,6 +184,11 @@
 
             &[data-left-offset] {
                 left: var(--lz-navigation-rail-width);
+            }
+
+            &:not([data-density="desktop"]) {
+                min-width: 16rem;
+                padding-top: 2.75rem;
             }
 
             & .inner {

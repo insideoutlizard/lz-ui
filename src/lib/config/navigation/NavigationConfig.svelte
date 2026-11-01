@@ -64,7 +64,7 @@
         return navItems.find((item) => item.path === base) || null;
     }
 
-    export function getRailItems(): LzNavItem[] {
+    export function getTopLevelItems(): LzNavItem[] {
         return navItems.filter(
             (item) =>
                 item.path === "/" ||
@@ -81,14 +81,28 @@
         LzList,
         LzNavigationRail,
         LzNavigationDrawer,
+        LzAppBar,
+        type LzButtonSize,
     } from "#lib/components/index.ts";
     import { LzThemeSwitcher } from "#lib/util/index.ts";
+
+    import MenuIcon from "~icons/material-symbols/menu-sharp";
+    import MenuOpenIcon from "~icons/material-symbols/menu-open-sharp";
+    import ArrowBackIcon from "~icons/material-symbols/arrow-back-sharp";
+    import ArrowForwardIcon from "~icons/material-symbols/arrow-forward-sharp";
 
     let { children } = $props();
     let navContainer: HTMLDivElement | undefined = $state();
     let currentPath = $derived(page.url.pathname);
 
     let isMobileSize = $state(false);
+    let isMobileDrawerOpen = $state(false);
+    let userToggledView = $state<"main" | "sections">("main");
+    let mobileViewMode = $derived.by(() => {
+        if (userToggledView === null) return userToggledView;
+        return sectionItems.length > 0 ? "sections" : "main";
+    });
+
     let isDrawerHoverOnly = $state(false);
     let isDrawerAlways = $state(false);
     let isHoverOpen = $state(false);
@@ -96,7 +110,7 @@
     let sectionItems = $derived(getSectionItems(currentPath));
     let groupedSections = $derived(getGroupedSections(sectionItems));
     let currentSectionItem = $derived(getCurrentSectionItem(currentPath));
-    let railItems = $derived(getRailItems());
+    let railItems = $derived(getTopLevelItems());
 
     let isDrawerOpen = $derived(
         sectionItems.length > 0 &&
@@ -112,13 +126,14 @@
     });
 
     $effect(() => {
-        const mobile = window.matchMedia("(width <= 768px)");
+        const mobile = window.matchMedia("(width < 600px)");
         const drawerHoverOnly = window.matchMedia(
-            "(width > 768px) and (width <= 1500px)",
+            "(width >= 600px) and (width < 1600px)",
         );
-        const drawerAlways = window.matchMedia("(width > 1500px)");
+        const drawerAlways = window.matchMedia("(width >= 1600px)");
 
         isMobileSize = mobile.matches;
+
         isDrawerHoverOnly = drawerHoverOnly.matches;
         isDrawerAlways = drawerAlways.matches;
 
@@ -161,12 +176,13 @@
     });
 </script>
 
-{#snippet drawerLinks()}
+{#snippet desktopDrawerContent(size: LzButtonSize = "small")}
     <nav class="drawer-nav">
         <ul class="drawer-links">
             {#if currentSectionItem}
                 <li>
                     <LzButton
+                        size={size ? size : "small"}
                         color="text"
                         href={currentSectionItem.path}
                         className="drawer-header"
@@ -228,6 +244,59 @@
     </nav>
 {/snippet}
 
+{#snippet mobileDrawerContent()}
+    <nav class="drawer-nav">
+        {#if mobileViewMode === "sections"}
+            <LzButton
+                color="text"
+                size="medium"
+                iconLeading={ArrowBackIcon}
+                onclick={() => (mobileViewMode = "main")}
+                overrides={["label-start", "no-elevation", "full-width"]}
+                className="mobile-back-btn"
+            >
+                Main menu
+            </LzButton>
+            {@render desktopDrawerContent("medium")}
+        {:else}
+            <ul class="drawer-links">
+                {#each railItems as item}
+                    {@const hasSubSections =
+                        item.path !== "/" &&
+                        getSectionItems(item.path).length > 0}
+                    <li>
+                        <div class="mobile-nav-row">
+                            <LzButton
+                                size="medium"
+                                color={currentPath === item.path
+                                    ? "tonal"
+                                    : "text"}
+                                href={item.path}
+                                className="lz-navigation-drawer-item"
+                                iconTrailing={hasSubSections
+                                    ? ArrowForwardIcon
+                                    : null}
+                                onclick={hasSubSections
+                                    ? () => {
+                                          mobileViewMode = "sections";
+                                      }
+                                    : undefined}
+                                overrides={[
+                                    "full-width",
+                                    "label-start",
+                                    "no-elevation",
+                                ]}
+                            >
+                                {item.label}
+                            </LzButton>
+                        </div>
+                    </li>
+                {/each}
+            </ul>
+        {/if}
+    </nav>
+{/snippet}
+
 {#snippet railActions()}
     <LzThemeSwitcher />
 {/snippet}
@@ -245,14 +314,7 @@
             if (isDrawerHoverOnly) isHoverOpen = false;
         }}
     >
-        <LzNavigationRail
-            menuItems={navItems.filter(
-                (item) =>
-                    item.path === "/" ||
-                    item.path.split("/").filter(Boolean).length === 1,
-            )}
-            ariaLabel="Primary links"
-        >
+        <LzNavigationRail menuItems={railItems} ariaLabel="Primary links">
             <footer class="rail-actions">
                 {@render railActions()}
             </footer>
@@ -260,7 +322,7 @@
         <LzNavigationDrawer
             variant="modal"
             density="desktop"
-            drawerItems={drawerLinks}
+            drawerItems={desktopDrawerContent}
             bind:isOpen={isDrawerOpen}
             leftOffset
             compact
@@ -269,11 +331,54 @@
         />
     </div>
 {:else}
-    <header class="lz-app-bar">
-        <div class="inner">
-            <p>Shitty tmp app bar!</p>
-        </div>
-    </header>
+    <LzAppBar>
+        <LzButton
+            id="mobile-drawer-toggle"
+            color="text"
+            variant="toggle"
+            iconLeading={MenuIcon}
+            iconToggled={MenuOpenIcon}
+            bind:expanded={isMobileDrawerOpen}
+        />
+
+        <LzButton color="text" href="/">Home</LzButton>
+    </LzAppBar>
+    <div class="lz-scrim" aria-hidden="true"></div>
+    <LzNavigationDrawer
+        id="mobile-drawer"
+        variant="modal"
+        drawerItems={mobileDrawerContent}
+        bind:isOpen={isMobileDrawerOpen}
+    />
 {/if}
 
 {@render children?.()}
+
+<style>
+    :global(.lz-app-bar) {
+        z-index: 1000;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    :global(#mobile-drawer) {
+        z-index: 900;
+    }
+
+    .lz-scrim {
+        position: fixed;
+        inset: 0;
+        background: oklch(from #322f37 l c h / 0);
+        transition: background var(--lz-motion-duration-short1) ease;
+        pointer-events: none;
+        z-index: 800;
+
+        &:has(:global(+ #mobile-drawer[data-open])) {
+            background: oklch(from #322f37 l c h / 0.4);
+        }
+    }
+</style>

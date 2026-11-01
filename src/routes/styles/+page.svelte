@@ -29,7 +29,7 @@
 </section>
 
 {#snippet color()}
-    <LzCard variant="filled" href="/styles/color">
+    <LzCard variant="filled" href="/styles">
         <header>
             <h3 class="headline">Colour</h3>
         </header>

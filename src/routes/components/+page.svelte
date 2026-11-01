@@ -80,7 +80,18 @@
         </header>
 
         <div class="grid" data-cols="2">
-            <LzCard variant="filled" href="/components/buttons">
+            <LzCard variant="filled" href="/components/app-bars">
+                <header>
+                    <h3 class="headline">App bars</h3>
+                </header>
+
+                <p class="supporting-text">
+                    App bars are top-level navigation headers that anchor
+                    branding, screen titles, and primary action controls.
+                </p>
+            </LzCard>
+
+            <LzCard variant="filled" href="/components/cards">
                 <header>
                     <h3 class="headline">Cards</h3>
                 </header>

@@ -17,7 +17,7 @@
 
     let {
         className = "",
-        id = "",
+        id = null,
         inactiveIcon: InactiveIcon,
         activeIcon: ActiveIcon,
         active = $bindable(false),

@@ -188,9 +188,6 @@
                 </li>
             </ul>
         </LzCard>
-        <small class="sidenote"
-            >Only the leading icon reacts to toggle states.</small
-        >
     </article>
 {/snippet}
 

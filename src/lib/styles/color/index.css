@@ -2,6 +2,6 @@
 @import "dark.css";
 
 :root {
-    --lz-color-seed-hue: 268;
-    --lz-color-surface-hue: calc(var(--lz-color-seed-hue) - 30);
+    --lz-color-seed-hue: 285;
+    --lz-color-surface-hue: calc(var(--lz-color-seed-hue) + 45);
 }

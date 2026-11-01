@@ -5,13 +5,11 @@
     --lz-color-primary-container: oklch(0.92 0.012 var(--lz-color-seed));
     --lz-color-on-primary-container: oklch(0.24 0.018 var(--lz-color-seed));
 
-    --lz-color-secondary: oklch(0.5 0.03 var(--lz-color-surface-hue));
-    --lz-color-on-secondary: oklch(0.985 0.002 var(--lz-color-surface-hue));
-    --lz-color-secondary-container: oklch(
-        0.94 0.008 var(--lz-color-surface-hue)
-    );
+    --lz-color-secondary: oklch(0.5 0.03 var(--lz-color-seed-hue));
+    --lz-color-on-secondary: oklch(0.985 0.002 var(--lz-color-seed-hue));
+    --lz-color-secondary-container: oklch(0.94 0.008 var(--lz-color-seed-hue));
     --lz-color-on-secondary-container: oklch(
-        0.24 0.012 var(--lz-color-surface-hue)
+        0.24 0.012 var(--lz-color-seed-hue)
     );
 
     --lz-color-tertiary: oklch(0.52 0.04 var(--lz-color-surface-hue));
@@ -26,7 +24,7 @@
     --lz-color-error-container: oklch(0.92 0.03 25);
     --lz-color-on-error-container: oklch(0.18 0.04 25);
 
-    --lz-color-surface: oklch(0.985 0.001 var(--lz-color-surface-hue));
+    --lz-color-surface: oklch(0.985 0.002 var(--lz-color-surface-hue));
     --lz-color-on-surface: oklch(0.2 0.004 var(--lz-color-surface-hue));
     --lz-color-surface-variant: oklch(0.945 0.0025 var(--lz-color-surface-hue));
     --lz-color-on-surface-variant: oklch(
@@ -34,16 +32,16 @@
     );
 
     --lz-color-surface-container-highest: oklch(
-        0.94 0.0025 var(--lz-color-surface-hue)
+        0.94 0.0035 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-high: oklch(
-        0.95 0.002 var(--lz-color-surface-hue)
+        0.95 0.003 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container: oklch(
-        0.96 0.0015 var(--lz-color-surface-hue)
+        0.96 0.0025 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-low: oklch(
-        0.97 0.001 var(--lz-color-surface-hue)
+        0.97 0.002 var(--lz-color-surface-hue)
     );
     --lz-color-surface-container-lowest: oklch(1 0 0);
 

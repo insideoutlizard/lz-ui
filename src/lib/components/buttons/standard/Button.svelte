@@ -822,6 +822,7 @@
 
         .lz-button:has(.surface[data-overrides~="full-width"]) {
             width: 100%;
+            flex: 1;
 
             & .surface {
                 width: 100%;

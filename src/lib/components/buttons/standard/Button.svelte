@@ -815,7 +815,7 @@
                 box-shadow: var(--lz-elevation-0);
             }
 
-            &[data-overrides~="label-start"] {
+            &[data-overrides~="label-start"]:has(.label) {
                 justify-content: start;
             }
         }
@@ -824,7 +824,7 @@
             width: 100%;
             flex: 1;
 
-            & .surface {
+            & .surface:has(.label) {
                 width: 100%;
 
                 & :global(.lz-icon.trailing) {

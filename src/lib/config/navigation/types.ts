@@ -10,12 +10,13 @@ export interface LzPageMeta {
   activeIcon?: Component | null;
 }
 
-export interface LzNavItem {
+export interface LzNavItem extends LzPageMeta {
   path: string;
-  label: string;
-  icon?: any;
-  activeIcon?: any;
-  order?: number;
-  group?: LzPageGroup;
-  children?: LzNavItem[];
 }
+
+export interface LzNavGroup {
+  label: LzPageGroup;
+  items: LzNavItem[];
+}
+
+export type LzSecondaryItem = LzNavItem | LzNavGroup;

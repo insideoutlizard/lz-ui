@@ -124,57 +124,13 @@
     </LzCard>
 {/snippet}
 
-<section class="lz-section primary" id="card-variants">
+<section class="lz-section primary" id="app-bar-variants">
     <header class="lz-section-header">
         <hgroup>
             <h3 class="headline">Variants</h3>
         </hgroup>
     </header>
     {@render variants()}
-</section>
-
-{#snippet config()}
-    <ul class="card-row">
-        <li>
-            <header class="config-header">
-                <hgroup>
-                    <h3 class="headline">Standard</h3>
-                </hgroup>
-            </header>
-            <LzCard variant="elevated" isDefault id="standard-card">
-                <figure class="card-media">
-                    <img
-                        src="/cards/davidrockdesign-triangles-1430105.svg"
-                        alt="Abstract rainbow triangles"
-                    />
-                </figure>
-
-                <div class="content">
-                    <header class="card-heading">
-                        <hgroup>
-                            <h4 class="headline">Headline</h4>
-                            <p class="subhead">Subhead</p>
-                        </hgroup>
-                        <p class="supporting-text">Supporting text</p>
-                    </header>
-
-                    <footer class="card-actions">
-                        <LzButton color="outlined">Action</LzButton>
-                        <LzButton color="filled">Action</LzButton>
-                    </footer>
-                </div>
-            </LzCard>
-        </li>
-    </ul>
-{/snippet}
-
-<section class="lz-section primary" id="card-variants">
-    <header class="lz-section-header">
-        <hgroup>
-            <h2 class="headline">Configurations</h2>
-        </hgroup>
-    </header>
-    {@render config()}
 </section>
 
 <style>
@@ -288,40 +244,5 @@
                 }
             }
         }
-    }
-    .card-grid {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-
-        gap: var(--lz-spacing-space400);
-        box-sizing: border-box;
-
-        & li {
-            width: 100%;
-            min-height: var(--lz-spacing-space900);
-            & :global(.lz-card) {
-                height: 100%;
-            }
-        }
-
-        & h3 {
-            font-size: var(--lz-typescale-label-m-font-size);
-            letter-spacing: var(--lz-typescale-label-m-font-tracking);
-            font-weight: var(--lz-typescale-label-m-font-weight);
-            font-variation-settings: var(--lz-typescale-label-m-font-wght);
-        }
-    }
-
-    .card-row li {
-        display: flex;
-        flex-direction: column;
-        gap: var(--lz-spacing-space200);
-    }
-    .config-header .headline {
-        font-size: var(--lz-typescale-title-l-font-size);
-        letter-spacing: var(--lz-typescale-title-l-font-tracking);
-        font-weight: var(--lz-typescale-headline-l-font-weight);
-        font-variation-settings: var(--lz-typescale-title-l-font-wght);
     }
 </style>

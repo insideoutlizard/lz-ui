@@ -2,21 +2,23 @@
     import type { Snippet } from "svelte";
 
     import type { LzProps } from "#lib/types.ts";
-    import type { LzNavItem } from "#lib/config/navigation/types.ts";
+    import type {
+        LzPage,
+        LzNavigationNode,
+    } from "#lib/components/navigation/types.ts";
+    import { type LzButtonSize } from "../../buttons";
 
     export type LzNavigationDrawerVariant = "standard" | "modal";
-    export type LzNavigationDrawerDensity = "standard" | "desktop";
 
     export interface LzNavigationDrawerProps extends LzProps {
         variant?: LzNavigationDrawerVariant;
         isOpen?: boolean;
 
-        drawerItems: LzNavItem[] | Snippet;
+        drawerItems: LzPage[] | Snippet;
+        itemSize?: LzButtonSize;
         children?: Snippet | null;
 
-        leftOffset?: boolean;
         compact?: boolean;
-        density?: LzNavigationDrawerDensity;
         skipNavigationClose?: boolean;
         skipNoScroll?: boolean;
     }
@@ -27,9 +29,14 @@
     import { page } from "$app/state";
 
     import { formatClasses } from "#lib/util/types.ts";
+    import {
+        buildTree,
+        containsCurrentRoute,
+    } from "#lib/components/navigation/types.ts";
     import "./navigation-drawer.css";
     import { LzButton } from "../../buttons";
     import { LzIcon } from "#lib/util/index.ts";
+    import { LzList } from "../../lists";
 
     let {
         className = null,
@@ -40,12 +47,12 @@
         variant = "standard",
         isOpen = $bindable(false),
         drawerItems = [],
+        itemSize = "medium",
         children,
 
         anchorName = null,
-        leftOffset = false,
+
         compact = false,
-        density = "standard",
         skipNavigationClose = false,
         skipNoScroll = false,
 
@@ -77,7 +84,7 @@
                 isClosing = false;
                 isOpen = false;
                 resolve();
-            }, 200);
+            }, 225);
         });
     }
 
@@ -114,29 +121,52 @@
 
     let classes = $derived(formatClasses("lz-navigation-drawer", className));
 
+    const navNodes = $derived.by(() => {
+        if (!Array.isArray(drawerItems)) {
+            return [];
+        }
+
+        return buildTree(drawerItems);
+    });
     let currentPath = $derived(page.url.pathname);
 </script>
 
-{#snippet navLinks()}
-    {#if Array.isArray(drawerItems)}
-        <nav class="links">
-            <ul>
-                {#each drawerItems as item}
-                    {@const isCurrent = currentPath === item.path}
-                    <li>
+{#snippet navTree(nodes: LzNavigationNode[])}
+    <ul>
+        {#each nodes as node}
+            {@const isCurrent = node.href === currentPath}
+            <li>
+                {#if node.href !== "/"}
+                    {#if node.children?.length}
+                        <LzList
+                            {itemSize}
+                            label={node.label}
+                            expanded={containsCurrentRoute(node, currentPath)}
+                        >
+                            {@render navTree(node.children)}
+                        </LzList>
+                    {:else}
                         <LzButton
-                            size={density === "desktop" ? "small" : "medium"}
-                            className="lz-navigation-drawer-item"
-                            overrides={["no-elevation"]}
                             color={isCurrent ? "tonal" : "text"}
-                            href={item.path}
-                            current={isCurrent ? "page" : "false"}
+                            size={itemSize}
+                            current={isCurrent}
+                            href={node.href ?? ""}
+                            iconLeading={node.icon}
+                            iconToggled={node.iconActive}
+                            overrides={["full-width", "label-start"]}
+                            >{node.label}</LzButton
                         >
-                            {item.label}</LzButton
-                        >
-                    </li>
-                {/each}
-            </ul>
+                    {/if}
+                {/if}
+            </li>
+        {/each}
+    </ul>
+{/snippet}
+
+{#snippet primaryLinks()}
+    {#if Array.isArray(drawerItems)}
+        <nav class="nav-rail-links">
+            {@render navTree(navNodes)}
         </nav>
     {:else if typeof drawerItems === "function"}
         {@render drawerItems()}
@@ -151,16 +181,14 @@
     data-open={isOpen ? "" : null}
     data-closing={isClosing ? "" : null}
     data-variant={variant}
-    data-left-offset={leftOffset ? "" : null}
     data-compact={compact ? "" : null}
-    data-density={density}
     style={anchorName
         ? `position: absolute; position-anchor: ${anchorName}; position-area: right span-all`
         : null}
     {...restProps}
 >
     <div class="inner">
-        {@render navLinks()}
+        {@render primaryLinks()}
 
         {#if children}
             {@render children()}
@@ -180,15 +208,12 @@
             border-bottom-right-radius: var(--lz-shape-corner-radius-lg);
 
             width: fit-content;
+            min-width: 13.75rem;
             max-width: 22.5rem;
+            padding-top: var(--lz-app-bar-small-height, 2.75rem);
 
             &[data-left-offset] {
                 left: var(--lz-navigation-rail-width);
-            }
-
-            &:not([data-density="desktop"]) {
-                min-width: 16rem;
-                padding-top: 2.75rem;
             }
 
             & .inner {

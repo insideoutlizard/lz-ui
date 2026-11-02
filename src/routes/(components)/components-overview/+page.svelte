@@ -1,11 +1,8 @@
 <script lang="ts" module>
-    import type { LzPageMeta } from "#lib";
-    import PageIcon from "~icons/material-symbols/component-exchange-sharp";
+    import type { LzPageMeta } from "#lib/components/navigation/types.ts";
 
     export const meta: LzPageMeta = {
-        label: "Components",
-        icon: PageIcon,
-        activeIcon: PageIcon,
+        label: "Components overview",
     };
 </script>
 
@@ -17,7 +14,7 @@
 <section class="lz-hero secondary">
     <header class="lz-page-header">
         <hgroup>
-            <h1 class="headline">Components</h1>
+            <h1 class="headline">Components overview</h1>
             <a
                 href="https://m3.material.io/components"
                 target="_blank"

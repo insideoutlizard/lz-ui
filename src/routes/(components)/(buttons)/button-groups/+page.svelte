@@ -1,19 +1,17 @@
 <script lang="ts" module>
-    import type { LzPageMeta } from "#lib";
+    import type { LzPageMeta } from "#lib/components/navigation/types.ts";
 
     export const meta: LzPageMeta = {
-        label: "FABs",
-        group: "Buttons",
-        order: 6,
+        label: "Button groups",
     };
 </script>
 
 <section class="lz-hero secondary">
     <header class="lz-page-header">
         <hgroup>
-            <h1 class="headline">Floating action buttons ({meta.label})</h1>
+            <h1 class="headline">{meta.label}</h1>
             <a
-                href="https://m3.material.io/components/floating-action-button/overview"
+                href="https://m3.material.io/components/button-groups/overview"
                 target="_blank"
                 rel="noopener noreferrer"
                 >Docs

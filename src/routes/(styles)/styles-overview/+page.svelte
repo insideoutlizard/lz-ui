@@ -1,12 +1,8 @@
 <script lang="ts" module>
-    import type { LzPageMeta } from "#lib";
-    import PageIcon from "~icons/material-symbols/style-outline-sharp";
-    import ActivePageIcon from "~icons/material-symbols/style-sharp";
+    import type { LzPageMeta } from "#lib/components/navigation/types.ts";
 
     export const meta: LzPageMeta = {
-        label: "Styles",
-        icon: PageIcon,
-        activeIcon: ActivePageIcon,
+        label: "Styles overview",
     };
 </script>
 

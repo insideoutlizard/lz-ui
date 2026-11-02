@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    import type { LzPageMeta } from "#lib";
+    import type { LzPageMeta } from "#lib/components/navigation/types.ts";
 
     export const meta: LzPageMeta = {
         label: "Cards",

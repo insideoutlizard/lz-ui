@@ -1,10 +1,8 @@
 <script lang="ts" module>
-    import type { LzPageMeta } from "#lib";
+    import type { LzPageMeta } from "#lib/components/navigation/types.ts";
 
     export const meta: LzPageMeta = {
-        label: "Button groups",
-        group: "Buttons",
-        order: 2,
+        label: "All buttons",
     };
 </script>
 
@@ -13,7 +11,7 @@
         <hgroup>
             <h1 class="headline">{meta.label}</h1>
             <a
-                href="https://m3.material.io/components/button-groups/overview"
+                href="https://m3.material.io/components/all-buttons/overview"
                 target="_blank"
                 rel="noopener noreferrer"
                 >Docs

@@ -3,11 +3,10 @@
 
     import type { LzProps } from "#lib/types.ts";
     import type {
-        LzNavItem,
-        LzPrimaryItem,
-        LzSecondaryItem,
-    } from "#lib/config/navigation/types.ts";
-    import { LzButton } from "../../buttons";
+        LzPage,
+        LzNavigationNode,
+    } from "#lib/components/navigation/types.ts";
+    import { LzButton, type LzButtonSize } from "../../buttons";
     import { LzIcon } from "#lib/util/index.ts";
     import LeftPanelOpenIcon from "~icons/material-symbols/left-panel-open-outline-sharp";
     import LeftPanelCloseIcon from "~icons/material-symbols/left-panel-close-sharp";
@@ -21,8 +20,9 @@
         showMenuToggle?: boolean;
         actionButton?: Snippet | null;
         largeBadges?: boolean;
-        primaryItems: LzPrimaryItem[] | Snippet;
+        primaryItems: LzPage[] | Snippet;
         secondaryItems?: Snippet | null;
+        itemSize?: LzButtonSize;
         expanded?: boolean;
         children?: Snippet | null;
     }
@@ -30,8 +30,14 @@
 
 <script lang="ts">
     import { page } from "$app/state";
+
     import { formatClasses } from "#lib/util/types.ts";
+    import {
+        buildTree,
+        containsCurrentRoute,
+    } from "#lib/components/navigation/types.ts";
     import "./navigation-rail.css";
+    import { LzList } from "../../lists";
 
     let {
         className = null,
@@ -46,6 +52,7 @@
         largeBadges = false,
         primaryItems = [],
         secondaryItems = null,
+        itemSize = "small",
 
         expanded = $bindable(false),
         children,
@@ -53,6 +60,14 @@
     }: LzNavigationRailProps = $props();
 
     let classes = $derived(formatClasses("lz-navigation-rail", className));
+
+    const navNodes = $derived.by(() => {
+        if (!Array.isArray(primaryItems)) {
+            return [];
+        }
+
+        return buildTree(primaryItems);
+    });
 
     let currentPath = $derived(page.url.pathname);
 </script>
@@ -69,32 +84,40 @@
     />
 {/snippet}
 
+{#snippet navTree(nodes: LzNavigationNode[])}
+    <ul>
+        {#each nodes as node}
+            {@const isCurrent = node.href === currentPath}
+            <li>
+                {#if node.children?.length}
+                    <LzList
+                        {itemSize}
+                        label={node.label}
+                        expanded={containsCurrentRoute(node, currentPath)}
+                    >
+                        {@render navTree(node.children)}
+                    </LzList>
+                {:else}
+                    <LzButton
+                        color={isCurrent ? "tonal" : "text"}
+                        size={itemSize}
+                        current={isCurrent}
+                        href={node.href ?? ""}
+                        iconLeading={node.icon}
+                        iconToggled={node.iconActive}
+                        overrides={["full-width", "label-start"]}
+                        >{node.label}</LzButton
+                    >
+                {/if}
+            </li>
+        {/each}
+    </ul>
+{/snippet}
+
 {#snippet primaryLinks()}
     {#if Array.isArray(primaryItems)}
-        <nav class="nav-rail-links">
-            <ul>
-                {#each primaryItems as item}
-                    {@const isCurrent = currentPath === item.path}
-                    <li>
-                        <LzButton
-                            size="small"
-                            className="lz-nav-rail-primary-item"
-                            color={isCurrent ? "tonal" : "text"}
-                            overrides={[
-                                "no-elevation",
-                                "full-width",
-                                "label-start",
-                            ]}
-                            iconLeading={item.icon}
-                            iconToggled={item.activeIcon}
-                            current={isCurrent ? "page" : "false"}
-                            href={item.path ?? ""}
-                            ariaLabel={!expanded ? item.label : null}
-                            label={expanded ? item.label : undefined}
-                        />
-                    </li>
-                {/each}
-            </ul>
+        <nav aria-label="Primary">
+            {@render navTree(navNodes)}
         </nav>
     {:else if typeof primaryItems === "function"}
         {@render primaryItems()}
@@ -146,7 +169,7 @@
             bottom: 0;
             border-right: var(--lz-navigation-rail-border-right);
             z-index: 150;
-            padding-inline: var(--lz-spacing-space50);
+            padding: var(--lz-spacing-space100) var(--lz-spacing-space50);
             box-sizing: border-box;
 
             & header {
@@ -168,6 +191,7 @@
                 padding-inline: var(--lz-spacing-space75);
                 gap: var(--lz-spacing-space200);
                 overflow-y: auto;
+                box-sizing: border-box;
 
                 transition: align-items 0s ease var(--lz-motion-duration-short4);
 
@@ -177,19 +201,25 @@
                     align-items: start;
                     width: 100%;
                     gap: var(--lz-spacing-space200);
+                    box-sizing: border-box;
                 }
 
-                & .nav-rail-links {
+                & nav {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    width: 100%;
 
                     & ul {
                         display: flex;
                         flex-direction: column;
-                        align-items: center;
-
+                        align-items: start;
+                        width: 100%;
                         gap: var(--lz-spacing-space25);
+
+                        & li {
+                            width: 100%;
+                        }
                     }
                 }
 

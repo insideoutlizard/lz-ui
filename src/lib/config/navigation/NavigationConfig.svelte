@@ -1,95 +1,55 @@
 <script lang="ts" module>
+    import type { Snippet } from "svelte";
     import type {
-        LzPageGroup,
-        LzPageMeta,
-        LzNavigationNode,
         LzPage,
-    } from "./types";
+        LzPageMeta,
+    } from "#lib/components/navigation/types.ts";
 
-    const pages = import.meta.glob("#routes/**/+page.svelte", {
+    const pagesRaw = import.meta.glob("#routes/**/+page.svelte", {
         eager: true,
     });
 
-    export const navPages: LzPage[] = Object.entries(pages).map(
-        ([filePath, module]: [string, any]) => {
+    export const pagesFlat: LzPage[] = Object.entries(pagesRaw)
+        .map(([filePath, module]: [string, any]) => {
             let path = filePath
                 .replace(/^.*\/routes/, "")
+                .replace(/\([^)]*\)\//g, "")
                 .replace("/+page.svelte", "");
+
             if (path === "") path = "/";
 
-            const meta: LzPageMeta = module.meta || {
-                label: path.split("/").pop()?.replace(/-/g, " ") || "Index",
+            const groups =
+                filePath.match(/\(([^)]+)\)/g)?.map((group) => {
+                    const name = group.slice(1, -1);
+                    return name.charAt(0).toUpperCase() + name.slice(1);
+                }) ?? [];
+
+            const meta: LzPageMeta = module.meta ?? {
+                label: path.split("/").pop()?.replace(/-/g, " ") ?? "Index",
             };
 
             return {
                 path,
+                groups,
                 label: meta.label,
-                icon: meta.icon ?? null,
-                activeIcon: meta.activeIcon ?? null,
-                order: meta.order ?? undefined,
-                group: meta.group ?? undefined,
+                icon: meta.icon,
+                activeIcon: meta.activeIcon,
             };
-        },
-    );
+        })
+        .sort((a, b) => {
+            if (a.path === "/") return -1;
+            if (b.path === "/") return 1;
 
-    export const getNavNodes = (): LzNavigationNode[] => {
-        const pages = [...navPages].sort((a, b) =>
-            a.label.localeCompare(b.label),
-        );
+            if (a.path.endsWith("-overview")) return -1;
+            if (b.path.endsWith("-overview")) return 1;
 
-        const groups = new Map<LzPageGroup, LzNavigationNode[]>();
-        const nodes: LzNavigationNode[] = [];
-
-        for (const page of pages) {
-            if (!page.group) {
-                nodes.push({
-                    page,
-                });
-
-                continue;
-            }
-
-            const children = groups.get(page.group) ?? [];
-
-            children.push({
-                page,
-            });
-
-            groups.set(page.group, children);
-        }
-
-        for (const [group, children] of groups) {
-            const overview = pages.find(
-                (page) => page.path === `/${group.toLowerCase()}`,
-            );
-
-            if (!overview) continue;
-
-            nodes.push({
-                page: overview,
-                children: children
-                    .filter((child) => child.page.path !== overview.path)
-                    .sort((a, b) => {
-                        const ao = a.page.order ?? Number.MAX_SAFE_INTEGER;
-                        const bo = b.page.order ?? Number.MAX_SAFE_INTEGER;
-
-                        if (ao !== bo) return ao - bo;
-
-                        return a.page.label.localeCompare(b.page.label);
-                    }),
-            });
-        }
-
-        return nodes.sort((a, b) => a.page.label.localeCompare(b.page.label));
-    };
+            return a.label.localeCompare(b.label);
+        });
 </script>
 
 <script lang="ts">
-    import { page } from "$app/state";
-
     import {
         LzButton,
-        LzList,
         LzNavigationRail,
         LzNavigationDrawer,
         LzAppBar,
@@ -99,24 +59,14 @@
 
     import MenuIcon from "~icons/material-symbols/menu-sharp";
     import MenuOpenIcon from "~icons/material-symbols/menu-open-sharp";
-    import ArrowBackIcon from "~icons/material-symbols/arrow-back-sharp";
-    import ArrowForwardIcon from "~icons/material-symbols/arrow-forward-sharp";
 
     let { children } = $props();
 
-    let currentPath = $derived(page.url.pathname);
-
     let isMobileSize = $state(false);
     let isMobileDrawerOpen = $state(false);
-    let userToggledView = $state<"main" | "sections">("main");
-
-    let mobileViewMode = $derived.by(() => {
-        if (userToggledView === null) return userToggledView;
-        return currentPath.split("/").length > 1 ? "secondary" : "primary";
-    });
 
     $effect(() => {
-        const mobile = window.matchMedia("(width < 600px)");
+        const mobile = window.matchMedia("(width < 840px)");
         isMobileSize = mobile.matches;
 
         const handleMobile = (e: MediaQueryListEvent) => {
@@ -127,47 +77,28 @@
             mobile.removeEventListener("change", handleMobile);
         };
     });
+
+    import { onNavigate } from "$app/navigation";
+
+    onNavigate(() => {
+        if (!isMobileDrawerOpen) return;
+
+        isMobileDrawerOpen = false;
+        return new Promise((resolve) => setTimeout(resolve, 225));
+    });
 </script>
 
-{#snippet navTree(items: LzNavigationNode[], size: LzButtonSize)}
-    <ul>
-        {#each items as item}
-            <li>
-                {#if item.children}
-                    <LzList
-                        label={item.page.label}
-                        width="full"
-                        itemSize={size}
-                    >
-                        <p>TEST</p>
-                        <LzButton {size} href={item.page.path}>
-                            {item.page.label}
-                        </LzButton>
-
-                        {@render navTree(item.children, size)}
-                    </LzList>
-                {:else}
-                    <LzButton {size} href={item.page.path}>
-                        {item.page.label}
-                    </LzButton>
-                {/if}
-            </li>
-        {/each}
-    </ul>
-{/snippet}
-
 {#snippet railActions()}
-    <LzThemeSwitcher />
+    <LzThemeSwitcher defaultLabel />
 {/snippet}
 
 {#if !isMobileSize}
     <LzNavigationRail
-        showMenuToggle
         actionButton={railActions}
-        ariaLabel="Primary"
+        ariaLabel="Sidebar"
+        primaryItems={pagesFlat}
+        expanded
     >
-        {@render navTree(getNavNodes(), "small")}
-
         <footer class="rail-actions">
             {@render railActions()}
         </footer>
@@ -189,7 +120,7 @@
     <LzNavigationDrawer
         id="mobile-drawer"
         variant="modal"
-        drawerItems={mobileDrawerContent}
+        drawerItems={pagesFlat}
         bind:isOpen={isMobileDrawerOpen}
     />
 {/if}

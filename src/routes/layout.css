@@ -158,16 +158,23 @@ body {
     width: 100%;
     display: grid;
     gap: var(--lz-spacing-space100);
+    grid-template-columns: 1fr;
 
-    &[data-cols="1"] {
+    @media (width >= 600px) {
+        &[data-cols="1"] {
+            grid-template-columns: 1fr;
+        }
+
+        &[data-cols="2"] {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &[data-cols="3"] {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (width < 600px) {
         grid-template-columns: 1fr;
-    }
-
-    &[data-cols="2"] {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    &[data-cols="3"] {
-        grid-template-columns: repeat(3, 1fr);
     }
 }

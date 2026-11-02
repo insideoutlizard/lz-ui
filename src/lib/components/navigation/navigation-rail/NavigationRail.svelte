@@ -2,11 +2,15 @@
     import type { Snippet } from "svelte";
 
     import type { LzProps } from "#lib/types.ts";
-    import type { LzNavItem } from "#lib/config/navigation/types.ts";
+    import type {
+        LzNavItem,
+        LzPrimaryItem,
+        LzSecondaryItem,
+    } from "#lib/config/navigation/types.ts";
     import { LzButton } from "../../buttons";
     import { LzIcon } from "#lib/util/index.ts";
-    import MenuIcon from "~icons/material-symbols/menu-sharp";
-    import MenuOpenIcon from "~icons/material-symbols/menu-open-sharp";
+    import LeftPanelOpenIcon from "~icons/material-symbols/left-panel-open-outline-sharp";
+    import LeftPanelCloseIcon from "~icons/material-symbols/left-panel-close-sharp";
 
     export type LzNavigationRailVariant = "collapsed" | "expanded";
     export type LzNavigationRailExpandedLayout = "standard" | "modal";
@@ -17,7 +21,8 @@
         showMenuToggle?: boolean;
         actionButton?: Snippet | null;
         largeBadges?: boolean;
-        menuItems: LzNavItem[] | Snippet;
+        primaryItems: LzPrimaryItem[] | Snippet;
+        secondaryItems?: Snippet | null;
         expanded?: boolean;
         children?: Snippet | null;
     }
@@ -39,7 +44,8 @@
         showMenuToggle = false,
         actionButton = null,
         largeBadges = false,
-        menuItems = [],
+        primaryItems = [],
+        secondaryItems = null,
 
         expanded = $bindable(false),
         children,
@@ -56,23 +62,23 @@
         variant="toggle"
         color="text"
         {expanded}
-        iconLeading={MenuIcon}
-        iconToggled={MenuOpenIcon}
+        iconLeading={LeftPanelOpenIcon}
+        iconToggled={LeftPanelCloseIcon}
         overrides={["no-elevation"]}
         onclick={() => (expanded = !expanded)}
     />
 {/snippet}
 
-{#snippet navLinks()}
-    {#if Array.isArray(menuItems)}
+{#snippet primaryLinks()}
+    {#if Array.isArray(primaryItems)}
         <nav class="nav-rail-links">
             <ul>
-                {#each menuItems as item}
+                {#each primaryItems as item}
                     {@const isCurrent = currentPath === item.path}
                     <li>
                         <LzButton
                             size="small"
-                            className="nav-rail-item"
+                            className="lz-nav-rail-primary-item"
                             color={isCurrent ? "tonal" : "text"}
                             overrides={[
                                 "no-elevation",
@@ -90,8 +96,8 @@
                 {/each}
             </ul>
         </nav>
-    {:else if typeof menuItems === "function"}
-        {@render menuItems()}
+    {:else if typeof primaryItems === "function"}
+        {@render primaryItems()}
     {/if}
 {/snippet}
 
@@ -104,12 +110,22 @@
     data-expanded-layout={expandedLayout}
     {...restProps}
 >
-    <div class="inner">
-        {#if showMenuToggle}
+    {#if showMenuToggle}
+        <header>
             {@render menuButton()}
-        {/if}
+        </header>
+    {/if}
+    <div class="inner">
+        <div class="items">
+            {@render primaryLinks()}
 
-        {@render navLinks()}
+            {#if secondaryItems}
+                <div class="secondary-items">
+                    {@render secondaryItems()}
+                </div>
+            {/if}
+        </div>
+
         {#if children}
             {@render children()}
         {/if}
@@ -117,6 +133,9 @@
 </aside>
 
 <style>
+    :root {
+        interpolate-size: allow-keywords;
+    }
     @layer base {
         .lz-navigation-rail {
             display: flex;
@@ -127,66 +146,120 @@
             bottom: 0;
             border-right: var(--lz-navigation-rail-border-right);
             z-index: 150;
-            transition: width var(--lz-motion-duration-short4) ease;
             padding-inline: var(--lz-spacing-space50);
+            box-sizing: border-box;
+
+            & header {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                box-sizing: border-box;
+                height: var(--lz-touch-target-size);
+                padding-top: var(--lz-navigation-rail-top-space);
+            }
 
             & .inner {
                 display: flex;
                 flex-direction: column;
+                align-items: start;
                 width: 100%;
                 height: 100%;
-                padding-top: var(--lz-navigation-rail-top-space);
+                padding-inline: var(--lz-spacing-space75);
                 gap: var(--lz-spacing-space200);
                 overflow-y: auto;
+
+                transition: align-items 0s ease var(--lz-motion-duration-short4);
+
+                & .items {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    width: 100%;
+                    gap: var(--lz-spacing-space200);
+                }
 
                 & .nav-rail-links {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    width: 100%;
 
                     & ul {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        width: 100%;
-                        gap: var(--lz-spacing-space25);
 
-                        & li {
-                            width: 100%;
-                        }
+                        gap: var(--lz-spacing-space25);
                     }
                 }
-            }
-        }
-    }
 
-    @layer variants {
-        .lz-navigation-rail {
-            &[data-variant="collapsed"] {
-                background: var(--lz-navigation-rail-color-collapsed);
-                width: var(--lz-navigation-rail-width-collapsed);
-            }
-
-            &[data-variant="expanded"] {
-                background: var(--lz-navigation-rail-color-expanded);
-                width: fit-content;
-                min-width: var(--lz-navigation-rail-min-width-expanded);
-                max-width: var(--lz-navigation-rail-max-width-expanded);
+                & .secondary-items {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
     }
 
     @layer state {
         .lz-navigation-rail {
+            background: var(--lz-navigation-rail-color-collapsed);
+            width: 100%;
+            max-width: var(--lz-navigation-rail-width-collapsed);
+            transition-property: max-width background;
+            transition-duration: var(--lz-motion-duration-short3);
+            transition-timing-function: ease-in-out;
+
+            /* Ensure inner alignment starts centered for icon-only mode */
+            & .inner {
+                align-items: center;
+                transition: align-items 0s ease 0s;
+            }
+
+            & .nav-rail-links ul {
+                align-items: center;
+            }
+
+            & .secondary-items {
+                display: none;
+                opacity: 0;
+                visibility: hidden;
+            }
+
             &[data-expanded] {
-                &[data-expanded-layout="standard"] {
+                background: var(--lz-navigation-rail-color-expanded);
+                max-width: var(--lz-navigation-rail-width-expanded);
+                transition-timing-function: ease-out;
+
+                & header {
+                    justify-content: end;
+                    padding-inline-end: var(--lz-spacing-space75);
                 }
 
-                &[data-expanded-layout="modal"] {
-                    &[data-expanded] {
-                        background: red;
+                /* Transition inner items to stretch to fill the expanded width */
+                & .inner {
+                    align-items: stretch;
+                    transition: align-items 0s linear 0s;
+                    padding-inline: var(--lz-spacing-space75);
+                    box-sizing: border-box;
+
+                    & :global(.lz-nav-rail-primary-item .surface) {
+                        --lz-button-small-padding-inline: var(
+                            --lz-spacing-space100
+                        );
                     }
+                }
+
+                & .nav-rail-links ul {
+                    align-items: stretch;
+                }
+
+                & .secondary-items {
+                    display: flex;
+                    opacity: 1;
+                    visibility: visible;
                 }
             }
         }

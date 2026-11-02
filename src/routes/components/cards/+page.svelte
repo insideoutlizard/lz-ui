@@ -19,7 +19,7 @@
 <section class="lz-hero secondary">
     <header class="lz-page-header">
         <hgroup>
-            <h1 class="headline">Cards</h1>
+            <h1 class="headline">{meta.label}</h1>
             <a
                 href="https://m3.material.io/components/cards/specs"
                 target="_blank"

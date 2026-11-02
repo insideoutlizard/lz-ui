@@ -5,18 +5,17 @@ export type LzPageGroup = "Buttons" | "Navigation";
 export interface LzPageMeta {
   label: string;
   group?: LzPageGroup;
+  isOverview?: boolean;
   order?: number; /* order within group */
   icon?: Component | null;
   activeIcon?: Component | null;
 }
 
-export interface LzNavItem extends LzPageMeta {
+export interface LzPage extends LzPageMeta {
   path: string;
 }
 
-export interface LzNavGroup {
-  label: LzPageGroup;
-  items: LzNavItem[];
+export interface LzNavigationNode {
+  page: LzPage;
+  children?: LzNavigationNode[];
 }
-
-export type LzSecondaryItem = LzNavItem | LzNavGroup;

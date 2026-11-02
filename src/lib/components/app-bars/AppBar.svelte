@@ -3,7 +3,7 @@
     import type { LzProps } from "#lib/types.ts";
 
     export type LzAppBarVariant =
-        "search" | "small" | "medium-flexible" | "large-flexible" | "web";
+        "search" | "small" | "medium-flexible" | "large-flexible";
 
     export interface LzAppBarProps extends Omit<LzProps, "role"> {
         variant?: LzAppBarVariant;
@@ -22,7 +22,7 @@
         id = null,
         ariaLabel,
 
-        variant = "web",
+        variant = "small",
 
         children,
     }: LzAppBarProps = $props();

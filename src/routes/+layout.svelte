@@ -56,15 +56,15 @@
     @media (width < 600px) {
         :root {
             --lz-max-content-width: 100%;
-            --lz-content-space-top: var(--lz-app-bar-height);
+            --lz-content-space-top: var(--lz-app-bar-small-height);
         }
     }
 
     @media (width >= 600px) and (width < 840px) {
         :root {
             --lz-max-content-width: 100%;
-            --lz-content-space-top: 0;
-            --lz-content-space-left: var(--lz-navigation-rail-width);
+            --lz-content-space-top: var(--lz-app-bar-small-height);
+            --lz-content-space-left: 0;
         }
     }
 
@@ -72,7 +72,7 @@
         :root {
             --lz-max-content-width: 100%;
             --lz-content-space-top: 0;
-            --lz-content-space-left: var(--lz-navigation-rail-width);
+            --lz-content-space-left: var(--lz-navigation-rail-width-expanded);
         }
     }
 
@@ -80,7 +80,7 @@
         :root {
             --lz-max-content-width: 1024px;
             --lz-content-space-top: 0;
-            --lz-content-space-left: var(--lz-navigation-rail-width);
+            --lz-content-space-left: var(--lz-navigation-rail-width-expanded);
         }
     }
 
@@ -88,7 +88,7 @@
         :root {
             --lz-max-content-width: 1024px;
             --lz-content-space-top: 0;
-            --lz-content-space-left: var(--lz-navigation-rail-width);
+            --lz-content-space-left: var(--lz-navigation-rail-width-expanded);
         }
     }
 

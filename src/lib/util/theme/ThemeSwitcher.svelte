@@ -89,13 +89,21 @@
     } from "#lib/components/index.ts";
     import DayIcon from "~icons/material-symbols/light-mode-sharp";
     import NightIcon from "~icons/material-symbols/dark-mode-outline-sharp";
+    import type { Snippet } from "svelte";
 
     interface Props {
         color?: LzButtonColor;
         size?: LzButtonSize;
+        children?: Snippet | null;
+        defaultLabel?: boolean;
     }
 
-    let { color = "outlined", size = "small" }: Props = $props();
+    let {
+        color = "outlined",
+        size = "small",
+        children,
+        defaultLabel = false,
+    }: Props = $props();
 </script>
 
 <LzButton
@@ -106,7 +114,15 @@
     iconToggled={DayIcon}
     pressed={theme.activeTheme === "dark"}
     onclick={theme.nextTheme}
-/>
+    overrides={["full-width"]}
+>
+    {#if defaultLabel}
+        Switch to {theme.activeTheme === "light" ? "dark" : "light"} mode
+    {/if}
+    {#if children}
+        {@render children()}
+    {/if}
+</LzButton>
 
 <style>
     :global(.theme-change),

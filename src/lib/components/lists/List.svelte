@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    import type { Snippet } from "svelte";
+    import type { Snippet, Component } from "svelte";
     import type { HTMLAttributes } from "svelte/elements";
     import type { LzProps } from "#lib/types.ts";
     import type { LzButtonSize } from "../buttons";
@@ -8,6 +8,7 @@
 
     export interface LzListProps extends LzProps {
         label: string;
+        iconLeading?: Component | null;
         width?: LzListWidth;
         itemSize?: LzButtonSize;
         children: Snippet;
@@ -30,6 +31,7 @@
         role = "",
 
         label = "List label",
+        iconLeading: IconLeading,
         width = "fit-largest",
         itemSize = "medium",
         children,
@@ -37,10 +39,13 @@
     }: LzListProps = $props();
 
     let wrapperEl: HTMLDivElement | undefined = undefined;
-    let isExpanded = $state(false);
+    let manualOverride = $state<boolean | null>(null);
+    let isExpanded = $derived(
+        manualOverride !== null ? manualOverride : expanded,
+    );
 
     onMount(() => {
-        const hasActivePage = wrapperEl?.querySelector('[aria-current="page"');
+        const hasActivePage = wrapperEl?.querySelector('[aria-current="page"]');
 
         if (hasActivePage) isExpanded = true;
     });
@@ -56,6 +61,7 @@
         size={itemSize}
         color="text"
         onclick={expand}
+        iconLeading={IconLeading}
         iconTrailing={OpenIcon}
         className="expand-toggle"
         expanded={isExpanded}
@@ -83,15 +89,31 @@
         & .expand-wrapper {
             display: grid;
             grid-template-rows: 0fr;
-
             transition: grid-template-rows var(--lz-motion-duration-short2) ease;
+
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: var(--lz-spacing-space50);
+                bottom: calc(100% - var(--lz-spacing-space50));
+                left: var(--lz-spacing-space75);
+                width: 1px;
+                background: oklch(
+                    from var(--lz-color-outline-variant) l c h / 0
+                );
+                transition:
+                    bottom var(--lz-motion-duration-short4) ease,
+                    background var(--lz-motion-duration-short4) ease;
+            }
 
             & .item-list {
                 min-height: 0;
                 overflow-y: hidden;
                 opacity: 0;
                 visibility: hidden;
-                padding-left: var(--lz-spacing-space150);
+                padding-left: var(--lz-spacing-space200);
 
                 transition:
                     opacity var(--lz-motion-duration-short1) ease,
@@ -101,6 +123,13 @@
 
         & .expand-wrapper[data-expanded] {
             grid-template-rows: 1fr;
+
+            &:before {
+                bottom: var(--lz-spacing-space50);
+                background: oklch(
+                    from var(--lz-color-outline-variant) l c h / 0.5
+                );
+            }
 
             & .item-list {
                 opacity: 1;
